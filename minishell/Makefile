@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/11/20 13:53:33 by pviegas          ###   ########.fr        #
+#    Updated: 2023/11/21 17:07:57 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ READFLAGS	= -lreadline
 
 # Paths
 SRC_DIR 			= src/
-SRC_FILES			= 	executor.c \
+SRC_FILES			= 	minishell.c \
+						executor.c \
 						path.c \
 						built_in.c \
 						execute_default.c \
@@ -40,13 +41,17 @@ SRC_FILES			= 	executor.c \
 						aux/lst_utils1.c \
 						aux/lst_utils2.c \
 						aux/utils.c \
+						aux/init.c \
 						built_in/pwd.c \
 						built_in/cd.c \
 						built_in/echo.c \
 						built_in/env.c \
 						built_in/exit.c \
 						built_in/export.c \
-						built_in/unset.c
+						built_in/unset.c \
+						parse/signals.c \
+						parse/syntax.c \
+						parse/quotes.c
 OBJ_DIR				= obj/
 
 LIBFT 		= libft/libft.a

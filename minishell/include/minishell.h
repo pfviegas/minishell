@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:21 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/21 11:33:59 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/21 17:05:17 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include <limits.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -46,7 +47,7 @@ typedef struct s_commands
 
 typedef struct s_vars
 {
-	t_commands			*head;
+	t_commands		*head;
 	char			*str;
 	char			**env;
 	char			**division;
@@ -64,7 +65,7 @@ struct s_global
 	t_vars			*vars;
 	int				exit_status;
 	t_env			*env;
-	int				hd;
+	int				here_doc;
 	int				interrupted;
 //	struct termios	termios_save;
 };
@@ -73,7 +74,16 @@ extern struct s_global	g_data;
 
 // -----------------------------  FUNCTIONS --------------------------------- //
 
-t_env		*get_env(char **env);
+t_vars		*init_vars(void);
+void		signals_behavior(void);
+void		prompt(void);
+void		syntax_handling(char *input);
+int 		check_redir_pipe(char *str, int *arr);
+void		syntax_handling(char *input);
+void		syntax_error(char *str, char *input, int size);
+void		quotes_handling(char *input, int i, int *flag);
+
+t_env		*get_env_var(char **env);
 t_env		*env_last(t_env *lst);
 void		env_add_back(t_env **lst, t_env *new);
 t_env		*env_new(char *str);

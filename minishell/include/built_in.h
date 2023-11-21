@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:50:19 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/01 14:49:02 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:00:57 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // -----------------------------  FUNCTIONS --------------------------------- //
 
 // env_utils
-// t_env	*get_env(char **env);
+// t_env	*get_env_var(char **env);
 // void	env_add_back(t_env **lst, t_env *new);
 
 #endif

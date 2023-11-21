@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:34 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/08 15:58:23 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/21 17:08:37 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,45 @@
 
 struct s_global g_data;
 
+void	prompt(void)
+{
+	char	*input;
+//	t_commands	*command;
+
+	while (1)
+	{
+		g_data.interrupted = 0;
+		input = readline("$ ");
+		if (!input)
+		{
+			if (input)
+				free(input);
+			free_env(&g_data.env);
+			free_vars();
+			exit(0);
+		}
+//		adiciona ao historico o comando introduzido 
+		add_history(input);
+
+		syntax_handling(input);
+//PFV
+/*
+		command = generate_list(input);
+		if (!input[0] || !command->content[0] || !command->content[0][0])
+			g_data.exit_status = 0;
+		if (command->content[0] && !g_data.interrupted)
+			execution(command);
+		ft_free_list(&command);
+*/		
+		free(input);
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
-	t_env	*env_list;
-	
+//	t_env	*env_list;
+
+//	verifica se o numero de argumentos é valido	
 	(void)argv;
 	if (argc != 1)
 		return (1);
@@ -25,42 +60,16 @@ int	main(int argc, char **argv, char **env)
 	rl_clear_history();
 //	desativa a captura de sinais pelo readline 
 	rl_catch_signals = 0;
-	
-//	g_data.env = get_env(env);
-//	g_data.exit_status = 0;
-//	g_data.hd = 0;
-//	g_data.vars = init_vars();
-//	rl_catch_signals = 0;
-//	signals_default();
-//	prompt();
+//	retorna as variaveis de ambiente	
+	g_data.env = get_env_var(env);
+//	exit status code	
+	g_data.exit_status = 0;
+//	indica que o here document nao está ativo (1 = ativo).
+	g_data.here_doc = 0;
+//	inicializa as variaveis
+	g_data.vars = init_vars();
+//	define o comportamento dos sinais
+	signals_behavior();
+//	executa o prompt
+	prompt();
 }
-/*
-int main()
-{
-	// Declaração de variáveis
-	char	*linha_de_comando;
-
-	while (1)
-	{
-		// Leitura da linha de comando
-		linha_de_comando = readline("Digite um comando: ");
-
-		if (linha_de_comando == NULL)
-		{
-			perror("Erro na leitura da linha de comando");
-			return 1;
-		}
-		if (ft_strncmp(linha_de_comando, "exit", 4) == 0)
-		{
-			break;
-		}
-		// Impressão da linha de comando
-		printf("A linha de comando é: %s\n", linha_de_comando);
-
-	}
-	// Liberação da memória alocada
-	free(linha_de_comando);
-
-	return (0);
-}
-*/

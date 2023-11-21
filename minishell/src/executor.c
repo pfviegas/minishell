@@ -6,12 +6,13 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:35:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/21 11:41:19 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/21 16:20:16 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
 struct s_global g_data;
 
 int	main(int argc, char **argv, char **env)
@@ -21,7 +22,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 
-	g_data.env = get_env(env);
+	g_data.env = get_env_var(env);
 
 	// Exemplo de uso da função lst_add_back para adicionar comandos à lista
 	t_commands *commands = NULL; // Inicialize sua lista como vazia
@@ -42,6 +43,7 @@ int	main(int argc, char **argv, char **env)
 
 	// Adicione o novo elemento à lista
 	lst_add_back(&commands, novo_comando);
+*/
 /*
 	// Exemplo de outro comando
 	t_commands *outro_comando = (t_commands *)malloc(sizeof(t_commands));
@@ -59,7 +61,7 @@ int	main(int argc, char **argv, char **env)
 
 	lst_add_back(&commands, outro_comando);
 */
-
+/*
 	executor(commands);
 
 	free(novo_comando);
@@ -68,6 +70,7 @@ int	main(int argc, char **argv, char **env)
 	free_env(&g_data.env);
 	return (0);
 }
+*/
 
 void	executor(t_commands *command)
 {
@@ -114,7 +117,7 @@ void	execution(t_commands *command)
 			printf("PATH: %s\n", command->path);
 //			PFV
 //			free_str_array(&env_vars);
-			free(env_vars);-al
+			free(env_vars);
 			choose_execution(command);
 			command_execution(command);
 		}
@@ -143,7 +146,7 @@ void	choose_execution(t_commands *command)
 		command->ft_exec = execute_export;
 //		printf("executar EXPORT\n\n");
 	else if (!ft_strncmp(command->content[0], "unset", 5))
-		command->ft_exec = execute_unset;-al
+		command->ft_exec = execute_unset;
 //		printf("executar UNSET\n\n");
 	else
 		command->ft_exec = execute_default;

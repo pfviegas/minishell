@@ -6,14 +6,14 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:41:02 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/08 15:58:23 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:01:02 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // Cria uma linked list com todas as variaveis ambiente 
-t_env	*get_env(char **env)
+t_env	*get_env_var(char **env)
 {
 	int		i;
 	t_env	*res;

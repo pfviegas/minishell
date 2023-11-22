@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:43:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/21 11:33:08 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/22 14:50:59 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,42 @@ int	check_fds(t_commands *command)
 			|| command->fd_master_error[0] || command->fd_master_error[1])
 			res++;
 		command = command->next;
+	}
+	return (res);
+}
+
+/**
+ * Replaces all occurrences of a substring in a string with another substring.
+ *
+ * @param str The original string.
+ * @param s1 The substring to be replaced.
+ * @param s2 The substring to replace with.
+ * @return The modified string with replacements.
+ */
+char	*replace_str(char *str, char *s1, char *s2)
+{
+	char	*res;
+	int		i;
+	int		j;
+	int		k;
+
+	if (!str)
+		return (NULL);
+	res = ft_calloc(ft_strlen(str) + ft_strlen(s2) + 1, 1);
+	i = 0;
+	j = 0;
+	k = -1;
+	while (str[++k])
+	{
+		if (!ft_strncmp(s1, &str[k], ft_strlen(s1)) && !j)
+		{
+			while (s2[j])
+				res[i++] = s2[j++];
+			j++;
+			k += ft_strlen(s1) - 1;
+		}
+		else
+			res[i++] = str[k];
 	}
 	return (res);
 }

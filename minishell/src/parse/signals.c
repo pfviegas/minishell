@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/21 15:32:02 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/22 16:39:31 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	signals_behavior(void)
 	signal(SIGQUIT, handle_quit);
 }
 
-void	signals_here_doc(int sign)
+void	here_doc_signals(int sign)
 {
 	if (sign == SIGQUIT)
 		SIG_IGN ;

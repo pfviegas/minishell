@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:21 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/21 17:05:17 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/22 16:50:08 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,22 @@ int 		check_redir_pipe(char *str, int *arr);
 void		syntax_handling(char *input);
 void		syntax_error(char *str, char *input, int size);
 void		quotes_handling(char *input, int i, int *flag);
+t_commands	*generate_tokens(char *input);
+void		parsing(char *res, char *str, char sep, int *arr);
+char		**expander(char **division, char **env);
+void 		expander_aux(char ***division, char **env, int *i, int *k);
+void		expander_aux_loop(char ***division, char **env, int *i, int *k);
+char		*chg_dollar(char *input, char **env);
+void 		chg_dollar_loop(char **input, char **buf, int *i, int *j);
+char		*replace_str(char *str, char *s1, char *s2);
+char		**split_by_quotes(char *str);
+char 		*prepare_str(char *str, int i, int size);
+t_commands	*lst_new(int i);
+void		tokens_redirection(t_commands *lst, char **division);
+void 		delete_quotes(char **input);
+int 		here_doc(char *str);
+void		here_doc_signals(int sign);
+void		signals_behavior(void);
 
 t_env		*get_env_var(char **env);
 t_env		*env_last(t_env *lst);

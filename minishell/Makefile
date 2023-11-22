@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/11/21 17:07:57 by pviegas          ###   ########.fr        #
+#    Updated: 2023/11/22 16:54:05 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC_FILES			= 	minishell.c \
 						aux/lst_utils2.c \
 						aux/utils.c \
 						aux/init.c \
+						aux/expand_utils.c \
 						built_in/pwd.c \
 						built_in/cd.c \
 						built_in/echo.c \
@@ -51,7 +52,11 @@ SRC_FILES			= 	minishell.c \
 						built_in/unset.c \
 						parse/signals.c \
 						parse/syntax.c \
-						parse/quotes.c
+						parse/quotes.c \
+						parse/parser.c \
+						parse/expand.c \
+						parse/tokens.c \
+						parse/here_doc.c
 OBJ_DIR				= obj/
 
 LIBFT 		= libft/libft.a

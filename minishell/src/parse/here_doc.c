@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 16:21:06 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/22 16:58:18 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ void	here_doc_child(char *str, int *fd)
 {
 //PFV
 //	term_change();
-	g_data.vars->env = lst_to_arr(g_data.env);
+	g_var.vars->env = lst_to_arr(g_var.env);
 	while (1)
 	{
 		write(0, ">", 1);
-		g_data.vars->str = ft_get_next_line(0);
-		g_data.vars->str = chg_dollar(g_data.vars->str, g_data.vars->env);
-		if (!g_data.vars->str && here_doc_error(str))
+		g_var.vars->str = ft_get_next_line(0);
+		g_var.vars->str = chg_dollar(g_var.vars->str, g_var.vars->env);
+		if (!g_var.vars->str && here_doc_error(str))
 			break ;
-		if ((ft_strncmp(g_data.vars->str, str, ft_strlen(str)) == 0) && \
-			(ft_strlen(g_data.vars->str) - 1 == ft_strlen(str)))
+		if ((ft_strncmp(g_var.vars->str, str, ft_strlen(str)) == 0) && \
+			(ft_strlen(g_var.vars->str) - 1 == ft_strlen(str)))
 			break ;
-		write(fd[1], g_data.vars->str, ft_strlen(g_data.vars->str));
-		free(g_data.vars->str);
-		g_data.vars->str = NULL;
+		write(fd[1], g_var.vars->str, ft_strlen(g_var.vars->str));
+		free(g_var.vars->str);
+		g_var.vars->str = NULL;
 	}
-	free_env(&g_data.env);
+	free_env(&g_var.env);
 	free_vars();
 	close(fd[1]);
 	close(fd[0]);
@@ -76,7 +76,7 @@ int here_doc(char *str)
 	status = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, here_doc_signals);
-	g_data.here_doc = 1;
+	g_var.here_doc = 1;
 	if (pipe(fd) == -1)
 		perror("");
 	if (fork() == 0)
@@ -84,6 +84,6 @@ int here_doc(char *str)
 	signals_behavior();
 	close(fd[1]);
 	waitpid(0, &status, 0);
-	g_data.here_doc = 0;
+	g_var.here_doc = 0;
 	return (fd[0]);
 }

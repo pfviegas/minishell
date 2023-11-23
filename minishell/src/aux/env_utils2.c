@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:17:19 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/09 16:01:48 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	search_number(char *s1, char *s2)
 }
 
 // Procura na variavel env a string cujo nome da
-// variavel seja o segundo argumento str */
+// variavel seja o segundo argumento str
 char	*env_search_str(char **env, char *str)
 {
 	int		i;
@@ -38,7 +38,7 @@ char	*env_search_str(char **env, char *str)
 		ft_strncmp(env[i], str, search_number(env[i], str)))
 		i++;
 	if (*str == '?')
-		return (ft_itoa(g_data.exit_status));
+		return (ft_itoa(g_var.exit_status));
 	if (!env[i] || !str || !*str)
 		return ("");
 	temp = (env[i] + ft_strlen(str));
@@ -62,7 +62,7 @@ t_env	*env_search(char *input_var)
 {
 	t_env	*lst_env;
 
-	lst_env = g_data.env;
+	lst_env = g_var.env;
 	env_first(&lst_env);
 	while (lst_env && lst_env->data)
 	{

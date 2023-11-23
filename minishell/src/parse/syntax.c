@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:35:31 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/21 17:01:17 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void syntax_error(char *str, char *input, int size)
 	write(2, "\'\n", 2);
 	if (input)
 		free(input);
-	g_data.exit_status = 2;
+	g_var.exit_status = 2;
 	prompt();
 }
 

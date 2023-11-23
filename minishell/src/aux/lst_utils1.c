@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:05:40 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/07 14:08:14 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 13:32:09 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**lst_to_arr(t_env *lst_env)
 	env_first(&lst_env);
 	while (lst_env)
 	{
-		arr[i] = lst_env->data;
+		arr[i] = ft_strdup(lst_env->data);
 		lst_env = lst_env->next;
 		i++;
 	}

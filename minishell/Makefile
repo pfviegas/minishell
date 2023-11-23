@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/11/22 16:54:05 by pviegas          ###   ########.fr        #
+#    Updated: 2023/11/23 11:47:50 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,5 +93,8 @@ fclean_bonus: clean
 	@cd $(LIBFT_DIR) && $(MAKE) --no-print-directory fclean
 
 re: fclean all
+
+v:
+	make re && valgrind --leak-check=full --show-leak-kinds=all --suppressions="supp.supp" ./minishell
 
 .PHONY: all clean fclean re bonus fclean_bonus

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:29:07 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/20 12:21:50 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	free_str_array(char ***str_array)
 
 	i = 0;
 	while (str_array && str_array[0] && str_array[0][i])
-	{
-		free(str_array[0][i]);
-		i++;
-	}
+		free(str_array[0][i++]);
 	if (str_array)
 	{
 		free(str_array[0]);
@@ -32,20 +29,20 @@ void	free_str_array(char ***str_array)
 
 int	free_vars(void)
 {
-	if (g_data.vars)
+	if (g_var.vars)
 	{
-		if (g_data.vars->head)
+		if (g_var.vars->head)
 		{
-			lst_first(&g_data.vars->head);
-			free_list(&g_data.vars->head);
+			lst_first(&g_var.vars->head);
+			free_list(&g_var.vars->head);
 		}
-		if (g_data.vars->str)
-			free(g_data.vars->str);
-		if (g_data.vars->env)
-			free_str_array(&g_data.vars->env);
-		if (g_data.vars->division)
-			free_str_array(&g_data.vars->division);
-		free(g_data.vars);
+		if (g_var.vars->str)
+			free(g_var.vars->str);
+		if (g_var.vars->env)
+			free_str_array(&g_var.vars->env);
+		if (g_var.vars->division)
+			free_str_array(&g_var.vars->division);
+		free(g_var.vars);
 	}
 	return (1);
 }
@@ -66,7 +63,7 @@ void	free_list(t_commands **lst)
 		free(*lst);
 		*lst = aux;
 	}
-	g_data.vars->head = NULL;
+	g_var.vars->head = NULL;
 }
 
 // Liberta a memoria da linked list que guarda as variaveis de ambiente

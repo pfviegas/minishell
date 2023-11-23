@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:37:59 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/20 15:52:52 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	is_overflow(t_commands **lst)
 
 void	must_be_numeric(t_commands **lst)
 {
-	g_data.exit_status = 2;
+	g_var.exit_status = 2;
 	write(2, "exit\n", 5);
 	write(2, "minishell: exit: ", 17);
 	write(2, (*lst)->content[1], ft_strlen((*lst)->content[1]));
@@ -89,14 +89,14 @@ void	execute_exit(t_commands **command)
 
 	if ((*command)->content[1] && (*command)->content[2])
 	{
-		g_data.exit_status = 1;
+		g_var.exit_status = 1;
 		write(2, "exit\n", 5);
 		write(2, "minishell: exit: too many arguments\n", 37);
 		// PFV
 		stderr_null();
 	}
 	else if (is_overflow(command))
-		g_data.exit_status = 2;
+		g_var.exit_status = 2;
 	else if ((*command)->content[1] && str_is_num((*command)->content[1]) == 0)
 		must_be_numeric(command);
 	else if ((*command)->content[1])
@@ -104,7 +104,7 @@ void	execute_exit(t_commands **command)
 		number = ft_atoi((*command)->content[1]);
 		if (number >= 256)
 			number -= 256;
-		g_data.exit_status = number;
+		g_var.exit_status = number;
 	}
 }
 

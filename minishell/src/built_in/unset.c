@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:20:44 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/09 16:37:52 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	execute_unset(t_commands **command)
 			env_delete_element(&command_env_export);
 		i++;
 	}
-	g_data.exit_status = 0;
+	g_var.exit_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:15:51 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/08 15:58:23 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	execute_echo(t_commands **command)
 	else if (flag == 1)
 		print_args((*command)->content, 2);
 
-	g_data.exit_status = 0;
+	g_var.exit_status = 0;
 }

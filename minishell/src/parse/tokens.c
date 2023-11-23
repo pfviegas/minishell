@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 16:00:21 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/22 16:30:53 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * If any of the file descriptors in the `lst` parameter has a value of -1, 
  * it prints an error message using `perror()` and sets the corresponding
  * error flag in the `lst` structure. 
- * Additionally, it sets the global status variable `g_data.status` to 1.
+ * Additionally, it sets the global status variable `g_var.status` to 1.
  * 
  * @param lst The list containing the file descriptors to be checked.
  */
@@ -29,13 +29,13 @@ void invalid_fd(t_commands *lst)
 	if (lst->fd_master[0] == -1)
 	{
 		perror("");
-		g_data.exit_status = 1;
+		g_var.exit_status = 1;
 		lst->fd_master_error[0] = 1;
 	}
 	if (lst->fd_master[1] == -1)
 	{
 		perror("");
-		g_data.exit_status = 1;
+		g_var.exit_status = 1;
 		lst->fd_master_error[1] = 1;
 	}
 }

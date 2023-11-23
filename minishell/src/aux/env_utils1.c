@@ -6,14 +6,19 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:08:25 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/09 15:39:28 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:11:47 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* Retorna o ultimo elemento */
-t_env	*env_last(t_env *lst)
+/**
+ * Retorna o último nó da lista encadeada de variáveis de ambiente.
+ *
+ * @param lst O ponteiro para o primeiro nó da lista.
+ * @return O ponteiro para o último nó da lista.
+ */
+t_env *env_last(t_env *lst)
 {
 	while (lst)
 	{
@@ -24,8 +29,13 @@ t_env	*env_last(t_env *lst)
 	return (lst);
 }
 
-/* Adiciona um novo elemento no final*/
-void	env_add_back(t_env **lst, t_env *new)
+/**
+ * Adiciona um novo elemento no fim da lista encadeada de variáveis de ambiente
+ *
+ * @param lst Ponteiro para o ponteiro da lista encadeada.
+ * @param new O novo elemento a ser adicionado.
+ */
+void env_add_back(t_env **lst, t_env *new)
 {
 	if (lst)
 	{
@@ -39,10 +49,15 @@ void	env_add_back(t_env **lst, t_env *new)
 	}
 }
 
-/* Cria um novo node */
-t_env	*env_new(char *str)
+/**
+ * Cria uma nova variável de ambiente com a string fornecida.
+ *
+ * @param str A string que representa a variável de ambiente.
+ * @return Um ponteiro para a nova variável de ambiente criada.
+ */
+t_env *env_new(char *str)
 {
-	t_env	*new;
+	t_env *new;
 
 	new = (t_env *)ft_calloc(sizeof(t_env), 1);
 	if (!new)

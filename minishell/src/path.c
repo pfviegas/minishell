@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:54:08 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/21 11:39:43 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 11:35:53 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ char	*get_cmd_path(char **env, char **cmd)
 	{
 		temp = ft_strjoin(str_array[i], cmd_path);
 		if (access(temp, X_OK) == 0)
-		{
+	{
 			free(cmd_path);
 			cmd_path = temp;
-			free(temp);
 			break ;
 		}
 		free(temp);

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:59:29 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/08 15:58:23 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_pwd(t_commands **command)
 		perror("Error getting current working directory");
 		return ;
 	}
-	g_data.exit_status = 0;
+	g_var.exit_status = 0;
 }
 
 //A constante PATH_MAX esta definida no <limits.h>

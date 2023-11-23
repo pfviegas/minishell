@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/20 12:31:41 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	change_dir(char *path)
 {
 	update_pwd_oldpwd("OLDPWD");
 	if (!chdir(path) && update_pwd_oldpwd("PWD"))
-		g_data.exit_status = 0;
+		g_var.exit_status = 0;
 	else
 	{
 		if (access(path, F_OK) == -1)
@@ -56,7 +56,7 @@ int	change_dir(char *path)
 			write(2, "minishell: cd: not a directory\n", 32);
 		write(2, path, ft_strlen(path));
 		write(2, "\n", 1);
-		g_data.exit_status = 1;
+		g_var.exit_status = 1;
 	}
 	return (1);
 }
@@ -65,7 +65,7 @@ int	change_dir(char *path)
 void	finish_cd(void)
 {
 //	free_str_array(&env_char);
-	g_data.exit_status = 0;
+	g_var.exit_status = 0;
 	return ;
 }
 
@@ -80,10 +80,10 @@ void	execute_cd(t_commands **command)
 	if (strlen_array((*command)->content) > 2)
 	{
 		write(2, "minishell: cd: too many arguments\n", 34);
-		g_data.exit_status = 1;
+		g_var.exit_status = 1;
 		return ;
 	}
-	env_char = lst_to_arr(g_data.env);
+	env_char = lst_to_arr(g_var.env);
 	path_home = env_search_str(env_char, "HOME");
 	if (!(*command)->content[1] && change_dir(path_home))
 //		PFV	

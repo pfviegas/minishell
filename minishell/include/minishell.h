@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:21 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/22 16:50:08 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 #include "../libft/libft.h"
 #include "built_in.h"
@@ -70,7 +71,7 @@ struct s_global
 //	struct termios	termios_save;
 };
 
-extern struct s_global	g_data;
+extern struct s_global	g_var;
 
 // -----------------------------  FUNCTIONS --------------------------------- //
 

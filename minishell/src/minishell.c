@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:34 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/23 14:15:44 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:13:39 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,27 @@ t_commands *generate_tokens(char *input)
 	return (command);
 }
 
+/**
+ * @brief Função que solicita ao usuário uma entrada e executa comandos.
+ * 
+ * Lê a entrada e realiza as seguintes etapas:
+ * 1. Verifica se a entrada é NULL. Se for, libera a memória e encerra.
+ * 2. Adiciona a entrada ao histórico de comandos.
+ * 3. Realiza o tratamento de sintaxe para verificar 
+ *    se a entrada possui sintaxe correta.
+ * 4. Gera uma lista de comandos a partir da entrada.
+ * 5. Verifica se a entrada ou o primeiro comando está vazio. 
+ *    Se estiver, define o status de saída como 0.
+ * 6. Se a entrada não estiver vazia e nenhuma interrupção ocorrer, 
+ *    executa o(s) comando(s).
+ * 7. Libera a memória usada pela lista de comandos e pela entrada.
+ * 
+ * @return void
+ */
 void	prompt(void)
 {
-	char	*input;
 	t_commands	*command;
+	char	*input;
 
 	while (1)
 	{
@@ -103,7 +120,7 @@ void	prompt(void)
 			if (!input[0] || !command->content[0] || !command->content[0][0])
 				g_var.exit_status = 0;
 			if (command->content[0] && !g_var.interrupted)
-				execution(command);
+				executor(command);
 			free_list(&command);
 			free(input);
 		}

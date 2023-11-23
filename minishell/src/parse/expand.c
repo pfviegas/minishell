@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:41:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/22 15:25:11 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:52:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ char **expander(char **division, char **env)
 	expander_aux(&division, env, &i, &k);
 	while (k)
 		!(division[--i] = NULL) && k--;
-//PFV
-//	free_str_array(&env);
+	free_str_array(&env);
 	return division;
 }

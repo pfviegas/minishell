@@ -6,16 +6,21 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:35:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:20:59 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	executor(t_commands *command)
+/**
+ * Executa os comandos fornecidos.
+ * 
+ * @param command Os comandos a serem executados.
+ */
+void executor(t_commands *command)
 {
-	int		status;
-	pid_t	proc_id;
+	pid_t proc_id;
+	int status;
 
 	execution(command);
 
@@ -29,25 +34,21 @@ void	executor(t_commands *command)
 				g_var.exit_status = WEXITSTATUS(status);
 		}
 		if (!command->next)
-			break ;
+			break;
 		command = command->next;
 	}
 	if (check_fds(command))
 		g_var.exit_status = 1;
-//	free_list(&command);
 }
 
-void	execution(t_commands *command)
+/**
+ * Executa uma série de comandos.
+ * 
+ * @param command Um ponteiro para o primeiro comando da série.
+ */
+void execution(t_commands *command)
 {
-	// guarda as variaveis de ambiente
-	char	**env_vars;
-
-	// PFV
-/*
-	// Exemplo de impressão da lista
-	printf("\nCOMMANDS: \n");
-	print_lst(command);
-*/
+	char **env_vars;
 
 	command->path = NULL;
 	while (command)
@@ -57,12 +58,11 @@ void	execution(t_commands *command)
 			env_vars = lst_to_arr(g_var.env);
 			command->path = get_cmd_path(env_vars, command->content);
 			free_str_array(&env_vars);
-			free(env_vars);
 			choose_execution(command);
 			command_execution(command);
 		}
 		if (!command->next)
-			break ;
+			break;
 		command = command->next;
 	}
 }
@@ -95,9 +95,12 @@ void	choose_execution(t_commands *command)
 
 void	command_execution(t_commands *command)
 {
+	// se o comando for built-in e nao tiver pipes
 	if (is_built_in(command) && (lst_size(command) == 1))
 	{
+		// executa o comando built-in
 		command->ft_exec(&command);
+		// se o comando for exit, libera a memoria e encerra
 		if (command->content && (!ft_strncmp(command->content[0], "exit", 5)) && \
 		free_env(&g_var.env) && free_vars() && write(2, "exit\n", 5))
 			exit(g_var.exit_status);

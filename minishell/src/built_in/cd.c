@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:49:51 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	update_pwd_oldpwd(char *str)
 			temp_char = ft_strdup(buf);
 			temp_char_2 = ft_strjoin(str, "=");
 			temp_env->data = ft_strjoin(temp_char_2, temp_char);
-			free(temp_char_2);
 			free(temp_char);
+			free(temp_char_2);
 			return (0);
 		}
 	}

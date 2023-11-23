@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:49:34 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/23 15:13:39 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:51:26 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,6 @@ t_commands *generate_tokens(char *input)
 */
 	tokens_redirection(command, g_var.vars->division);
 
-//PFV
-/*
-	printf ("\nPRINT LST (command)\n");
-	print_lst(command);
-*/
 	g_var.vars->head = command;
 	free_str_array(&g_var.vars->division);
 	return (command);

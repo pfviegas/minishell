@@ -35,7 +35,6 @@ char	*ft_strdup(const char *s1)
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 	{
-		free(str);
 		return (NULL);
 	}
 	len = 0;

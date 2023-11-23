@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:29:07 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:09:15 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	free_env(t_env **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-//		free((*lst)->data);
+		free((*lst)->data);
 		free(*lst);
 		*lst = temp;
 	}

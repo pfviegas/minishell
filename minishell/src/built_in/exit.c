@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:37:59 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/23 14:15:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:17:45 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,22 @@ void	must_be_numeric(t_commands **lst)
 	stderr_null();
 }
 
-void	execute_exit(t_commands **command)
+/**
+ * @brief Executa o comando "exit".
+ *
+ * Esta função é responsável por executar o comando "exit" no mini shell.
+ * Verifica o número de argumentos fornecidos e lida com diferentes cenários.
+ * Se houver muitos argumentos, define o status de saída como 1 e exibe 
+ * uma mensagem de erro.
+ * Se houver um estouro no comando, define o status de saída como 2.
+ * Se o argumento não for um número válido, chama a função must_be_numeric().
+ * Se um número válido for fornecido, define o status de saída como esse número
+ *
+ * @param command Um ponteiro para a estrutura de comando.
+ */
+void execute_exit(t_commands **command)
 {
-	int	number;
+	int number;
 
 	if ((*command)->content[1] && (*command)->content[2])
 	{

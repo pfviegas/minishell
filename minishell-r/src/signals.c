@@ -1,0 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
+/*   Updated: 2023/11/24 13:17:25 by pviegas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
+
+/**
+ * @brief Lida com o sinal de interrupção (SIGINT) imprimindo 
+ * uma mensagem e atualizando o status de saída.
+ * 
+ * @param signal O número do sinal.
+ */
+void handle_sign(int signal)
+{
+	(void)signal;
+	shell()->exit_code = 130;
+	if (shell()->in_exec == true)
+	{
+		printf("\n");
+		return ;
+	}
+	ft_putstr_fd("^C\n", 0);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+/**
+ * @brief Lida com o sinal de quit SIGQUIT.
+ * 
+ * Esta função é chamada quando o sinal de quit é recebido. 
+ * Ela espera que qualquer processo filho termine e imprime uma mensagem 
+ * indicando que o processo terminou com um core dump. 
+ * Se a flag here_doc não estiver definida, ela imprime a 
+ * mensagem "Quit (core dumped)" na saída padrão.
+ * 
+ * @param sign O número do sinal.
+ */
+void	handle_quit(int signal)
+{
+	(void)signal;
+	if (shell()->in_exec == true)
+	{
+		shell()->exit_code = 131;
+		ft_putstr_fd("Quit: 3\n", 2);
+	}
+}
+
+/**
+ * Configura o comportamento dos sinais SIGINT e SIGQUIT.
+ */
+void signals_behavior(void)
+{
+	signal(SIGINT, handle_sign);
+	signal(SIGQUIT, handle_quit);
+}
+
+/**
+ * @brief Lida com os sinais para here documents.
+ * 
+ * Esta função é responsável por lidar com os sinais relacionados aos here documents.
+ * Ela ignora o sinal SIGQUIT e realiza operações de limpeza e sai quando recebe o sinal SIGINT.
+ * 
+ * @param signal O número do sinal.
+ */
+void here_doc_signals(int signal)
+{
+	if (signal == SIGQUIT)
+		SIG_IGN;
+	else if (signal == SIGINT)
+	{
+		write(2, " ", 1);
+//PFV
+//		free_env(&g_var.env);
+//		free_vars();
+		exit(1);
+	}
+}

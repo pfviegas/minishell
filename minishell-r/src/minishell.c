@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 15:56:14 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/27 17:33:00 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	main(int argc, char **argv, char **envp)
  			free_all(false, true, false, false);		
 		}
 	}
-//PFV
-//	free_all(1, 0, 1, 0);
 	free_all(true, false, true, false);
 	printf("\n");
 	return (shell()->exit_code);

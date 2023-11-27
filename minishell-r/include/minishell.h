@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:56:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 14:07:49 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:08:59 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void	add_str_to_array(char ***array, char *str);
 //int		find_env_var(char **env, char *var);
 char	**create_array(char *str);
 
-
+void	print_matriz(char **matriz);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 10:29:32 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 12:39:41 by pviegas          ###   ########.fr       */
+/*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
+/*   Updated: 2023/11/27 18:24:20 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,43 +50,73 @@ int	get_here_doc(t_list *lst)
 	return (0);
 }
 
-void	parsing(char *input)
+/**
+ * Função responsável por realizar o parsing da entrada.
+ * 
+ * @param input A entrada a ser analisada.
+ */
+void parsing(char *input)
 {
-	t_list	*head;
-	char	**parse_input;
-	int		i;
+	t_list *head;
+	char **parse_input;
+	int i;
 
 	head = NULL;
+
+	// Verifica se há erro de sintaxe de pipe
 	if (pipe_sintax(input))
 	{
-		display_error(1, "Syntax Error", true);
+		display_error(1, "Erro de sintaxe", true);
 		shell()->segment_lst = head;
-		return ;
+		return;
 	}
+	// Divide e remove espaços em branco da entrada
 	parse_input = split_trim((find_replace(input, "|", 1)), 1);
+	//print_matriz(parse_input);
 	i = 0;
+	// Cria uma lista de tokens para cada parte da entrada
 	while (parse_input[i])
 	{
 		ft_lstadd_back(&head, get_tokens(parse_input[i]));
 		i++;
 	}
-//PFV	
+	// Imprime a lista de tokens (apenas para fins de depuração)
 	print_lst(head);
-	
+
 	free_array(&parse_input);
 	shell()->segment_lst = head;
 	init_built_in_flags(shell()->segment_lst);
+
 	if (!shell()->error)
 	{
-//PFV
-/*
+		// Verifica se há here documents
+		/*
 		if (get_here_doc(shell()->segment_lst))
 		{
 			shell()->error = true;
-			return ;
+			return;
 		}
 		get_reds(shell()->segment_lst);
-*/	
+		*/
+	}
+}
+void	print_matriz(char **matriz)
+{
+	int i;
+	size_t j;
+
+	i = 0;
+	printf("---------------matriz-------------\n\n");
+	while(i < 2)
+	{
+		j = 0;
+		while(j < ft_strlen(matriz[i]))
+		{
+			printf("%c", matriz[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
 	}
 }
 

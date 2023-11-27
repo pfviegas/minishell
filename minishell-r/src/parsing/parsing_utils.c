@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 10:29:22 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 14:16:42 by pviegas          ###   ########.fr       */
+/*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
+/*   Updated: 2023/11/27 18:24:54 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 /**
  * Expande uma variável em uma string.
  *
@@ -189,12 +188,14 @@ t_list	*get_tokens(char *input_command)
 	int		i;
 
 	i = 0;
+	
 	new_seg = malloc(sizeof(t_command));
 	if (!new_seg)
 		return (NULL);
 	new_seg->built_in = false;
 //  Inicializa a estrutura t_command com valores padrão.
 	init_command(new_seg);
+	printf("%s\n\n\n",input_command);
 	while (input_command[i] && !shell()->error)
 	{
 		if (is_space(input_command[i]))

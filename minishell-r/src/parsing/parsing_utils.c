@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/27 18:24:54 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:05:27 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ char **split_trim(char *str, char c)
  * @param replace_char O caractere de substituição.
  * @return             A string modificada.
  */
-char	*find_replace(char *str, char *search_set, char replace_char)
+char	*replace_quote(char *str, char *search_set, char replace_char)
 {
 	int		i;
 	int		in_quote;
@@ -275,14 +275,14 @@ char	*find_replace(char *str, char *search_set, char replace_char)
 	quote = 0;
 	while (str[++i])
 	{
-		if (is_quote(str[i]) && !in_quote)
+		if (is_quote(str[i]) && in_quote == 0)
 		{
 			quote = str[i];
-			in_quote = !in_quote;
+			in_quote = 1;
 		}
-		else if (in_quote && str[i] == quote)
-			in_quote = !in_quote;
-		else if (!in_quote && is_in_set(str[i], search_set))
+		else if (in_quote == 1 && str[i] == quote)
+			in_quote = 0;
+		else if (in_quote== 0 && is_in_set(str[i], search_set))
 			str[i] = replace_char;
 	}
 	return (str);

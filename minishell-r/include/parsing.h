@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 14:16:45 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 15:51:22 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		check_pipe(char *input);
 void	init_command(t_command *seg);
 int		is_in_set(char c, char *search_set);
 int		is_great_less(char c);
-char	*find_replace(char *str, char *find_set, char replace_char);
+char	*replace_quote(char *str, char *find_set, char replace_char);
 char	**split_trim(char *str, char c);
 char	*parse_redirection(char *seg, int *curr_pos);
 void	add_char_string(char **str, char c);

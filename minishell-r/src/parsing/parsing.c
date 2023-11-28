@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/27 18:24:20 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:51:03 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ void parsing(char *input)
 {
 	t_list *head;
 	char **parse_input;
+	char *temp_input;
 	int i;
 
 	head = NULL;
-
+	temp_input = NULL;
 	// Verifica se há erro de sintaxe de pipe
 	if (pipe_sintax(input))
 	{
@@ -71,8 +72,9 @@ void parsing(char *input)
 		return;
 	}
 	// Divide e remove espaços em branco da entrada
-	parse_input = split_trim((find_replace(input, "|", 1)), 1);
-	//print_matriz(parse_input);
+	temp_input = replace_quote(input, "|", 1);
+	parse_input = split_trim(temp_input, 1);
+	print_matriz(parse_input);
 	i = 0;
 	// Cria uma lista de tokens para cada parte da entrada
 	while (parse_input[i])

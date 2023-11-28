@@ -6,12 +6,19 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:29:32 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 12:39:41 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:06:39 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+ * Função responsável por verificar se há redirecionamento de entrada
+ * utilizando o operador "<<" (here document) e realizar o devido tratamento.
+ * 
+ * @param lst A lista de comandos a serem analisados.
+ * @return Retorna 0 em caso de sucesso ou 1 em caso de erro.
+ */
 int	get_here_doc(t_list *lst)
 {
 	t_list		*temp;
@@ -60,7 +67,7 @@ void	parsing(char *input)
 	if (pipe_sintax(input))
 	{
 		display_error(1, "Syntax Error", true);
-		shell()->segment_lst = head;
+		shell()->tokens_lst = head;
 		return ;
 	}
 	parse_input = split_trim((find_replace(input, "|", 1)), 1);
@@ -71,22 +78,19 @@ void	parsing(char *input)
 		i++;
 	}
 //PFV	
-	print_lst(head);
-	
+//	print_lst(head);
+//
 	free_array(&parse_input);
-	shell()->segment_lst = head;
-	init_built_in_flags(shell()->segment_lst);
+	shell()->tokens_lst = head;
+	init_built_in_flags(shell()->tokens_lst);
 	if (!shell()->error)
 	{
-//PFV
-/*
-		if (get_here_doc(shell()->segment_lst))
+		if (get_here_doc(shell()->tokens_lst))
 		{
 			shell()->error = true;
 			return ;
 		}
-		get_reds(shell()->segment_lst);
-*/	
+		get_redirects(shell()->tokens_lst);
 	}
 }
 

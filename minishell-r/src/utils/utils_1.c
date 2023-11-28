@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:48:48 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 12:31:21 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 14:49:28 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,21 +398,31 @@ void print_lst(t_list *lst)
 	}
 }
 
-/**
- * Verifica se uma string representa um comando interno.
- *
- * @param str  A string a ser verificada.
- * @return     1 se a string representa um comando interno, 0 caso contrário.
- */
-int is_built_in(char *str)
+void	rm_str_from_array(char ***array, int index)
 {
-	if (ft_strcmp(str, "export") == 0 || ft_strcmp(str, "env") == 0)
-		return (1);
-	else if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "unset") == 0)
-		return (1);
-	else if (ft_strcmp(str, "cd") == 0 || ft_strcmp(str, "pwd") == 0)
-		return (1);
-	else if (ft_strcmp(str, "exit") == 0)
-		return (1);
-	return (0);
+	char	**new_array;
+	int		len;
+	int		i;
+
+	if (!(*array))
+		return ;
+	else
+	{
+		len = 0;
+		while ((*array)[len])
+			len++;
+		new_array = malloc(sizeof(char *) * len);
+		if (!new_array)
+			return ;
+		i = -1;
+		len = 0;
+		while ((*array)[++i])
+		{
+			if (i != index)
+				new_array[len++] = ft_strdup((*array)[i]);
+		}
+		new_array[len] = NULL;
+		free_array(array);
+		*array = new_array;
+	}
 }

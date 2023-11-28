@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/11/27 13:56:20 by pviegas          ###   ########.fr        #
+#    Updated: 2023/11/28 14:54:00 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,32 +36,17 @@ SRC_FILES			= 	minishell.c \
 						utils/free.c \
 						parsing/parsing.c \
 						parsing/parsing_utils.c \
-						executor/here_doc.c
-#						executor.c \
-						path.c \
-						built_in.c \
-						execute_default.c \
-						errors.c \
-						aux/env_utils1.c \
-						aux/env_utils2.c \
-						aux/lst_utils1.c \
-						aux/lst_utils2.c \
-						aux/utils.c \
-						aux/init.c \
-						aux/expand_utils.c \
-						built_in/pwd.c \
+						executor/here_doc.c \
+						executor/executor.c \
+						executor/built_in.c \
+						executor/executor_utils.c \
 						built_in/cd.c \
 						built_in/echo.c \
 						built_in/env.c \
-						built_in/exit.c \
-						built_in/export.c \
+						built_in/pwd.c \
 						built_in/unset.c \
-						parse/syntax.c \
-						parse/quotes.c \
-						parse/parser.c \
-						parse/expand.c \
-						parse/tokens.c \
-						parse/here_doc.c
+						built_in/export.c
+#						built_in/exit.c 
 OBJ_DIR				= obj/
 
 LIBFT 		= libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 15:56:14 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:06:39 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ int	main(int argc, char **argv, char **envp)
 			add_history(prompt_line);
 // 			verifica se o comando é valido
 			parsing(prompt_line);
-//			if (!shell()->error)
-//				run(shell()->segment_lst);
+			if (!shell()->error)
+				executor(shell()->tokens_lst);
  			free_all(false, true, false, false);		
 		}
 	}
-//PFV
-//	free_all(1, 0, 1, 0);
 	free_all(true, false, true, false);
 	printf("\n");
 	return (shell()->exit_code);

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 12:34:17 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 14:14:02 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 void init_shell_vars(t_shell *shell, char **envp)
 {
 	shell->error = false;
-	shell->segment_lst = NULL;
+	shell->tokens_lst = NULL;
 	shell->env = get_env_vars(envp);
 	shell->exit_code = 0;
 	shell->in_here_doc = false;

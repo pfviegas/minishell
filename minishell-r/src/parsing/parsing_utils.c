@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:29:22 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 14:16:42 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:40:31 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char *parse_word(char *seg, int *curr_pos, char *red)
 		(*curr_pos)++;
 	}
 	if (seg[*curr_pos] == '\0' && quote)
-		display_error(1, "Minishell doesn't handle quotation marks", true);
+		display_error(1, "Minishell doesn't interpreted unclosed quotes...", true);
 	if (!str && was_q)
 		str = ft_calloc(1, 1);
 	return (str);
@@ -287,3 +287,70 @@ char	*find_replace(char *str, char *search_set, char replace_char)
 	return (str);
 }
 
+/**
+ * Função responsável por obter as redirecionamentos de entrada e saída 
+ * de uma lista de comandos.
+ *
+ * @param lst A lista de comandos.
+ */
+void	get_redirects(t_list *lst)
+{
+	t_list		*temp;
+	t_command	*seg;
+	int		i;
+
+	temp = lst;
+	while (temp)
+	{
+		seg = (t_command *)temp->content;
+		i = -1;
+		while (seg->red && seg->red[++i])
+		{
+			if (seg->red[i][0] == '<' && seg->red[i][1] != '<')
+			{
+				if (seg->std.in != -1 && !seg->here_doc)
+					close(seg->std.in);
+				if (access(&seg->red[i][1], F_OK))
+				{
+					seg->red_error = 1;
+					break ;
+				}
+				if (!seg->here_doc)
+				{
+					seg->std.in = open(&seg->red[i][1], O_RDONLY);
+					if (seg->std.in == -1)
+					{
+						seg->red_error = 1;
+						break ;
+					}
+				}
+			}
+			else
+			{
+				if (seg->std.out != -1)
+					close(seg->std.out);
+				if (seg->red[i][0] == '>' && seg->red[i][1] == '>')
+				{
+					seg->std.out = open(&seg->red[i][2], O_RDWR | O_CREAT | O_APPEND, 0644);
+					if (seg->std.out == -1)
+					{
+						seg->red_error = 1;
+						break ;
+					}
+				}
+				else if (seg->red[i][0] == '>' && seg->red[i][1] != '>')
+				{
+					seg->std.out = open(&seg->red[i][1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+					if (seg->std.out == -1)
+					{
+						seg->red_error = 1;
+						break ;
+					}
+				}
+			}
+		}
+		if (seg->red_error == 1)
+			display_error(1, strerror(errno), false);
+		temp = temp->next;
+	}
+}

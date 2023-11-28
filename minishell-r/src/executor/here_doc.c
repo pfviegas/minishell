@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:41:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 15:40:11 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 10:49:56 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,17 @@ void sig_here_doc(int signal)
 	exit(EXIT_FAILURE);
 }
 
-int	here_doc(t_command *cmd)
+/**
+ * Função que executa o redirecionamento de entrada usando o "here document".
+ * 
+ * @param cmd O comando a ser executado.
+ * @return O descritor de arquivo para leitura do "here document".
+ */
+int here_doc(t_command *cmd)
 {
-	char	*line;
-	pid_t	pid;
-	int		i;
+	char *line;
+	pid_t pid;
+	int i;
 
 	shell()->in_here_doc = true;
 	if (pipe(shell()->here_doc_fd) < 0)
@@ -98,7 +104,7 @@ int	here_doc(t_command *cmd)
 				if (!(ft_strncmp(line, cmd->here[i], ft_strlen(cmd->here[i]))))
 				{
 					free(line);
-					break ;
+					break;
 				}
 				if (cmd->here[i + 1] == NULL)
 				{
@@ -112,7 +118,7 @@ int	here_doc(t_command *cmd)
 		}
 		signals_behavior();
 		close(shell()->here_doc_fd[1]);
-		close (shell()->here_doc_fd[0]);
+		close(shell()->here_doc_fd[0]);
 		free_all(true, true, true, false);
 		exit(0);
 	}

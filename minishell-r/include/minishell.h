@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:56:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 14:07:49 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 14:44:22 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/history.h>
 # include <stdbool.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 # include "parsing.h"
 # include "utils.h"
@@ -32,7 +33,7 @@ typedef struct s_shell
 {
 	bool	prompt;
 	bool	error;
-	t_list	*segment_lst;
+	t_list	*tokens_lst;
 	char	**env;
 	int		exit_code;
 	bool	in_here_doc;
@@ -57,3 +58,4 @@ char	**create_array(char *str);
 
 
 #endif
+

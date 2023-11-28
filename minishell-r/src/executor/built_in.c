@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:45 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:51:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 16:30:05 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,20 @@ void execute_built_in(char **cmd, int seg_error)
 		shell()->exit_code = 1;
 		return;
 	}
-	if (!ft_strcmp(cmd[0], "cd"))
+	if (ft_strcmp(cmd[0], "cd") == 0)
 		execute_cd(cmd);
-	else if (!ft_strcmp(cmd[0], "echo"))
+	else if (ft_strcmp(cmd[0], "echo") == 0)
 		execute_echo(cmd);
-	else if (!ft_strcmp(cmd[0], "env"))
-//PFV
+	else if (ft_strcmp(cmd[0], "env") == 0)
 		execute_env(shell()->env);
-	else if (!ft_strcmp(cmd[0], "pwd"))
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		execute_pwd();
-	else if (!ft_strcmp(cmd[0], "unset"))
+	else if (ft_strcmp(cmd[0], "unset")  == 0)
 		execute_unset(cmd);
-	else if (!ft_strcmp(cmd[0], "export"))
+	else if (ft_strcmp(cmd[0], "export") == 0)
 		execute_export(cmd);
-//PFV
-/*
-	else if (!ft_strcmp(cmd[0], "exit"))
-		execute_ft_exit(cmd);
-*/		
+	else if (ft_strcmp(cmd[0], "exit") == 0)
+		execute_exit(cmd);
 }
 
 /**

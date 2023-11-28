@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:20:44 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:53:14 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 16:36:00 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void execute_unset(char **cmd)
 	int i;
 	int array_index;
 
-	if (!cmd || ft_strcmp(cmd[0], "unset") != 0)
-		return;
+//PFV
+//	if (!cmd || ft_strcmp(cmd[0], "unset") != 0)
+//		return;
 	if (cmd[1])
 	{
 		i = 0;

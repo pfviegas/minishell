@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:02:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:05:44 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 16:21:09 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	ctrl_process(t_list *curr, char **env)
 			close(cmd->std.out);
 		close(cmd->pipe_fd[0]);
 		close(cmd->pipe_fd[1]);
-		// printf("%d\n", shell()->exit_code);
 	}
 }
 

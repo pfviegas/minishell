@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:29:15 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 15:50:04 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 16:30:38 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ void	execute_export(char	**cmd)
 	char	**export_array;
 
 	i = 0;
-	if (!cmd || ft_strcmp(cmd[0], "export") != 0)
-		return ;
+//PFV	
+//	if (!cmd || ft_strcmp(cmd[0], "export") != 0)
+//		return ;
 	if (!cmd[1])
 	{
 		export_array = sort_alpha_array(shell()->env);

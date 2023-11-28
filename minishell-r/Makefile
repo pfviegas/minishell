@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/11/28 14:54:00 by pviegas          ###   ########.fr        #
+#    Updated: 2023/11/28 16:36:56 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ SRC_FILES			= 	minishell.c \
 						built_in/env.c \
 						built_in/pwd.c \
 						built_in/unset.c \
-						built_in/export.c
-#						built_in/exit.c 
+						built_in/export.c \
+						built_in/exit.c 
 OBJ_DIR				= obj/
 
 LIBFT 		= libft/libft.a

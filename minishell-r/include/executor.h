@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 13:54:25 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:52:09 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 16:23:11 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute_env(char **cmd);
 void	execute_pwd(void);
 void	execute_unset(char	**cmd);
 void	execute_export(char	**cmd);
-
+void	execute_exit(char **cmd);
 void	rm_str_from_array(char ***array, int index);
 
 #endif

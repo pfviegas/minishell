@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:02:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 16:21:09 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 12:01:02 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,51 @@
 void execute(char **cmd, char **envp)
 {
 	char *path;
+	char *msg;
 
 	path = find_path(envp, cmd[0]);
 //PFV
-	printf("path: %s\n", path);
-//PFV
-/*
-	error_before_execute(path);
+//	printf("path: %s\n", path);
+
+	check_dir(path);
 	if (execve(path, cmd, envp) == -1)
 	{
+//PFV
+//		printf("errno: %d\n", errno);
+		
+		//EFAULT (14) - Bad address
 		if (errno == 14)
 		{
-			display_error(127, " comando não encontrado", true);
+			display_error(127, "minishell: Bad address", true);
+		}
+		//ENOENT (2) - No such file or directory
+		else if (errno == 2)
+		{
+			if ((!ft_strncmp("./", path, 2) || path[0] == '/'))
+			{
+				msg = ft_strjoin("minishell: ", path);
+				msg = ft_strjoin(msg, ": No such file or directory");
+				display_error(127, msg, true);
+			}
+			else
+			{
+				msg = ft_strjoin(path, ": command not found");
+				display_error(127, msg, true);
+			}
 		}
 		else if (errno == 13)
 		{
-			if (access(cmd[0], X_OK) && !ft_strncmp("./", cmd[0], 2))
-				display_error(126, " Arquivo ou diretório não encontrado", true);
-			else
-				display_error(127, " Arquivo ou diretório não encontrado", true);
+			msg = ft_strjoin("minishell: ", path);
+			msg = ft_strjoin(msg, ": Permission denied");
+			display_error(126, msg, true);	
 		}
-		elsechar **cmd
-			display_error(127, " comando não encontrado", true);
+		else
+		{
+			msg = ft_strjoin("minishell: ", path);
+			msg = ft_strjoin(msg, ": command not found");
+			display_error(127, msg, true);
+		}
 	}
-*/
 	free(path);
 }
 

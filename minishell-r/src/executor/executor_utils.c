@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:31:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 12:03:52 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 11:11:02 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@
  * 
  * @param path O caminho a ser verificado.
  */
-void error_before_execute(char *path)
+void check_dir(char *path)
 {
-	struct stat st;
+	struct stat	st;
+	char		*msg;
 	
 	if (stat(path, &st) == -1)
 		return;
 	if (S_ISDIR(st.st_mode) && path && (!ft_strncmp("./", path, 2) || path[0] == '/'))
 	{
-		display_error(126, " É um diretório", true);
-		free_all(1, 1, 1, 1);
+		msg = ft_strjoin("minishell: ", path);
+		msg = ft_strjoin(msg, ": Is a directory");
+		display_error(126, msg, true);
+		free_all(true, true, true, true);
 	}
 }
 

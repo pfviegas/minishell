@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/24 13:17:25 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 12:00:39 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,4 @@ void signals_behavior(void)
 {
 	signal(SIGINT, handle_sign);
 	signal(SIGQUIT, handle_quit);
-}
-
-/**
- * @brief Lida com os sinais para here documents.
- * 
- * Esta função é responsável por lidar com os sinais relacionados aos here documents.
- * Ela ignora o sinal SIGQUIT e realiza operações de limpeza e sai quando recebe o sinal SIGINT.
- * 
- * @param signal O número do sinal.
- */
-void here_doc_signals(int signal)
-{
-	if (signal == SIGQUIT)
-		SIG_IGN;
-	else if (signal == SIGINT)
-	{
-		write(2, " ", 1);
-//PFV
-//		free_env(&g_var.env);
-//		free_vars();
-		exit(1);
-	}
 }

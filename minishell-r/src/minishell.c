@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 11:06:39 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 12:00:10 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_shell	*shell(void)
 
 	return (&shell);
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt_line;

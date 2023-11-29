@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:48:48 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 12:31:21 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 15:29:57 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,8 @@ void display_error(int exit_code, char *str, bool error)
  * @param search_set O conjunto de caracteres onde será feita a busca.
  * @return           1 se o caractere estiver presente no conjunto, 0 caso contrário.
  */
+
+//PCC
 int	is_in_set(char c, char *search_set)
 {
 	int	i;

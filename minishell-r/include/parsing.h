@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 15:51:22 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:34:40 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int		check_pipe(char *input);
 void	init_command(t_command *seg);
 int		is_in_set(char c, char *search_set);
 int		is_great_less(char c);
-char	*replace_quote(char *str, char *find_set, char replace_char);
-char	**split_trim(char *str, char c);
+char	*replace_pipe(char *str, char find_set, char replace_char);
+char	**trim_parse(char **str);
 char	*parse_redirection(char *seg, int *curr_pos);
 void	add_char_string(char **str, char c);
 char	*parse_word(char *seg, int *curr_pos, char *red);

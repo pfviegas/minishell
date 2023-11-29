@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/28 15:51:03 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:07:37 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,53 +55,53 @@ int	get_here_doc(t_list *lst)
  * 
  * @param input A entrada a ser analisada.
  */
-void parsing(char *input)
-{
-	t_list *head;
-	char **parse_input;
-	char *temp_input;
-	int i;
+// void parsing(char *line_prompt)
+// {
+// 	t_list *head;
+// 	char **parse;
+// 	char *temp_prompt;
+// 	int i;
 
-	head = NULL;
-	temp_input = NULL;
-	// Verifica se há erro de sintaxe de pipe
-	if (pipe_sintax(input))
-	{
-		display_error(1, "Erro de sintaxe", true);
-		shell()->segment_lst = head;
-		return;
-	}
-	// Divide e remove espaços em branco da entrada
-	temp_input = replace_quote(input, "|", 1);
-	parse_input = split_trim(temp_input, 1);
-	print_matriz(parse_input);
-	i = 0;
-	// Cria uma lista de tokens para cada parte da entrada
-	while (parse_input[i])
-	{
-		ft_lstadd_back(&head, get_tokens(parse_input[i]));
-		i++;
-	}
-	// Imprime a lista de tokens (apenas para fins de depuração)
-	print_lst(head);
+// 	head = NULL;
+// 	temp_prompt = NULL;
+// 	// Verifica se há erro de sintaxe de pipe
+// 	if (pipe_sintax(line_prompt))
+// 	{
+// 		display_error(1, "Erro de sintaxe", true);
+// 		shell()->segment_lst = head;
+// 		return;
+// 	}
+// 	// Divide e remove espaços em branco da entrada
+// 	temp_prompt = replace_quote(line_prompt, '|', 1);
+// 	parse = split_trim(temp_prompt, 1);
+// 	print_matriz(parse);
+// 	i = 0;
+// 	// Cria uma lista de tokens para cada parte da entrada
+// 	while (parse[i])
+// 	{
+// 		ft_lstadd_back(&head, get_tokens(parse[i]));
+// 		i++;
+// 	}
+// 	// Imprime a lista de tokens (apenas para fins de depuração)
+// 	print_lst(head);
 
-	free_array(&parse_input);
-	shell()->segment_lst = head;
-	init_built_in_flags(shell()->segment_lst);
+// 	free_array(&parse);
+// 	shell()->segment_lst = head;
+// 	init_built_in_flags(shell()->segment_lst);
 
-	if (!shell()->error)
-	{
-		// Verifica se há here documents
-		/*
-		if (get_here_doc(shell()->segment_lst))
-		{
-			shell()->error = true;
-			return;
-		}
-		get_reds(shell()->segment_lst);
-		*/
-	}
-}
+// 	if (!shell()->error)
+// 	{
+// 		// Verifica se há here documents
+// 		/*
+// 		if (get_here_doc(shell()->segment_lst))
+// 		{
+// 			shell()->error = true;
+// 			return;
+// 		}
+// 		get_reds(shell()->segment_lst);
+// 		*/
+// 	}
+// }
 void	print_matriz(char **matriz)
 {
 	int i;
@@ -128,26 +128,26 @@ void	print_matriz(char **matriz)
  * @param input A string de entrada a ser verificada.
  * @return Retorna 1 se a sintaxe estiver presente, caso contrário retorna 0.
  */
-int pipe_sintax(char *input)
-{
-	int i;
+// int pipe_sintax(char *prompt)
+// {
+// 	int i;
 
-	if (!input || !(*input))
-		return (0);
-	i = 0;
-	while (input[i] && is_space(input[i]))
-		i++;
-	if (input[i] == '|')
-		return (1);
-	i = ft_strlen(input) - 1;
-	while (input[i] && is_space(input[i]))
-		i--;
-	if (input[i] == '|')
-		return (1);
-	if (check_pipe(input))
-		return (1);
-	return (0);
-}
+// 	if (!prompt || !(*prompt))
+// 		return (0);
+// 	i = 0;
+// 	while (prompt[i] && is_space(prompt[i]))
+// 		i++;
+// 	if (prompt[i] == '|')
+// 		return (1);
+// 	i = ft_strlen(prompt) - 1;
+// 	while (prompt[i] && is_space(prompt[i]))
+// 		i--;
+// 	if (prompt[i] == '|')
+// 		return (1);
+// 	if (check_pipe(prompt))
+// 		return (1);
+// 	return (0);
+// }
 
 /**
  * Verifica se há um pipe (|) entre os argumentos fornecidos e se a sintaxe do pipe
@@ -157,31 +157,31 @@ int pipe_sintax(char *input)
  * @return Retorna 1 se houver um pipe entre os argumentos, 
  *         caso contrário, retorna 0.
  */
-int check_pipe(char *input)
-{
-	int i;
-	char quote;
-	char last_char;
+// int check_pipe(char *input)
+// {
+// 	int i;
+// 	char quote;
+// 	char last_char;
 
-	i = 0;
-	last_char = 0;
-	while (input[i])
-	{
-		if (is_quote(input[i]))
-		{
-			quote = input[i++];
-			while (input[i] && input[i] != quote)
-				i++;
-			if (input[i++] != quote)
-				return (0);
-			last_char = 0;
-		}
-		else if (is_space(input[i]))
-			i++;
-		else if (last_char == '|' && input[i] == '|')
-			return (1);
-		else
-			last_char = input[i++];
-	}
-	return (0);
-}
+// 	i = 0;
+// 	last_char = 0;
+// 	while (input[i])
+// 	{
+// 		if (is_quote(input[i]))
+// 		{
+// 			quote = input[i++];
+// 			while (input[i] && input[i] != quote)
+// 				i++;
+// 			if (input[i++] != quote)
+// 				return (0);
+// 			last_char = 0;
+// 		}
+// 		else if (is_space(input[i]))
+// 			i++;
+// 		else if (last_char == '|' && input[i] == '|')
+// 			return (1);
+// 		else
+// 			last_char = input[i++];
+// 	}
+// 	return (0);
+// }

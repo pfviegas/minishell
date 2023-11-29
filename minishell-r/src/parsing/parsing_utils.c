@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/28 16:05:27 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:19:54 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,116 +175,110 @@ char *parse_redirection(char *seg, int *curr_pos)
 	return final;
 }
 
-/**
- * Função responsável por obter os tokens de um comando de entrada.
- *
- * @param input_command O comando de entrada a ser analisado.
- * @return Uma lista encadeada contendo os tokens do comando.
- */
-t_list	*get_tokens(char *input_command)
-{
-	char	*temp;
-	t_command	*new_seg;
-	int		i;
+// /**
+//  * Função responsável por obter os tokens de um comando de entrada.
+//  *
+//  * @param input_command O comando de entrada a ser analisado.
+//  * @return Uma lista encadeada contendo os tokens do comando.
+//  */
+// t_list	*get_tokens(char *input_command)
+// {
+// 	char	*temp;
+// 	t_command	*new_seg;
+// 	int		i;
 
-	i = 0;
+// 	i = 0;
 	
-	new_seg = malloc(sizeof(t_command));
-	if (!new_seg)
-		return (NULL);
-	new_seg->built_in = false;
-//  Inicializa a estrutura t_command com valores padrão.
-	init_command(new_seg);
-	printf("%s\n\n\n",input_command);
-	while (input_command[i] && !shell()->error)
-	{
-		if (is_space(input_command[i]))
-			i++;
-		else if (is_great_less(input_command[i]))
-		{
-			temp = parse_redirection(input_command, &i);
-			if (temp)
-			{
-				add_str_to_array(&new_seg->red, temp);
-				free(temp);
-			}
-		}
-		else
-		{
-			temp = parse_word(input_command, &i, NULL);
-			if (temp)
-			{
-				add_str_to_array(&new_seg->cmd, temp);
-				free(temp);
-			}
-		}
-	}
-	return (ft_lstnew((t_command *)new_seg));
-}
+// 	new_seg = malloc(sizeof(t_command));
+// 	if (!new_seg)
+// 		return (NULL);
+// 	new_seg->built_in = false;
+// //  Inicializa a estrutura t_command com valores padrão.
+// 	init_command(new_seg);
+// 	//printf("%s\n\n\n",input_command);
+// 	while (input_command[i] && !shell()->error)
+// 	{
+// 		if (is_space(input_command[i]))
+// 			i++;
+// 		else if (is_great_less(input_command[i]))
+// 		{
+// 			temp = parse_redirection(input_command, &i);
+// 			if (temp)
+// 			{
+// 				add_str_to_array(&new_seg->red, temp);
+// 				free(temp);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			temp = parse_word(input_command, &i, NULL);
+// 			if (temp)
+// 			{
+// 				add_str_to_array(&new_seg->cmd, temp);
+// 				free(temp);
+// 			}
+// 		}
+// 	}
+// 	return (ft_lstnew((t_command *)new_seg));
+// }
 
-/**
- * Função que divide uma string em um array de strings, 
- * utilizando um caractere delimitador e remove os espaços em branco 
- * e tabulações de cada elemento do array.
- *
- * @param str A string a ser dividida e trimada.
- * @param c   O caractere delimitador utilizado para dividir a string.
- * @return    Um array de strings contendo os elementos divididos e trimados.
- */
-char **split_trim(char *str, char c)
-{
-	char **array;
-	char *temp;
-	int i;
+// /**
+//  * Função que divide uma string em um array de strings, 
+//  * utilizando um caractere delimitador e remove os espaços em branco 
+//  * e tabulações de cada elemento do array.
+//  *
+//  * @param str A string a ser dividida e trimada.
+//  * @param c   O caractere delimitador utilizado para dividir a string.
+//  * @return    Um array de strings contendo os elementos divididos e trimados.
+//  */
+// char **split_trim(char *str, char c)
+// {
+// 	char **array;
+// 	char *temp;
+// 	int i;
 
-	array = ft_split(str, c);
-	if (!array)
-		return NULL;
-	i = -1;
-	while (array[++i])
-	{
-		temp = ft_strtrim(array[i], " \t");
-		free(array[i]);
-		array[i] = temp;
-	}
-	return array;
-}
+// 	array = ft_split(str, c);
+// 	if (!array)
+// 		return NULL;
+// 	i = -1;
+// 	while (array[++i])
+// 	{
+// 		temp = ft_strtrim(array[i], " \t");
+// 		free(array[i]);
+// 		array[i] = temp;
+// 	}
+// 	return (array);
+// }
 
+// /**
+//  * Substitui um caractere de busca por um caractere de substituição em uma string.
+//  *
+//  * @param str A string na qual a substituição será feita.
+//  * @param search_char O caractere a ser substituído.
+//  * @param replace_char O caractere de substituição.
+//  * @return A string modificada após a substituição.
+//  */
 
-/**
- * Substitui caracteres em uma string.
- *
- * Esta função substitui os caracteres especificados em `search_set` 
- * por `replace_char` na string `str`. A substituição ocorre apenas 
- * fora de aspas, ignorando os caracteres dentro de aspas. 
- * A função retorna a string modificada.
- *
- * @param str          A string a ser modificada.
- * @param search_set     Os caracteres a serem substituídos.
- * @param replace_char O caractere de substituição.
- * @return             A string modificada.
- */
-char	*replace_quote(char *str, char *search_set, char replace_char)
-{
-	int		i;
-	int		in_quote;
-	char	quote;
+// char	*replace_quote(char *str, char search_char, char replace_char)
+// {
+// 	int		i;
+// 	int		in_quote;
+// 	char	quote;
 
-	i = -1;
-	in_quote = 0;
-	quote = 0;
-	while (str[++i])
-	{
-		if (is_quote(str[i]) && in_quote == 0)
-		{
-			quote = str[i];
-			in_quote = 1;
-		}
-		else if (in_quote == 1 && str[i] == quote)
-			in_quote = 0;
-		else if (in_quote== 0 && is_in_set(str[i], search_set))
-			str[i] = replace_char;
-	}
-	return (str);
-}
-
+// 	i = -1;
+// 	in_quote = 0;
+// 	quote = 0;
+// 	while (str[++i])
+// 	{
+// 		if (is_quote(str[i]) && in_quote == 0)
+// 		{
+// 			quote = str[i];
+// 			in_quote = 1;
+// 		}
+// 		else if (in_quote == 1 && str[i] == quote)
+// 			in_quote = 0;
+// 		else if (in_quote == 0 && str[i] == search_char) // is_in_set(str[i], search_char)
+// 			str[i] = replace_char;
+// 	}
+// 	return (str);
+// }

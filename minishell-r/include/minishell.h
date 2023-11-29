@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:56:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:44:22 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 15:35:00 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,10 @@ void	init_shell_vars(t_shell *sh, char **envp);
 char	**get_env_vars(char **envp);
 char	**cp_array(char **array);
 char	*get_env_var_name(char *str);
-//void	update_shlvl(char ***env, char *value);
 void	update_env(char	***env, char *cmd);
-
 void	add_char(char **str, char c);
 void	add_str_to_array(char ***array, char *str);
-//int		find_env_var(char **env, char *var);
 char	**create_array(char *str);
-
+void 	stderr_null(void);
 
 #endif
-

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 12:00:10 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 14:13:24 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 //	verifica se o numero de argumentos é valido	
 	if (argc != 1)
 	{
+//		exibe uma mensagem de erro no stderr
 		write(2, "minishell: ", 11);
 		write(2, argv[1], ft_strlen(argv[1]));
 		write(2, ": No such file or directory\n", 28);
@@ -50,12 +51,17 @@ int	main(int argc, char **argv, char **envp)
 	shell()->prompt = true;
 //	inicializa as variaveis de ambiente	
 	init_shell_vars(shell(), envp);
+//	enquanto a prompt estiver ativa
 	while (shell()->prompt)
 	{
+//		exibe a prompt e captura o comando
 		prompt_line = readline("minishell$ ");
+//		se o comando for nulo ou vazio, sai do minishell
 		if (!prompt_line)
 		{
+//			libera a memoria alocada
 			free_all(true, false, true, false);
+//			sai do minishell com o codigo de saida 0
 			exit(0);
 		}
 		if (prompt_line[0] != '\n' || prompt_line[0] != '\0')
@@ -64,12 +70,18 @@ int	main(int argc, char **argv, char **envp)
 			add_history(prompt_line);
 // 			verifica se o comando é valido
 			parsing(prompt_line);
+// 			se o comando for valido, executa
 			if (!shell()->error)
+//				executa o comando
 				executor(shell()->tokens_lst);
- 			free_all(false, true, false, false);		
+//			libera a memoria alocada
+ 			free_all(false, true, false, false);
 		}
 	}
+//	libera a memoria alocada
 	free_all(true, false, true, false);
+//	exibe uma nova linha	
 	printf("\n");
+//	retorna o codigo de saida do minishell
 	return (shell()->exit_code);
 }

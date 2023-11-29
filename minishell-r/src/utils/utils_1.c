@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:48:48 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:49:28 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 15:34:44 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,4 +425,28 @@ void	rm_str_from_array(char ***array, int index)
 		free_array(array);
 		*array = new_array;
 	}
+}
+
+/**
+ * Função que redireciona a saída de erro padrão (stderr) para /dev/null.
+ * Qualquer mensagem de erro escrita em stderr será descartada.
+ * 
+ * @return void
+ */
+void stderr_null(void)
+{
+	int null_fd = open("/dev/null", O_WRONLY);
+
+	if (null_fd == -1) 
+	{
+		perror("Erro ao abrir /dev/null");
+		exit(1);
+	}
+	// Redirecionar stderr para /dev/null
+	if (dup2(null_fd, STDERR_FILENO) == -1)
+	{
+		perror("Erro ao redirecionar stderr");
+		exit(1);
+	}
+	close(null_fd);
 }

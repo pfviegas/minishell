@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:45 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 12:05:51 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 15:51:32 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void execute_built_in(char **cmd, int seg_error)
  * 
  * @param seg O comando a ser executado.
  */
-void execute_single_built_in(t_command *seg)
+void execute_single_built_in(t_command *token)
 {
 	int in;
 	int out;
@@ -55,30 +55,31 @@ void execute_single_built_in(t_command *seg)
 	out = -1;
 
 	// Verifica se ocorreu um erro de redirecionamento
-	if (seg->red_error == 1)
+	if (token->redirect_error == 1)
 	{
-		display_error(1, NULL, true);
+//		display_error(1, "NULL PAULO", true);
+//		stderr_null();
 		return;
 	}
 
 	// Redireciona a entrada padrão, se necessário
-	if (seg->std.in != -1)
+	if (token->std.in != -1)
 	{
 		in = dup(STDIN_FILENO);
-		dup2(seg->std.in, STDIN_FILENO);
-		close(seg->std.in);
+		dup2(token->std.in, STDIN_FILENO);
+		close(token->std.in);
 	}
 
 	// Redireciona a saída padrão, se necessário
-	if (seg->std.out != -1)
+	if (token->std.out != -1)
 	{
 		out = dup(STDOUT_FILENO);
-		dup2(seg->std.out, STDOUT_FILENO);
-		close(seg->std.out);
+		dup2(token->std.out, STDOUT_FILENO);
+		close(token->std.out);
 	}
 
 	// Executa o comando built-in
-	execute_built_in(seg->cmd, seg->red_error);
+	execute_built_in(token->cmd, token->redirect_error);
 
 	// Restaura a entrada padrão, se necessário
 	if (in != -1)

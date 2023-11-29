@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/11/28 16:36:56 by pviegas          ###   ########.fr        #
+#    Updated: 2023/11/29 16:12:36 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME = minishell
 
 # Compiler options
 CC 			= cc
-CFLAGS		= -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -g3 #-fsanitize=address
 READFLAGS	= -lreadline
 
 # Paths

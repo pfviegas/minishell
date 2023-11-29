@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:29:22 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 13:40:31 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 17:06:19 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char *parse_word(char *seg, int *curr_pos, char *red)
 		(*curr_pos)++;
 	}
 	if (seg[*curr_pos] == '\0' && quote)
-		display_error(1, "Minishell doesn't interpreted unclosed quotes...", true);
+		display_error(1, "Minishell doesn't interpreted unclosed quotes or special characters", true);
 	if (!str && was_q)
 		str = ft_calloc(1, 1);
 	return (str);
@@ -258,10 +258,10 @@ char **split_trim(char *str, char c)
  * fora de aspas, ignorando os caracteres dentro de aspas. 
  * A função retorna a string modificada.
  *
- * @param str          A string a ser modificada.
+ * @param str            A string a ser modificada.
  * @param search_set     Os caracteres a serem substituídos.
- * @param replace_char O caractere de substituição.
- * @return             A string modificada.
+ * @param replace_char   O caractere de substituição.
+ * @return               A string modificada.
  */
 char	*find_replace(char *str, char *search_set, char replace_char)
 {
@@ -297,7 +297,11 @@ void	get_redirects(t_list *lst)
 {
 	t_list		*temp;
 	t_command	*seg;
-	int		i;
+	int			i;
+	char		*msg;
+
+//PFV
+//	print_lst(lst);
 
 	temp = lst;
 	while (temp)
@@ -312,7 +316,7 @@ void	get_redirects(t_list *lst)
 					close(seg->std.in);
 				if (access(&seg->red[i][1], F_OK))
 				{
-					seg->red_error = 1;
+					seg->redirect_error = 1;
 					break ;
 				}
 				if (!seg->here_doc)
@@ -320,7 +324,7 @@ void	get_redirects(t_list *lst)
 					seg->std.in = open(&seg->red[i][1], O_RDONLY);
 					if (seg->std.in == -1)
 					{
-						seg->red_error = 1;
+						seg->redirect_error = 1;
 						break ;
 					}
 				}
@@ -334,7 +338,7 @@ void	get_redirects(t_list *lst)
 					seg->std.out = open(&seg->red[i][2], O_RDWR | O_CREAT | O_APPEND, 0644);
 					if (seg->std.out == -1)
 					{
-						seg->red_error = 1;
+						seg->redirect_error = 1;
 						break ;
 					}
 				}
@@ -343,14 +347,20 @@ void	get_redirects(t_list *lst)
 					seg->std.out = open(&seg->red[i][1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 					if (seg->std.out == -1)
 					{
-						seg->red_error = 1;
+						seg->redirect_error = 1;
 						break ;
 					}
 				}
 			}
 		}
-		if (seg->red_error == 1)
-			display_error(1, strerror(errno), false);
+		if (seg->redirect_error == 1)
+		{
+//PFV
+//			display_error(1, strerror(errno), false);
+			msg = ft_strjoin("minishell: ", strerror(errno));
+			display_error(1, msg, false);
+			free(msg);
+		}
 		temp = temp->next;
 	}
 }

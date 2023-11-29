@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:02:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 12:01:02 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 16:53:28 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ void execute(char **cmd, char **envp)
 {
 	char *path;
 	char *msg;
+	char *msg_aux;
 
 	path = find_path(envp, cmd[0]);
 //PFV
-//	printf("path: %s\n", path);
+//	printf("PATH: %s\n", path);
+
+	msg = NULL;
+	msg_aux = NULL;
 
 	check_dir(path);
 	if (execve(path, cmd, envp) == -1)
@@ -43,8 +47,8 @@ void execute(char **cmd, char **envp)
 		{
 			if ((!ft_strncmp("./", path, 2) || path[0] == '/'))
 			{
-				msg = ft_strjoin("minishell: ", path);
-				msg = ft_strjoin(msg, ": No such file or directory");
+				msg_aux = ft_strjoin("minishell: ", path);
+				msg = ft_strjoin(msg_aux, ": No such file or directory");
 				display_error(127, msg, true);
 			}
 			else
@@ -55,17 +59,19 @@ void execute(char **cmd, char **envp)
 		}
 		else if (errno == 13)
 		{
-			msg = ft_strjoin("minishell: ", path);
-			msg = ft_strjoin(msg, ": Permission denied");
+			msg_aux = ft_strjoin("minishell: ", path);
+			msg = ft_strjoin(msg_aux, ": Permission denied");
 			display_error(126, msg, true);	
 		}
 		else
 		{
-			msg = ft_strjoin("minishell: ", path);
-			msg = ft_strjoin(msg, ": command not found");
+			msg_aux = ft_strjoin("minishell: ", path);
+			msg = ft_strjoin(msg_aux, ": command not found");
 			display_error(127, msg, true);
 		}
 	}
+	free(msg);
+	free(msg_aux);
 	free(path);
 }
 
@@ -103,11 +109,11 @@ void	ctrl_process(t_list *curr, char **env)
 		else if (next && next->cmd)
 			dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 		close(cmd->pipe_fd[1]);
-		if (cmd->red_error != 1)
+		if (cmd->redirect_error != 1)
 		{
 			if (cmd && cmd->built_in)
 			{
-				execute_built_in(cmd->cmd, cmd->red_error);
+				execute_built_in(cmd->cmd, cmd->redirect_error);
 				free_all(true, true, true, false);
 				exit(0);
 			}
@@ -146,7 +152,7 @@ void execute_commands(t_list *token_list)
 	// Executa cada segmento de comando
 	while (current != NULL)
 	{
-		if (!current->next && ((t_command *)current->content)->red_error)
+		if (!current->next && ((t_command *)current->content)->redirect_error)
 			shell()->exit_code = 1;
 		ctrl_process(current, shell()->env);
 		current = current->next;
@@ -177,12 +183,16 @@ void executor(t_list *lst)
 {
 	t_command *cmd;
 
+//	verifica se a lista é nula
 	if (!lst)
 		return;
-
+//	cmd recebe o primeiro comando da lista
 	cmd = (t_command *)lst->content;
+//	verifica se a lista contém apenas um comando built-in ou varios comandos
 	if (cmd->built_in && !lst->next)
+//		executa o comando unico built-in	
 		execute_single_built_in(cmd);
 	else
+//		executa os comandos da lista	
 		execute_commands(lst);
 }

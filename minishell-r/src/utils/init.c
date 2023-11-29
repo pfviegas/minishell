@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:14:02 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 14:31:02 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ void init_shell_vars(t_shell *shell, char **envp)
  *
  * @param seg Ponteiro para a estrutura t_command a ser inicializada.
  */
-void init_command(t_command *seg)
+void init_command(t_command *token)
 {
-	seg->here_doc = false;
-	seg->red_error = 0;
-	seg->cmd = NULL;
-	seg->red = NULL;
-	seg->in = NULL;
-	seg->out = NULL;
-	seg->here = NULL;
-	seg->append = false;
-	seg->std.in = -1;
-	seg->std.out = -1;
+	token->here_doc = false;
+	token->redirect_error = 0;
+	token->cmd = NULL;
+	token->red = NULL;
+	token->in = NULL;
+	token->out = NULL;
+	token->here = NULL;
+//PFV
+//	token->append = false;
+	token->std.in = -1;
+	token->std.out = -1;
 }
 
 /**

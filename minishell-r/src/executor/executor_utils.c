@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:31:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 11:11:02 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/29 16:48:47 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@ void check_dir(char *path)
 {
 	struct stat	st;
 	char		*msg;
+	char		*msg_aux;
 	
 	if (stat(path, &st) == -1)
 		return;
 	if (S_ISDIR(st.st_mode) && path && (!ft_strncmp("./", path, 2) || path[0] == '/'))
 	{
-		msg = ft_strjoin("minishell: ", path);
-		msg = ft_strjoin(msg, ": Is a directory");
+		msg_aux = ft_strjoin("minishell: ", path);
+		msg = ft_strjoin(msg_aux, ": Is a directory");
+		free(path);
+		free(msg_aux);
 		display_error(126, msg, true);
+		free(msg);
 		free_all(true, true, true, true);
 	}
 }

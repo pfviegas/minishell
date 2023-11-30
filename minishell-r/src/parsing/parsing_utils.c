@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/29 18:19:54 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:18:04 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,47 +45,47 @@ void expand_var(char *old_str, char **new_str, int *curr_pos)
 	(*curr_pos)--;
 }
 
-/**
- * Função responsável por analisar uma palavra em uma determinada 
- * posição de uma string.
- * 
- * @param seg      A string a ser analisada.
- * @param curr_pos A posição atual na string.
- * @param red      A string de redirecionamento.
- * @return         Um ponteiro para a palavra analisada.
- */
-char *parse_word(char *seg, int *curr_pos, char *red)
-{
-	char *str;
-	char quote;
-	char was_q;
-	char start;
+// /**
+//  * Função responsável por analisar uma palavra em uma determinada 
+//  * posição de uma string.
+//  * 
+//  * @param seg      A string a ser analisada.
+//  * @param curr_pos A posição atual na string.
+//  * @param red      A string de redirecionamento.
+//  * @return         Um ponteiro para a palavra analisada.
+//  */
+// char *parse_word(char *seg, int *curr_pos, char *red)
+// {
+// 	char *str;
+// 	char quote;
+// 	char was_q;
+// 	char start;
 
-	str = NULL;
-	was_q = false;
-	quote = 0;
-	start = *curr_pos;
-	while (seg[*curr_pos] && !end_word(seg[*curr_pos], quote))
-	{
-		if (is_quote(seg[*curr_pos]) && !quote)
-		{
-			quote = seg[*curr_pos];
-			was_q = true;
-		}
-		else if (is_quote(seg[*curr_pos]) && quote == seg[(*curr_pos)])
-			quote = 0;
-		else if ((!quote || (quote && quote == '"')) && seg[*curr_pos] == '$' && ft_strcmp(red, "<<") != 0)
-			expand_var(seg, &str, curr_pos);
-		else
-			add_char_string(&str, seg[*curr_pos]);
-		(*curr_pos)++;
-	}
-	if (seg[*curr_pos] == '\0' && quote)
-		display_error(1, "Minishell doesn't handle quotation marks", true);
-	if (!str && was_q)
-		str = ft_calloc(1, 1);
-	return (str);
-}
+// 	str = NULL;
+// 	was_q = false;
+// 	quote = 0;
+// 	start = *curr_pos;
+// 	while (seg[*curr_pos] && !end_word(seg[*curr_pos], quote))
+// 	{
+// 		if (is_quote(seg[*curr_pos]) && !quote)
+// 		{
+// 			quote = seg[*curr_pos];
+// 			was_q = true;
+// 		}
+// 		else if (is_quote(seg[*curr_pos]) && quote == seg[(*curr_pos)])
+// 			quote = 0;
+// 		else if ((!quote || (quote && quote == '"')) && seg[*curr_pos] == '$' && ft_strcmp(red, "<<") != 0)
+// 			expand_var(seg, &str, curr_pos);
+// 		else
+// 			add_char_string(&str, seg[*curr_pos]);
+// 		(*curr_pos)++;
+// 	}
+// 	if (seg[*curr_pos] == '\0' && quote)
+// 		display_error(1, "Minishell doesn't handle quotation marks", true);
+// 	if (!str && was_q)
+// 		str = ft_calloc(1, 1);
+// 	return (str);
+// }
 
 /**
  * Adiciona um caractere a uma string.
@@ -103,6 +103,7 @@ void	add_char_string(char **str, char c)
 {
 	char	*new_str;
 	int		i;
+
 
 	if (!(*str))
 	{
@@ -129,51 +130,51 @@ void	add_char_string(char **str, char c)
 	*str = new_str;
 }
 
-/**
- * Função responsável por analisar e fazer o parsing de uma redirecionamento.
- *
- * @param seg      Ponteiro para a string contendo o segmento a ser analisado.
- * @param curr_pos Ponteiro para a posição atual na string.
- * @return         Ponteiro para a string resultante do parsing.
- */
-char *parse_redirection(char *seg, int *curr_pos)
-{
-	char *redirect;
-	char *temp;
-	char *final;
+// /**
+//  * Função responsável por analisar e fazer o parsing de uma redirecionamento.
+//  *
+//  * @param seg      Ponteiro para a string contendo o segmento a ser analisado.
+//  * @param curr_pos Ponteiro para a posição atual na string.
+//  * @return         Ponteiro para a string resultante do parsing.
+//  */
+// char *parse_redirection(char *seg, int *curr_pos)
+// {
+// 	char *redirect;
+// 	char *temp;
+// 	char *final;
 
-	redirect = NULL;
-	temp = NULL;
-	final = NULL;
+// 	redirect = NULL;
+// 	temp = NULL;
+// 	final = NULL;
 
-	// Adiciona o caractere atual à string redirect
-	add_char_string(&redirect, seg[(*curr_pos)++]);
+// 	// Adiciona o caractere atual à string redirect
+// 	add_char_string(&redirect, seg[(*curr_pos)++]);
 
-	// Verifica se o caractere atual é igual ao próximo caractere
-	if (seg[(*curr_pos) - 1] == seg[(*curr_pos)])
-		add_char_string(&redirect, seg[(*curr_pos)++]);
+// 	// Verifica se o caractere atual é igual ao próximo caractere
+// 	if (seg[(*curr_pos) - 1] == seg[(*curr_pos)])
+// 		add_char_string(&redirect, seg[(*curr_pos)++]);
 
-	// Ignora os espaços em branco
-	while (seg[(*curr_pos)] && is_space(seg[*curr_pos]))
-		(*curr_pos)++;
+// 	// Ignora os espaços em branco
+// 	while (seg[(*curr_pos)] && is_space(seg[*curr_pos]))
+// 		(*curr_pos)++;
 
-	// Verifica se o caractere atual não é um recionamento
-	if (seg[(*curr_pos)] && !is_great_less(seg[(*curr_pos)]))
-	{
-		// Faz o parsing da palavra seguinte
-		temp = parse_word(seg, curr_pos, redirect);
-		if (temp)
-		{
-			// Concatena a string redirect com a palavra parseada
-			final = ft_strjoin(redirect, temp);
-			free(temp);
-		}
-	}
-	else
-		display_error(1, "Syntax Error", true);
-	free(redirect);
-	return final;
-}
+// 	// Verifica se o caractere atual não é um recionamento
+// 	if (seg[(*curr_pos)] && !is_great_less(seg[(*curr_pos)]))
+// 	{
+// 		// Faz o parsing da palavra seguinte
+// 		temp = parse_word(seg, curr_pos, redirect);
+// 		if (temp)
+// 		{
+// 			// Concatena a string redirect com a palavra parseada
+// 			final = ft_strjoin(redirect, temp);
+// 			free(temp);
+// 		}
+// 	}
+// 	else
+// 		display_error(1, "Syntax Error", true);
+// 	free(redirect);
+// 	return final;
+// }
 
 // /**
 //  * Função responsável por obter os tokens de um comando de entrada.

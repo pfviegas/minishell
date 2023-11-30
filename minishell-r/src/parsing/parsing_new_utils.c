@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:42:03 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/29 18:28:56 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:48:10 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ t_list	*get_tokens(char *input_command)
 		else if (is_great_less(input_command[i]))
 		{
 			temp = parse_redirection(input_command, &i);
+			printf("final1 = %s\n", temp);
+			
 			if (temp)
 			{
 				add_str_to_array(&new_seg->red, temp);
@@ -105,6 +107,8 @@ t_list	*get_tokens(char *input_command)
 		else
 		{
 			temp = parse_word(input_command, &i, NULL);
+	printf("final2 = %s\n", temp);
+			
 			if (temp)
 			{
 				add_str_to_array(&new_seg->cmd, temp);
@@ -126,37 +130,84 @@ char *parse_redirection(char *seg, int *curr_pos)
 {
 	char *redirect;
 	char *temp;
-	char *final;
+	int i;
+	int j;
 
-	redirect = NULL;
+//PCC
 	temp = NULL;
-	final = NULL;
-
-	// Adiciona o caractere atual à string redirect
-	add_char_string(&redirect, seg[(*curr_pos)++]);
-
-	// Verifica se o caractere atual é igual ao próximo caractere
-	if (seg[(*curr_pos) - 1] == seg[(*curr_pos)])
-		add_char_string(&redirect, seg[(*curr_pos)++]);
-
-	// Ignora os espaços em branco
-	while (seg[(*curr_pos)] && is_space(seg[*curr_pos]))
-		(*curr_pos)++;
-
-	// Verifica se o caractere atual não é um recionamento
-	if (seg[(*curr_pos)] && !is_great_less(seg[(*curr_pos)]))
+	i = 1;
+	j = 1;
+	redirect = &seg[(*curr_pos)];
+	while (redirect && is_space(redirect[i]))
+			i++;
+	if(is_great_less(redirect[i]))
 	{
-		// Faz o parsing da palavra seguinte
-		temp = parse_word(seg, curr_pos, redirect);
-		if (temp)
+		display_error(1, "Syntax Error", true);
+		return(NULL);
+	}
+	i = 0;
+	temp = malloc(sizeof(char *) * ft_strlen(redirect));
+	while(redirect && redirect[i])
+	{
+		temp[i] = redirect[i];
+		if(redirect[i] == redirect[i + 1])
 		{
-			// Concatena a string redirect com a palavra parseada
-			final = ft_strjoin(redirect, temp);
-			free(temp);
+			temp[i + 1] = redirect[i + 1];
+			i++;
+			j++;
+		}
+		i++;
+		while (redirect && is_space(redirect[i]))
+			i++;
+		if(redirect && !is_great_less(redirect[i]))
+		{
+			while(redirect && redirect[i] && !is_space(redirect[i]))
+				temp[j++] = redirect[i++];
 		}
 	}
-	else
-		display_error(1, "Syntax Error", true);
-	free(redirect);
-	return final;
+	(*curr_pos) += j;
+	printf("final = %s\n", temp);
+	return (temp);
+}
+
+/**
+ * Função responsável por analisar uma palavra em uma determinada 
+ * posição de uma string.
+ * 
+ * @param seg      A string a ser analisada.
+ * @param curr_pos A posição atual na string.
+ * @param red      A string de redirecionamento.
+ * @return         Um ponteiro para a palavra analisada.
+ */
+char *parse_word(char *seg, int *curr_pos, char *red)
+{
+	char *str;
+	char quote;
+	char was_q;
+	char start;
+
+	str = NULL;
+	was_q = false;
+	quote = 0;
+	start = *curr_pos;
+	while (seg[*curr_pos] && !end_word(seg[*curr_pos], quote))
+	{
+		if (is_quote(seg[*curr_pos]) && !quote)
+		{
+			quote = seg[*curr_pos];
+			was_q = true;
+		}
+		else if (is_quote(seg[*curr_pos]) && quote == seg[(*curr_pos)])
+			quote = 0;
+		else if ((!quote || (quote && quote == '"')) && seg[*curr_pos] == '$' && ft_strcmp(red, "<<") != 0)
+			expand_var(seg, &str, curr_pos);
+		else
+			add_char_string(&str, seg[*curr_pos]);
+		(*curr_pos)++;
+	}
+	if (seg[*curr_pos] == '\0' && quote)
+		display_error(1, "Minishell doesn't handle quotation marks", true);
+	if (!str && was_q)
+		str = ft_calloc(1, 1);
+	return (str);
 }

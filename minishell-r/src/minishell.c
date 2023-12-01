@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 14:13:24 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:14:52 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	main(int argc, char **argv, char **envp)
 //		se o comando for nulo ou vazio, sai do minishell
 		if (!prompt_line)
 		{
+//			mensagem de saida CTRL+D
+			printf("exit\n");
 //			libera a memoria alocada
 			free_all(true, false, true, false);
 //			sai do minishell com o codigo de saida 0
@@ -78,10 +80,12 @@ int	main(int argc, char **argv, char **envp)
  			free_all(false, true, false, false);
 		}
 	}
+//	exibe uma nova linha
+//		printf("\n");
 //	libera a memoria alocada
 	free_all(true, false, true, false);
-//	exibe uma nova linha	
-	printf("\n");
+//	limpa o historico do readline
+	rl_clear_history();
 //	retorna o codigo de saida do minishell
 	return (shell()->exit_code);
 }

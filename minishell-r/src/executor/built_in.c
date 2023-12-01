@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:45 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 15:51:32 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 11:01:19 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void execute_built_in(char **cmd, int seg_error)
 		shell()->exit_code = 1;
 		return;
 	}
+//	verifica qual comando interno deve ser executado
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		execute_cd(cmd);
 	else if (ft_strcmp(cmd[0], "echo") == 0)
@@ -57,7 +58,7 @@ void execute_single_built_in(t_command *token)
 	// Verifica se ocorreu um erro de redirecionamento
 	if (token->redirect_error == 1)
 	{
-//		display_error(1, "NULL PAULO", true);
+//		display_error(1, NULL, true);
 //		stderr_null();
 		return;
 	}
@@ -104,6 +105,7 @@ void execute_single_built_in(t_command *token)
  */
 int is_built_in(char *str)
 {
+//	verifica se a string representa um comando interno
 	if (ft_strcmp(str, "export") == 0 || ft_strcmp(str, "env") == 0)
 		return (1);
 	else if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "unset") == 0)

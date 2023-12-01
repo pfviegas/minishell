@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:45:16 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:17:57 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:43:12 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,9 @@ void	update_env(char	***env, char *cmd)
 	{
 //		recupera o nome da variavel de ambiente
 		temp_env = get_env_var_name((*env)[i]);
+//		verifica se a variavel de ambiente ja existe		
 		if (ft_strcmp(temp_env, temp_cmd) == 0)
 		{
-//PFV
-/*
-			printf("     env: %s\n", (*env)[i]);
-			printf("     cmd: %s\n", cmd);
-			printf("temp_env: %s\n", temp_env);
-			printf("temp_cmd: %s\n", temp_cmd);
-*/
 			update_env_str(&(*env)[i], cmd, temp_env, temp_cmd);
 			free(temp_env);
 			free(temp_cmd);

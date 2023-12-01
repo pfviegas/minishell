@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 12:00:39 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 11:35:34 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handle_quit(int signal)
 	if (shell()->in_exec == true)
 	{
 		shell()->exit_code = 131;
-		ft_putstr_fd("Quit: 3\n", 2);
+		ft_putstr_fd("Quit (core dumped)\n", 2);
 	}
 }
 

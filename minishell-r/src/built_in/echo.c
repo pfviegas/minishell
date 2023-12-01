@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:15:51 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 13:43:32 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:55:23 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ void execute_echo(char **cmd)
 	int i;
 
 	flag = false;
+//	se nao houver argumentos, exibe uma nova linha	
 	if (!cmd[1])
 	{
 		printf("\n");
 		return;
 	}
+//	salta as flags do comando echo
 	i = skip_echo_flags(cmd, &flag) - 1;
 	while (cmd[++i])
 	{

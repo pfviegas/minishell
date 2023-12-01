@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 14:13:33 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:42:18 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,20 @@ void update_pwd_var(void)
 	char *new_pwd;
 	char *temp;
 
+//	guarda as variáveis de ambiente em um ponteiro para ponteiro de char
 	ch_env = &shell()->env;
+//	cria uma string formatada contendo o diretório atual
 	new_pwd = get_pwd_env_format();
+//	verifica se a variável "PWD" já existe no ambiente
 	if (find_var(shell()->env, "PWD") == -1)
 	{
+//		se não existir, atualiza apenas a variável "OLDPWD"
 		if (find_var(*ch_env, "OLDPWD") != -1)
 			update_env(ch_env, "OLDPWD");
 	}
 	else
 	{
+//		se existir, atualiza a variável "OLDPWD" e "PWD"
 		if (find_var(*ch_env, "OLDPWD") != -1)
 		{
 			temp = ft_strjoin("OLDPWD=", &(*ch_env)[find_var(shell()->env, "PWD")][4]);
@@ -96,19 +101,31 @@ void update_pwd_var(void)
 /**
  * Função para navegar até o diretório HOME do usuário.
  * 
- * @return 0 se a navegação for bem-sucedida, -1 caso contrário.
+ * @return 0 se a navegação for bem-sucedida
+ *        -1 caso contrário.
  */
 int cd_home(void)
 {
-	int i;
+	int		i;
+	char	*msg;
+	char	*msg_aux;
 
+//	procura a variavel HOME no ambiente
 	i = find_var(shell()->env, "HOME");
+//	se a variavel for encontrada, navega até o diretório
 	if (i != -1)
 	{
+//		verifica se o diretório existe
 		if (chdir(&shell()->env[i][5]) == -1)
 		{
-			perror("Error:");
-			shell()->exit_code = 1;
+			msg_aux = ft_strjoin("minishell: cd: ", &shell()->env[i][5]);
+			msg = ft_strjoin(msg_aux, ": No such file or directory");
+			free(msg_aux);
+			display_error(1, msg, true);
+			free(msg);
+//PFV
+//			perror("Error:");
+//			shell()->exit_code = 1;
 			return (-1);
 		}
 		return (0);
@@ -124,24 +141,36 @@ int cd_home(void)
  */
 void execute_cd(char **command)
 {
-	int i;
+	int		i;
+	char	*msg;
+	char	*msg_aux;
 
 	i = 0;
+//	verifica se o comando possui argumentos
 	while (command[i])
 		i++;
+//	se o comando não possuir argumentos, navega até o diretório HOME
 	if (i == 1)
-		cd_home();
-	else if (i > 2)
 	{
-		write(STDERR_FILENO, " too many arguments\n", 20);
-		shell()->exit_code = 1;
+		cd_home();
 		return;
 	}
+//	se o comando possuir mais de 2 argumentos, exibe uma mensagem de erro	
+	else if (i > 2)
+	{
+		display_error(1, "minishell: cd: too many arguments", true);
+		return;
+	}
+//	se o comando possuir 2 argumentos, navega até o diretório especificado
 	else
 	{
 		if (chdir(command[1]) == -1)
 		{
-			perror("Error:");
+			msg_aux = ft_strjoin("minishell: cd: ", command[1]);
+			msg = ft_strjoin(msg_aux, ": No such file or directory");
+			free(msg_aux);
+			display_error(1, msg, true);
+			free(msg);
 			shell()->exit_code = 1;
 			return;
 		}

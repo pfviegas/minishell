@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:29:22 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 17:06:19 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:53:29 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ void expand_var(char *old_str, char **new_str, int *curr_pos)
 	int start;
 
 	(*curr_pos)++;
-	if (ft_isdigit(old_str[(*curr_pos)]))
+	if (ft_isdigit(old_str[(*curr_pos)]) || old_str[(*curr_pos)] == '@')
 		return;
+	if (old_str[(*curr_pos)] == '#')
+	{
+		printf("0");
+		return;
+	}
 	start = (*curr_pos);
 	while (old_str[(*curr_pos)] && !end_variable(old_str[(*curr_pos)]))
 		(*curr_pos)++;

@@ -6,44 +6,44 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/30 17:18:04 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:10:23 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-/**
- * Expande uma variável em uma string.
- *
- * Expande uma variável em uma string, substituindo-a pelo seu valor.
- * A variável é identificada pelo caractere '$' seguido pelo nome da variável.
- * Se a variável for um número, ela não será expandida.
- * Se a variável for o caractere '?', ela será expandida para o código de 
- * saída do último comando executado.
- * Caso contrário, a função chama a função 'expander' para expandir a variável.
- * Se a variável não for encontrada, a função adiciona o caractere '$' à string.
- *
- * @param old_str A string original contendo a variável a ser expandida.
- * @param new_str O ponteiro para a string resultante da expansão.
- * @param curr_pos O ponteiro para a posição atual na string original.
- */
-void expand_var(char *old_str, char **new_str, int *curr_pos)
-{
-	int start;
+// /**
+//  * Expande uma variável em uma string.
+//  *
+//  * Expande uma variável em uma string, substituindo-a pelo seu valor.
+//  * A variável é identificada pelo caractere '$' seguido pelo nome da variável.
+//  * Se a variável for um número, ela não será expandida.
+//  * Se a variável for o caractere '?', ela será expandida para o código de 
+//  * saída do último comando executado.
+//  * Caso contrário, a função chama a função 'expander' para expandir a variável.
+//  * Se a variável não for encontrada, a função adiciona o caractere '$' à string.
+//  *
+//  * @param old_str A string original contendo a variável a ser expandida.
+//  * @param new_str O ponteiro para a string resultante da expansão.
+//  * @param curr_pos O ponteiro para a posição atual na string original.
+//  */
+// void expand_var(char *old_str, char **new_str, int *curr_pos)
+// {
+// 	int start;
 
-	(*curr_pos)++;
-	if (ft_isdigit(old_str[(*curr_pos)]))
-		return;
-	start = (*curr_pos);
-	while (old_str[(*curr_pos)] && !end_variable(old_str[(*curr_pos)]))
-		(*curr_pos)++;
-	if (old_str[(*curr_pos)] == '?')
-		expand_exit_code(new_str, curr_pos);
-	else if (start != *curr_pos)
-		expander(old_str, new_str, start, curr_pos);
-	else
-		add_char_string(new_str, '$');
-	(*curr_pos)--;
-}
+// 	(*curr_pos)++;
+// 	if (ft_isdigit(old_str[(*curr_pos)]))
+// 		return;
+// 	start = (*curr_pos);
+// 	while (old_str[(*curr_pos)] && !end_variable(old_str[(*curr_pos)]))
+// 		(*curr_pos)++;
+// 	if (old_str[(*curr_pos)] == '?')
+// 		expand_exit_code(new_str, curr_pos);
+// 	else if (start != *curr_pos)
+// 		expander(old_str, new_str, start, curr_pos);
+// 	else
+// 		add_char_string(new_str, '$');
+// 	(*curr_pos)--;
+// }
 
 // /**
 //  * Função responsável por analisar uma palavra em uma determinada 
@@ -87,48 +87,48 @@ void expand_var(char *old_str, char **new_str, int *curr_pos)
 // 	return (str);
 // }
 
-/**
- * Adiciona um caractere a uma string.
- *
- * Esta função recebe um ponteiro para uma string e um caractere `c` e adiciona 
- * o caractere à string. 
- * Se a string for nula, a função cria uma nova string contendo apenas o char.
- * Caso contrário, a função aloca memória suficiente para acomodar o caractere 
- * adicional e copia a string original para a nova string, seguida do char `c`. 
-  *
- * @param str O ponteiro para a string.
- * @param c O caractere a ser adicionado.
- */
-void	add_char_string(char **str, char c)
-{
-	char	*new_str;
-	int		i;
+// /**
+//  * Adiciona um caractere a uma string.
+//  *
+//  * Esta função recebe um ponteiro para uma string e um caractere `c` e adiciona 
+//  * o caractere à string. 
+//  * Se a string for nula, a função cria uma nova string contendo apenas o char.
+//  * Caso contrário, a função aloca memória suficiente para acomodar o caractere 
+//  * adicional e copia a string original para a nova string, seguida do char `c`. 
+//   *
+//  * @param str O ponteiro para a string.
+//  * @param c O caractere a ser adicionado.
+//  */
+// void	add_char_string(char **str, char c)
+// {
+// 	char	*new_str;
+// 	int		i;
 
 
-	if (!(*str))
-	{
-		new_str = malloc(2);
-		if (!new_str)
-			return ;
-		new_str[0] = c;
-		new_str[1] = '\0';
-		*str = new_str;
-		return ;
-	}
-	i = 0;
-	while ((*str)[i])
-		i++;
-	new_str = malloc(i + 2);
-	if (!new_str)
-		return ;
-	i = -1;
-	while ((*str)[++i])
-		new_str[i] = (*str)[i];
-	new_str[i] = c;
-	new_str[i + 1] = '\0';
-	free(*str);
-	*str = new_str;
-}
+// 	if (!(*str))
+// 	{
+// 		new_str = malloc(2);
+// 		if (!new_str)
+// 			return ;
+// 		new_str[0] = c;
+// 		new_str[1] = '\0';
+// 		*str = new_str;
+// 		return ;
+// 	}
+// 	i = 0;
+// 	while ((*str)[i])
+// 		i++;
+// 	new_str = malloc(i + 2);
+// 	if (!new_str)
+// 		return ;
+// 	i = -1;
+// 	while ((*str)[++i])
+// 		new_str[i] = (*str)[i];
+// 	new_str[i] = c;
+// 	new_str[i + 1] = '\0';
+// 	free(*str);
+// 	*str = new_str;
+// }
 
 // /**
 //  * Função responsável por analisar e fazer o parsing de uma redirecionamento.

@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:42:03 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/11/30 18:48:10 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:31:11 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ t_list	*get_tokens(char *input_command)
 		else if (is_great_less(input_command[i]))
 		{
 			temp = parse_redirection(input_command, &i);
-			printf("final1 = %s\n", temp);
-			
 			if (temp)
 			{
 				add_str_to_array(&new_seg->red, temp);
@@ -106,9 +104,7 @@ t_list	*get_tokens(char *input_command)
 		}
 		else
 		{
-			temp = parse_word(input_command, &i, NULL);
-	printf("final2 = %s\n", temp);
-			
+			temp = parse_word(input_command, &i);
 			if (temp)
 			{
 				add_str_to_array(&new_seg->cmd, temp);
@@ -147,7 +143,7 @@ char *parse_redirection(char *seg, int *curr_pos)
 	}
 	i = 0;
 	temp = malloc(sizeof(char *) * ft_strlen(redirect));
-	while(redirect && redirect[i])
+	while(redirect && redirect[i] && !is_space(redirect[i]))
 	{
 		temp[i] = redirect[i];
 		if(redirect[i] == redirect[i + 1])
@@ -165,8 +161,7 @@ char *parse_redirection(char *seg, int *curr_pos)
 				temp[j++] = redirect[i++];
 		}
 	}
-	(*curr_pos) += j;
-	printf("final = %s\n", temp);
+	(*curr_pos) += i;
 	return (temp);
 }
 
@@ -176,38 +171,110 @@ char *parse_redirection(char *seg, int *curr_pos)
  * 
  * @param seg      A string a ser analisada.
  * @param curr_pos A posição atual na string.
- * @param red      A string de redirecionamento.
  * @return         Um ponteiro para a palavra analisada.
  */
-char *parse_word(char *seg, int *curr_pos, char *red)
+char *parse_word(char *seg, int *i)
 {
 	char *str;
 	char quote;
-	char was_q;
-	char start;
+	//char start;
 
 	str = NULL;
-	was_q = false;
 	quote = 0;
-	start = *curr_pos;
-	while (seg[*curr_pos] && !end_word(seg[*curr_pos], quote))
+	//start = *i;
+	while (seg[*i] && !end_word(seg[*i], quote != 0))
 	{
-		if (is_quote(seg[*curr_pos]) && !quote)
-		{
-			quote = seg[*curr_pos];
-			was_q = true;
-		}
-		else if (is_quote(seg[*curr_pos]) && quote == seg[(*curr_pos)])
+		if (is_quote(seg[*i]) && quote == 0)
+			quote = seg[*i];
+		else if (is_quote(seg[*i]) && quote == seg[(*i)])
 			quote = 0;
-		else if ((!quote || (quote && quote == '"')) && seg[*curr_pos] == '$' && ft_strcmp(red, "<<") != 0)
-			expand_var(seg, &str, curr_pos);
+		else if ((quote == 0 || (quote != 0 && quote == '"')) && seg[*i] == '$')
+			expand_var(seg, &str, i);
 		else
-			add_char_string(&str, seg[*curr_pos]);
-		(*curr_pos)++;
+			add_char_string(&str, seg[*i]);
+		(*i)++;
 	}
-	if (seg[*curr_pos] == '\0' && quote)
-		display_error(1, "Minishell doesn't handle quotation marks", true);
-	if (!str && was_q)
-		str = ft_calloc(1, 1);
+	if (seg[*i] == '\0' && quote != 0)
+		display_error(1, "Syntax error: doesn't handle unclosed quotes", true);
+	printf("input = %s\n", str);
 	return (str);
+}
+
+/**
+ * Expande uma variável em uma string.
+ *
+ * Expande uma variável em uma string, substituindo-a pelo seu valor.
+ * A variável é identificada pelo caractere '$' seguido pelo nome da variável.
+ * Se a variável for um número, ela não será expandida.
+ * Se a variável for o caractere '?', ela será expandida para o código de 
+ * saída do último comando executado.
+ * Caso contrário, a função chama a função 'expander' para expandir a variável.
+ * Se a variável não for encontrada, a função adiciona o caractere '$' à string.
+ *
+ * @param old_str A string original contendo a variável a ser expandida.
+ * @param new_str O ponteiro para a string resultante da expansão.
+ * @param curr_pos O ponteiro para a posição atual na string original.
+ */
+void expand_var(char *old, char **new, int *i)
+{
+	int start;
+
+	(*i)++;
+	if (ft_isdigit(old[(*i)]) || old[(*i)] == '@')
+		return;
+	if (old[(*i)] == '#')
+	{
+		printf("0");
+		return;
+	}
+	start = (*i);
+	while (old[(*i)] && !end_var(old[(*i)]))
+		(*i)++;
+	if (old[(*i)] == '?')
+		expand_exit(new, i);
+	else if (start != *i)
+		expander(old, new, start, i);
+	else
+		add_char_string(new, '$');
+	(*i)--;
+}
+
+/**
+ * Adiciona um caractere a uma string.
+ *
+ * Esta função recebe um ponteiro para uma string e um caractere `c` e adiciona 
+ * o caractere à string. 
+ * Se a string for nula, a função cria uma nova string contendo apenas o char.
+ * Caso contrário, a função aloca memória suficiente para acomodar o caractere 
+ * adicional e copia a string original para a nova string, seguida do char `c`. 
+  *
+ * @param str O ponteiro para a string.
+ * @param c O caractere a ser adicionado.
+ */
+void	add_char_string(char **str, char c)
+{
+	char	*new;
+	int		i;
+
+
+	if (!(*str))
+	{
+		new = malloc(2);
+		if (!new)
+			return ;
+		new[0] = c;
+		new[1] = '\0';
+		*str = new;
+		return ;
+	}
+	new = malloc(ft_strlen(*str) + 2);
+	if (!new)
+		return ;
+	i = -1;
+	while ((*str)[++i])
+		new[i] = (*str)[i];
+	new[i] = c;
+	new[i + 1] = '\0';
+	free(*str);
+	*str = new;
 }

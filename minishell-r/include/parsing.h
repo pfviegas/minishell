@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 17:34:40 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/01 13:11:08 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*replace_pipe(char *str, char find_set, char replace_char);
 char	**trim_parse(char **str);
 char	*parse_redirection(char *seg, int *curr_pos);
 void	add_char_string(char **str, char c);
-char	*parse_word(char *seg, int *curr_pos, char *red);
+char	*parse_word(char *seg, int *curr_pos);
 void	expand_var(char *old_str, char **new_str, int *curr_pos);
 t_list	*get_tokens(char *input_command);
 

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 13:42:18 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/04 13:37:13 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @return   A string formatada contendo o diretório atual 
  * no formato "PWD=diretorio_atual".
  */
-char *get_pwd_env_format(void)
+char *get_working_directory(void)
 {
 	char buf[PATH_MAX + 1];
 	char *cmd;
@@ -74,11 +74,11 @@ void update_pwd_var(void)
 //	guarda as variáveis de ambiente em um ponteiro para ponteiro de char
 	ch_env = &shell()->env;
 //	cria uma string formatada contendo o diretório atual
-	new_pwd = get_pwd_env_format();
+	new_pwd = get_working_directory();
 //	verifica se a variável "PWD" já existe no ambiente
 	if (find_var(shell()->env, "PWD") == -1)
 	{
-//		se não existir, atualiza apenas a variável "OLDPWD"
+//		se não existir PWD, atualiza apenas a variável "OLDPWD" se esta existir
 		if (find_var(*ch_env, "OLDPWD") != -1)
 			update_env(ch_env, "OLDPWD");
 	}

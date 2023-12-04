@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:41:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 10:49:56 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:09:49 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int here_doc(t_command *cmd)
 	pid = fork();
 	i = 0;
 	line = NULL;
+//	verifica se o processo é o filho
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_IGN);
@@ -122,8 +123,8 @@ int here_doc(t_command *cmd)
 		free_all(true, true, true, false);
 		exit(0);
 	}
-	close(shell()->here_doc_fd[1]);
 	wait(&pid);
+	close(shell()->here_doc_fd[1]);
 	shell()->in_here_doc = false;
 	return (shell()->here_doc_fd[0]);
 }

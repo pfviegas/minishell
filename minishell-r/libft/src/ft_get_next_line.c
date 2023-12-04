@@ -5,152 +5,128 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 13:29:37 by pviegas           #+#    #+#             */
-/*   Updated: 2023/08/14 14:30:39 by pviegas          ###   ########.fr       */
+/*   Created: 2023/12/04 15:55:26 by pviegas           #+#    #+#             */
+/*   Updated: 2023/12/04 16:00:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
 /**
- * @brief Verifica se a linha deve ser liberada e retorna NULL se necessário.
+ * Calcula o tamanho de uma string, excluindo o caractere de nova linha ('\n').
  *
- * Esta função verifica se a linha deve ser liberada com base no número de 
- * bytes lidos.
- * Se `bytes` for 0 e a linha estiver vazia, a função libera a memória alocada 
- * para a linha e retorna NULL.
- *
- * @param line A linha a ser verificada.
- * @param bytes O número de bytes lidos.
- * @return A linha atualizada ou NULL se a linha deve ser liberada.
+ * @param str    A string de entrada.
+ * @return       O tamanho da string, excluindo o caractere de nova linha.
  */
-
-static char	*chk_line(char *line, int bytes)
+size_t str_len(const char *str)
 {
-	if (bytes == 0 && *line == '\0')
-	{
-		free(line);
+	size_t i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i + (str[i] == '\n'));
+}
+
+/**
+ * Função que concatena duas strings e retorna o resultado.
+ *
+ * @param line    A primeira string a ser concatenada.
+ * @param stash   A segunda string a ser concatenada.
+ * @return        A string resultante da concatenação de line e stash.
+ */
+static char	*ft_join(char *line, char *stash)
+{
+	char	*ret;
+	size_t	i;
+
+	ret = (char *)malloc((str_len(line) + str_len(stash)) + 1);
+	if (!ret)
 		return (NULL);
-	}
-	if (line == NULL)
+	i = -1;
+	while (line && line[++i])
+		ret[i] = line[i];
+	i += (!line);
+	free(line);
+	while (*stash)
 	{
-		line = malloc(1);
-		if (line == NULL)
-			return (NULL);
-		*line = '\0';
+		ret[i++] = *stash;
+		if (*stash++ == '\n')
+			break ;
 	}
-	return (line);
+	ret[i] = '\0';
+	return (ret);
 }
 
 /**
- * @brief Lê uma linha do arquivo referenciado pelo descritor de arquivo.
- *
- * Esta função lê uma linha do arquivo referenciado pelo descritor de 
- * arquivo `fd`.
- * A função lê os bytes do arquivo em um buffer temporário, concatenando-os 
- * na linha atual.
- * A função continua lendo até encontrar um caractere de nova linha ('\n') ou 
- * até que não haja mais bytes para ler do arquivo.
- *
- * @param fd O descritor de arquivo do arquivo a ser lido.
- * @param line A linha atual.
- * @return A linha atualizada com a leitura adicional do arquivo.
- *         A string é alocada dinamicamente e deve ser liberada pelo chamador.
- *         Retorna NULL se ocorrer um erro de leitura.
+ * Limpa o próximo caractere de nova linha ('\n').
+ * 
+ * @param stash   A string a ser verificada e modificada.
+ * @return        1 se um caractere de nova linha foi encontrado e removido, 
+ *                0 caso contrário.
  */
-
-static char	*read_line(int fd, char *line)
+static int ft_nextclean(char *stash)
 {
-	char	*str;
-	int		bytes_read;
-
-	str = (char *)malloc(BUFFER_SIZE + 1);
-	if (str == NULL)
-		return (0);
-	bytes_read = 1;
-	while (!ft_strchr(line, '\n') && bytes_read > 0)
+	int nl_flag = 0;
+	int i;
+	int j;
+	
+	i = 0;
+	j = 0;
+	while (stash[i])
 	{
-		bytes_read = read(fd, str, BUFFER_SIZE);
-		if (bytes_read == -1)
+		if (stash[i] == '\n')
 		{
-			free(str);
-			free(line);
-			return (0);
+			nl_flag = 1;
+			stash[i++] = 0;
+			break;
 		}
-		str[bytes_read] = '\0';
-		line = ft_strjoin(line, str);
+		stash[i++] = 0;
 	}
-	free(str);
-	line = chk_line(line, bytes_read);
-	return (line);
-}
-
-/**
- * @brief Extrai a próxima linha da linha atual.
- *
- * Esta função extrai a próxima linha da linha atual e retorna uma nova string 
- * contendo a linha extraída.
- * A função remove a linha extraída da linha atual, atualizando-a para conter 
- * os bytes restantes.
- *
- * @param line A linha atual.
- * @return Uma nova string contendo a próxima linha extraída.
- *         A string é alocada dinamicamente e deve ser liberada pelo chamador.
- *         Retorna NULL se ocorrer um erro de alocação de memória.
- */
-
-static char	*ft_next_line(char *line)
-{
-	char	*str;
-	char	*str_f;
-	int		nl_pos;
-
-	if (!ft_strchr(line, '\n'))
-		str_f = line + (ft_strlen(line) - 1);
-	else
-		str_f = ft_strchr(line, '\n');
-	nl_pos = str_f - line + 1;
-	str = (char *)malloc(nl_pos + 1);
-	if (str == NULL)
+	if (nl_flag)
 	{
-		free(line);
-		free(str);
-		return (0);
+		while (stash[i])
+		{
+			stash[j++] = stash[i];
+			stash[i++] = 0;
+		}
 	}
-	ft_memmove(str, line, nl_pos);
-	str[nl_pos] = '\0';
-	ft_memmove(line, nl_pos + line, ft_strlen(line) - nl_pos + 1);
-	return (str);
+	return (nl_flag);
 }
 
 /**
- * @brief Lê uma linha de um arquivo descritor de arquivo.
+ * Função para ler a próxima linha de um arquivo.
  *
- * Esta função lê uma linha do arquivo referenciado pelo descritor de 
- * arquivo `fd`.
- * A função armazena a linha em uma string alocada dinamicamente e retorna 
- * um ponteiro para essa string. A função mantém o estado da leitura entre a
- * s chamadas, permitindo que linhas sucessivas sejam lidas do arquivo.
+ * Lê a próxima linha do arquivo especificado pelo descritor de arquivo (fd).
+ * Armazena o conteúdo lido em um buffer estático (stash) e 
+ * retorna a linha lida como uma string.
+ * Se ocorrer um erro na leitura ou se o tamanho do buffer for menor que 1, 
+ * a função retorna NULL.
  *
- * @param fd O descritor de arquivo do arquivo a ser lido.
- * @return Um ponteiro para a linha lida do arquivo.
- *         A string é alocada dinamicamente e deve ser liberada pelo chamador.
- *         Retorna NULL se ocorrer um erro de leitura ou se não houver mais 
- *         linhas para ler.
+ * @param fd    O descritor de arquivo do qual ler a próxima linha.
+ * @return      A próxima linha lida do arquivo ou NULL em caso de erro.
  */
-
 char	*ft_get_next_line(int fd)
 {
-	static char	*line;
-	char		*next_line;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	line = read_line(fd, line);
-	if (!line)
+	static char	stash[BUFFER_SIZE + 1];
+	char		*line;
+	int 		i;
+	
+	i = 0;
+	if (read(fd, 0, 0) < 0 || BUFFER_SIZE < 1)
 	{
+		while (stash[i])
+			stash[i++] = 0;
 		return (NULL);
 	}
-	next_line = ft_next_line(line);
-	return (next_line);
+	line = NULL;
+	while (*stash || read(fd, stash, BUFFER_SIZE) > 0)
+	{
+		line = ft_join(line, stash);
+		if (ft_nextclean(stash))
+			break ;
+	}
+	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:02:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/04 11:40:48 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:02:56 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void execute(char **cmd, char **envp)
 		else if (errno == 13)
 		{
 			msg_aux = ft_strjoin("minishell: ", path);
-			msg = ft_strjoin(msg_aux, ": Permission denied");
-			display_error(126, msg, true);	
+			msg = ft_strjoin(msg_aux, ": command not found");
+			display_error(127, msg, true);	
 		}
 		else
 		{

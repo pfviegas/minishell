@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:02:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 16:53:28 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:40:48 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,16 @@ void execute(char **cmd, char **envp)
 	char *msg;
 	char *msg_aux;
 
+//	path recebe o caminho do comando
 	path = find_path(envp, cmd[0]);
-//PFV
-//	printf("PATH: %s\n", path);
-
 	msg = NULL;
 	msg_aux = NULL;
 
+//	verifica se o caminho do comando é um diretório
 	check_dir(path);
+//	executa o comando	
 	if (execve(path, cmd, envp) == -1)
 	{
-//PFV
-//		printf("errno: %d\n", errno);
-		
 		//EFAULT (14) - Bad address
 		if (errno == 14)
 		{
@@ -84,49 +81,72 @@ void execute(char **cmd, char **envp)
 void	ctrl_process(t_list *curr, char **env)
 {
 	t_command	*cmd;
-	t_command	*next;
+	t_command	*next_content;
 
+// 	cmd recebe o comando atual
 	cmd = curr->content;
-	next = NULL;
+//	inicializa o next_content para receber o proximo comando
+	next_content = NULL;
+//	verifica se o proximo comando existe	
 	if (curr->next)
-		next = curr->next->content;
+		next_content = curr->next->content;
+//	cria um pipe para o comando atual
 	pipe(cmd->pipe_fd);
+//	atualiza o status de execucao do shell
 	shell()->in_exec = true;
+//	cria um processo filho
 	cmd->proc_id = fork();
+//	verifica se o processo é o filho
 	if (cmd->proc_id == 0)
 	{
+// 		Se o comando atual for o primeiro da lista, redireciona a entrada padrão
 		if (cmd->std.in != -1)
 		{
 			dup2(cmd->std.in, STDIN_FILENO);
 			close(cmd->std.in);
 		}
 		close(cmd->pipe_fd[0]);
+// 		Se o comando atual for o último da lista, redireciona a saída padrão
 		if (cmd->std.out != -1)
 		{
 			dup2(cmd->std.out, STDOUT_FILENO);
 			close(cmd->std.out);
 		}
-		else if (next && next->cmd)
+// 		Se o comando atual não for o último da lista, redireciona a saída padrão para o pipe
+		else if (next_content && next_content->cmd)
 			dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 		close(cmd->pipe_fd[1]);
+// 		verifica se ocorreu um erro de redirecionamento
 		if (cmd->redirect_error != 1)
 		{
+// 			verifica se o comando atual é um comando built-in
 			if (cmd && cmd->built_in)
 			{
+// 				executa o comando built-in
 				execute_built_in(cmd->cmd, cmd->redirect_error);
+// 				libera a memoria alocada
 				free_all(true, true, true, false);
+// 				termina o processo filho com exit_code 0
 				exit(0);
 			}
+// 			verifica se o comando atual é um comando externo
 			else if (cmd->cmd)
 				execute(cmd->cmd, env);
 		}
+//		libera a memoria alocada
 		free_all(true, true, true, false);
+//		termina o processo filho com exit_code 0
 		exit(shell()->exit_code);
 	}
+//	verifica se o processo é o pai
 	else
 	{
-		if (next && next->cmd && next->std.in == -1)
-			next->std.in = dup(cmd->pipe_fd[0]);
+//		Verifica se next_content não é nulo e 
+//		se possui um comando (next_content->cmd) e 
+//		se o descritor de arquivo de entrada (next_content->std.in) é igual a -1.
+		if (next_content && next_content->cmd && next_content->std.in == -1)
+			next_content->std.in = dup(cmd->pipe_fd[0]);
+//		fecha os descritores de arquivo se necessário
 		if (cmd->std.in != -1)
 			close(cmd->std.in);
 		if (cmd->std.out != -1)
@@ -148,7 +168,6 @@ void execute_commands(t_list *token_list)
 
 	status = 0;
 	current = token_list;
-
 	// Executa cada segmento de comando
 	while (current != NULL)
 	{
@@ -157,18 +176,15 @@ void execute_commands(t_list *token_list)
 		ctrl_process(current, shell()->env);
 		current = current->next;
 	}
-
 	current = token_list;
-
 	// Aguarda a finalização de cada processo filho
 	while (current != NULL)
 	{
 		waitpid(((t_command *)current->content)->proc_id, &status, 0);
 		current = current->next;
 	}
-
+//	atualiza o status de execucao do shell
 	shell()->in_exec = false;
-
 	// Define o código de saída com base no status de finalização
 	if (WIFEXITED(status))
 		shell()->exit_code = WEXITSTATUS(status);

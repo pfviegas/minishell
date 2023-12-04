@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:45 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 11:01:19 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/04 10:42:20 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void execute_single_built_in(t_command *token)
 	// Verifica se ocorreu um erro de redirecionamento
 	if (token->redirect_error == 1)
 	{
-//		display_error(1, NULL, true);
-//		stderr_null();
 		return;
 	}
 

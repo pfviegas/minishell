@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:37:59 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 17:08:47 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/05 11:22:17 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@
 void execute_exit(char **cmd)
 {
 	int		i;
-//	int		exit_code;
 	char	*msg;
 	char	*msg_aux;
 
-
-//	exit_code = 0;
 	printf("exit\n");
 	i = -1;
 	while (cmd && cmd[1] && cmd[1][++i])
@@ -45,14 +42,11 @@ void execute_exit(char **cmd)
 		{
 			display_error(1, "minishell: exit: too many arguments", true);
 			return;
-//			write(STDERR_FILENO, " argumentos demais\n", 19);
-//			exit_code = 1;
 		}
 		else if (cmd[1][i + 1] == '\0')
 		{	
 			shell()->exit_code = ft_atoi(cmd[1]);
 		}
 	}
-//	shell()->exit_code = exit_code;
 	shell()->prompt = false;
 }

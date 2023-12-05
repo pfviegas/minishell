@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 11:35:34 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/05 11:37:49 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,17 @@ void handle_sign(int signal)
 		printf("\n");
 		return ;
 	}
-	ft_putstr_fd("^C\n", 0);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (shell()->in_here_doc == false)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+	{
+		printf("\n");
+	}
 }
 
 /**

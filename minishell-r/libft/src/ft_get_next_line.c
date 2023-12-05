@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:55:26 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/04 16:00:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/05 10:43:54 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
  * @param str    A string de entrada.
  * @return       O tamanho da string, excluindo o caractere de nova linha.
  */
-size_t str_len(const char *str)
+size_t	str_len(const char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!str)
@@ -67,12 +67,14 @@ static char	*ft_join(char *line, char *stash)
  * @return        1 se um caractere de nova linha foi encontrado e removido, 
  *                0 caso contrário.
  */
-static int ft_nextclean(char *stash)
+/*
+static int	ft_nextclean(char *stash)
 {
-	int nl_flag = 0;
-	int i;
-	int j;
-	
+	int	nl_flag;
+	int	i;
+	int	j;
+
+	nl_flag = 0;
 	i = 0;
 	j = 0;
 	while (stash[i])
@@ -81,7 +83,7 @@ static int ft_nextclean(char *stash)
 		{
 			nl_flag = 1;
 			stash[i++] = 0;
-			break;
+			break ;
 		}
 		stash[i++] = 0;
 	}
@@ -91,6 +93,33 @@ static int ft_nextclean(char *stash)
 		{
 			stash[j++] = stash[i];
 			stash[i++] = 0;
+		}
+	}
+	return (nl_flag);
+}
+*/
+
+static int	ft_nextclean(char *stash)
+{
+	int	nl_flag;
+	int	i;
+	int	j;
+
+	nl_flag = 0;
+	i = 0;
+	j = 0;
+	while (stash[i] && stash[i] != '\n')
+	{
+		stash[i++] = 0;
+	}
+	if (stash[i] == '\n')
+	{
+		nl_flag = 1;
+		stash[i++] = 0;
+		while (stash[i])
+		{
+			stash[j++] = stash[i++];
+			stash[i - 1] = 0;
 		}
 	}
 	return (nl_flag);
@@ -112,8 +141,8 @@ char	*ft_get_next_line(int fd)
 {
 	static char	stash[BUFFER_SIZE + 1];
 	char		*line;
-	int 		i;
-	
+	int			i;
+
 	i = 0;
 	if (read(fd, 0, 0) < 0 || BUFFER_SIZE < 1)
 	{

@@ -6,26 +6,58 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:31:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/04 14:58:38 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/05 14:32:58 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+// Função para verificar e liberar memória dos caminhos
+static char	*check_and_free_paths(char **paths, char *cmd)
+{
+	if (access(cmd, F_OK) != -1)
+	{
+		free_array(&paths);
+		return (cmd);
+	}
+	free(cmd);
+	return (NULL);
+}
+
+/**
+ * Constrói o caminho completo para um comando, 
+ * concatenando o diretório e o comando.
+ *
+ * @param dir   O diretório onde o comando está localizado.
+ * @param cmd   O nome do comando.
+ * @return      O caminho completo para o comando.
+ */
+static char	*build_full_path(char *dir, char *cmd)
+{
+	char	*temp;
+	char	*full_path;
+
+	temp = ft_strjoin(dir, "/");
+	full_path = ft_strjoin(temp, cmd);
+	free(temp);
+	return (full_path);
+}
 
 /**
  * Verifica se o caminho especificado é um diretório e exibe um erro caso seja.
  * 
  * @param path O caminho a ser verificado.
  */
-void check_dir(char *path)
+void	check_dir(char *path)
 {
 	struct stat	st;
 	char		*msg;
 	char		*msg_aux;
-	
+
 	if (stat(path, &st) == -1)
-		return;
-	if (S_ISDIR(st.st_mode) && path && (!ft_strncmp("./", path, 2) || path[0] == '/'))
+		return ;
+	if (S_ISDIR(st.st_mode) && path && 
+		(!ft_strncmp("./", path, 2) || path[0] == '/'))
 	{
 		msg_aux = ft_strjoin("minishell: ", path);
 		msg = ft_strjoin(msg_aux, ": Is a directory");
@@ -44,9 +76,9 @@ void check_dir(char *path)
  * @return      O índice da variável "PATH" se encontrada, \
  *              caso contrário retorna -1.
  */
-int find_env_path(char **envp)
+int	find_env_path(char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -63,19 +95,16 @@ int find_env_path(char **envp)
  *
  * @param envp O array de strings contendo as variáveis de ambiente.
  * @param cmd  O comando a ser encontrado.
- * @return    O caminho completo do comando, ou NULL se não for encontrado.
+ * @return     O caminho completo do comando, ou NULL se não for encontrado.
  */
 char	*find_path(char **envp, char *cmd)
 {
 	int		index;
 	char	*path;
-	char	*temp;
 	char	**paths;
-	int		i;
+	char	*full_path;
+	char	*result;
 
-	path = NULL;
-	temp = NULL;
-	paths = NULL;
 	if (!envp || !envp[0])
 		return (ft_strdup(cmd));
 	index = find_env_path(envp);
@@ -83,20 +112,13 @@ char	*find_path(char **envp, char *cmd)
 		return (NULL);
 	path = &envp[index][6];
 	paths = ft_split(path, ':');
-	i = 0;
-	while (paths[i])
+	index = -1;
+	while (paths[++index])
 	{
-		temp = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(temp, cmd);
-		if (access(path, F_OK) != -1)
-		{
-			free(temp);
-			free_array(&paths);
-			return (path);
-		}
-		free(temp);
-		free(path);
-		i++;
+		full_path = build_full_path(paths[index], cmd);
+		result = check_and_free_paths(paths, full_path);
+		if (result)
+			return (result);
 	}
 	free_array(&paths);
 	return (ft_strdup(cmd));

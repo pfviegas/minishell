@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/11/29 16:12:36 by pviegas          ###   ########.fr        #
+#    Updated: 2023/12/05 12:59:53 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,10 @@ SRC_FILES			= 	minishell.c \
 						parsing/parsing.c \
 						parsing/parsing_utils.c \
 						executor/here_doc.c \
+						executor/here_doc_utils.c \
 						executor/executor.c \
 						executor/built_in.c \
+						executor/built_in_utils.c \
 						executor/executor_utils.c \
 						built_in/cd.c \
 						built_in/echo.c \

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:11:45 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/04 10:42:20 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/05 13:17:08 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@
  * @param cmd O array de argumentos do comando.
  * @param seg_error Um indicador de erro de segmentação.
  */
-void execute_built_in(char **cmd, int seg_error)
+void	execute_built_in(char **cmd, int seg_error)
 {
 	if (seg_error == 1)
 	{
 		shell()->exit_code = 1;
-		return;
+		return ;
 	}
-//	verifica qual comando interno deve ser executado
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		execute_cd(cmd);
 	else if (ft_strcmp(cmd[0], "echo") == 0)
@@ -34,7 +33,7 @@ void execute_built_in(char **cmd, int seg_error)
 		execute_env(shell()->env);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		execute_pwd();
-	else if (ft_strcmp(cmd[0], "unset")  == 0)
+	else if (ft_strcmp(cmd[0], "unset") == 0)
 		execute_unset(cmd);
 	else if (ft_strcmp(cmd[0], "export") == 0)
 		execute_export(cmd);
@@ -47,52 +46,22 @@ void execute_built_in(char **cmd, int seg_error)
  * 
  * @param seg O comando a ser executado.
  */
-void execute_single_built_in(t_command *token)
+void	execute_single_built_in(t_command *token)
 {
-	int in;
-	int out;
+	int	saved_stdin;
+	int	saved_stdout;
 
-	in = -1;
-	out = -1;
-
-	// Verifica se ocorreu um erro de redirecionamento
+	saved_stdin = -1;
+	saved_stdout = -1;
 	if (token->redirect_error == 1)
 	{
-		return;
+		return ;
 	}
-
-	// Redireciona a entrada padrão, se necessário
-	if (token->std.in != -1)
-	{
-		in = dup(STDIN_FILENO);
-		dup2(token->std.in, STDIN_FILENO);
-		close(token->std.in);
-	}
-
-	// Redireciona a saída padrão, se necessário
-	if (token->std.out != -1)
-	{
-		out = dup(STDOUT_FILENO);
-		dup2(token->std.out, STDOUT_FILENO);
-		close(token->std.out);
-	}
-
-	// Executa o comando built-in
+	redirect_standard_input(token, &saved_stdin);
+	redirect_standard_output(token, &saved_stdout);
 	execute_built_in(token->cmd, token->redirect_error);
-
-	// Restaura a entrada padrão, se necessário
-	if (in != -1)
-	{
-		dup2(in, STDIN_FILENO);
-		close(in);
-	}
-
-	// Restaura a saída padrão, se necessário
-	if (out != -1)
-	{
-		dup2(out, STDOUT_FILENO);
-		close(out);
-	}
+	restore_standard_input(saved_stdin);
+	restore_standard_output(saved_stdout);
 }
 
 /**
@@ -101,9 +70,8 @@ void execute_single_built_in(t_command *token)
  * @param str  A string a ser verificada.
  * @return     1 se a string representa um comando interno, 0 caso contrário.
  */
-int is_built_in(char *str)
+int	is_built_in(char *str)
 {
-//	verifica se a string representa um comando interno
 	if (ft_strcmp(str, "export") == 0 || ft_strcmp(str, "env") == 0)
 		return (1);
 	else if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "unset") == 0)

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 13:54:25 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 16:57:22 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/05 13:12:47 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@ void	execute_export(char	**cmd);
 void	execute_exit(char **cmd);
 void	rm_str_from_array(char ***array, int index);
 void	check_dir(char *path);
+void	close_here_doc(void);
+void	here_doc_expand_var(char **line);
+void	here_doc_error(char *str);
+void	sig_here_doc(int signal);
+void	redirect_standard_input(t_command *token, int *saved_stdin);
+void	redirect_standard_output(t_command *token, int *saved_stdout);
+void	restore_standard_input(int saved_stdin);
+void	restore_standard_output(int saved_stdout);
 
 #endif

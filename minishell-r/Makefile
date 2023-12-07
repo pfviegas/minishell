@@ -6,7 +6,7 @@
 #    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/12/05 12:59:53 by pviegas          ###   ########.fr        #
+#    Updated: 2023/12/07 15:54:24 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRC_FILES			= 	minishell.c \
 						executor/executor.c \
 						executor/built_in.c \
 						executor/built_in_utils.c \
-						executor/executor_utils.c \
+						executor/executor_utils1.c \
+						executor/executor_utils2.c \
 						built_in/cd.c \
 						built_in/echo.c \
 						built_in/env.c \

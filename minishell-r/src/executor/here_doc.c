@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:41:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/05 12:43:52 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:03:43 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	here_doc_input(t_command *cmd)
 	{
 		while (true)
 		{
-			write(0, "heredoc> ", 9);
+			write(0, "> ", 9);
 			line = ft_get_next_line(0);
 			if (!(ft_strncmp(line, cmd->here[i], ft_strlen(cmd->here[i]))))
 			{

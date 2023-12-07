@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:57:06 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/05 13:24:19 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/07 15:53:36 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param saved_stdin  Um ponteiro para a variável que armazenará 
  *                     o descritor de arquivo da entrada padrão original.
  */
-void redirect_standard_input(t_command *token, int *saved_stdin)
+void	redirect_standard_input(t_command *token, int *saved_stdin)
 {
 	if (token->std.in != -1)
 	{
@@ -30,7 +30,6 @@ void redirect_standard_input(t_command *token, int *saved_stdin)
 	}
 }
 
-
 /**
  * Redireciona a saída padrão para o arquivo especificado em `token->std.out`.
  * Salva o descritor de arquivo da saída padrão original em `saved_stdout`.
@@ -39,7 +38,7 @@ void redirect_standard_input(t_command *token, int *saved_stdin)
  * @param saved_stdout O ponteiro para a variável que armazenará 
  *                     o descritor de arquivo da saída padrão original.
  */
-void redirect_standard_output(t_command *token, int *saved_stdout)
+void	redirect_standard_output(t_command *token, int *saved_stdout)
 {
 	if (token->std.out != -1)
 	{
@@ -58,7 +57,8 @@ void redirect_standard_output(t_command *token, int *saved_stdout)
  * para o descritor de arquivo `saved_stdin` e em seguida 
  * fecha o descritor de arquivo `saved_stdin`.
  *
- * @param saved_stdin O descritor de arquivo da entrada padrão salvo anteriormente.
+ * @param saved_stdin   O descritor de arquivo da entrada padrão 
+ *                      salvo anteriormente.
  */
 void	restore_standard_input(int saved_stdin)
 {
@@ -68,7 +68,6 @@ void	restore_standard_input(int saved_stdin)
 		close(saved_stdin);
 	}
 }
-
 
 /**
  * Restaura a saída padrão.

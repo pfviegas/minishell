@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:48:48 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 15:30:28 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:40:19 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int is_space(char c)
  * @param c O caractere a ser verificado.
  * @return 1 se o caractere for uma aspa, 0 caso contrário.
  */
-int is_quote(char c)
+int check_quote(char c)
 {
 	if (c == '"' || c == '\'')
 		return 1;

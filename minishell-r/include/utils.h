@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 11:37:51 by paulo             #+#    #+#             */
-/*   Updated: 2023/12/01 15:32:11 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:56:09 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_char(char **str, char c);
 void	add_str_to_array(char ***array, char *str);
 char	**create_array(char *str);
 int		is_space(char c);
-int		is_quote(char c);
+int		check_quote(char c);
 void	display_error(int exit_code, char *str, bool error);
 int		is_in_set(char c, char *search_set);
 int		is_great_less(char c);

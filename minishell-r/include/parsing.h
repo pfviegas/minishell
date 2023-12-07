@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 13:11:08 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:59:07 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	add_char_string(char **str, char c);
 char	*parse_word(char *seg, int *curr_pos);
 void	expand_var(char *old_str, char **new_str, int *curr_pos);
 t_list	*get_tokens(char *input_command);
-
+void	get_tokens_2(char *input_command, int *i, t_command *new_seg);
+void	parse_redirection_2(char *temp, char *redirect, int *i, int *j);
 
 int		is_token(char c);
 void	add_str_to_array(char ***array, char *str);

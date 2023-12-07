@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:15:51 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 13:55:23 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:58:30 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
  *              flag "-n" foi encontrada.
  * @return      A posição do próximo argumento após as flags.
  */
-int skip_echo_flags(char **cmd, bool *flag)
+int	skip_echo_flags(char **cmd, bool *flag)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (cmd[++i])
@@ -49,19 +49,17 @@ int skip_echo_flags(char **cmd, bool *flag)
  * 
  * @param cmd O array de strings contendo os argumentos do comando.
  */
-void execute_echo(char **cmd)
+void	execute_echo(char **cmd)
 {
-	bool flag;
-	int i;
+	bool	flag;
+	int		i;
 
 	flag = false;
-//	se nao houver argumentos, exibe uma nova linha	
 	if (!cmd[1])
 	{
 		printf("\n");
-		return;
+		return ;
 	}
-//	salta as flags do comando echo
 	i = skip_echo_flags(cmd, &flag) - 1;
 	while (cmd[++i])
 	{

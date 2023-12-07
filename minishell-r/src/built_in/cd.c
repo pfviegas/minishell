@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/04 13:37:13 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:55:51 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
  * @return   A string formatada contendo o diretório atual 
  * no formato "PWD=diretorio_atual".
  */
-char *get_working_directory(void)
+char	*get_working_directory(void)
 {
-	char buf[PATH_MAX + 1];
-	char *cmd;
+	char	buf[PATH_MAX + 1];
+	char	*cmd;
 
 	getcwd(buf, sizeof(buf));
 	cmd = ft_strjoin("PWD=", buf);
-	return cmd;
+	return (cmd);
 }
 
 /**
@@ -36,10 +36,10 @@ char *get_working_directory(void)
  * @param var   A variável de ambiente a ser procurada.
  * @return      O índice no array, ou -1 se não for encontrada.
  */
-int find_var(char **env, char *var)
+int	find_var(char **env, char *var)
 {
-	char *temp;
-	int i;
+	char	*temp;
+	int		i;
 
 	i = -1;
 	while (env[++i])
@@ -65,29 +65,25 @@ int find_var(char **env, char *var)
  * @param void
  * @return void
  */
-void update_pwd_var(void)
+void	update_pwd_var(void)
 {
-	char ***ch_env;
-	char *new_pwd;
-	char *temp;
+	char	***ch_env;
+	char	*new_pwd;
+	char	*temp;
 
-//	guarda as variáveis de ambiente em um ponteiro para ponteiro de char
 	ch_env = &shell()->env;
-//	cria uma string formatada contendo o diretório atual
 	new_pwd = get_working_directory();
-//	verifica se a variável "PWD" já existe no ambiente
 	if (find_var(shell()->env, "PWD") == -1)
 	{
-//		se não existir PWD, atualiza apenas a variável "OLDPWD" se esta existir
 		if (find_var(*ch_env, "OLDPWD") != -1)
 			update_env(ch_env, "OLDPWD");
 	}
 	else
 	{
-//		se existir, atualiza a variável "OLDPWD" e "PWD"
 		if (find_var(*ch_env, "OLDPWD") != -1)
 		{
-			temp = ft_strjoin("OLDPWD=", &(*ch_env)[find_var(shell()->env, "PWD")][4]);
+			temp = ft_strjoin("OLDPWD=", 
+					&(*ch_env)[find_var(shell()->env, "PWD")][4]);
 			update_env(ch_env, temp);
 			free(temp);
 			update_env(ch_env, new_pwd);
@@ -104,18 +100,15 @@ void update_pwd_var(void)
  * @return 0 se a navegação for bem-sucedida
  *        -1 caso contrário.
  */
-int cd_home(void)
+int	cd_home(void)
 {
 	int		i;
 	char	*msg;
 	char	*msg_aux;
 
-//	procura a variavel HOME no ambiente
 	i = find_var(shell()->env, "HOME");
-//	se a variavel for encontrada, navega até o diretório
 	if (i != -1)
 	{
-//		verifica se o diretório existe
 		if (chdir(&shell()->env[i][5]) == -1)
 		{
 			msg_aux = ft_strjoin("minishell: cd: ", &shell()->env[i][5]);
@@ -123,9 +116,6 @@ int cd_home(void)
 			free(msg_aux);
 			display_error(1, msg, true);
 			free(msg);
-//PFV
-//			perror("Error:");
-//			shell()->exit_code = 1;
 			return (-1);
 		}
 		return (0);
@@ -139,42 +129,25 @@ int cd_home(void)
  * 
  * @param command Um array de strings contendo o comando e seus argumentos.
  */
-void execute_cd(char **command)
+void	execute_cd(char **command)
 {
-	int		i;
-	char	*msg;
-	char	*msg_aux;
+	int	i;
 
 	i = 0;
-//	verifica se o comando possui argumentos
 	while (command[i])
 		i++;
-//	se o comando não possuir argumentos, navega até o diretório HOME
 	if (i == 1)
-	{
 		cd_home();
-		return;
-	}
-//	se o comando possuir mais de 2 argumentos, exibe uma mensagem de erro	
 	else if (i > 2)
-	{
 		display_error(1, "minishell: cd: too many arguments", true);
-		return;
-	}
-//	se o comando possuir 2 argumentos, navega até o diretório especificado
 	else
 	{
 		if (chdir(command[1]) == -1)
+			execute_cd_error(command[1]);
+		else
 		{
-			msg_aux = ft_strjoin("minishell: cd: ", command[1]);
-			msg = ft_strjoin(msg_aux, ": No such file or directory");
-			free(msg_aux);
-			display_error(1, msg, true);
-			free(msg);
-			shell()->exit_code = 1;
-			return;
+			update_pwd_var();
+			shell()->exit_code = 0;
 		}
 	}
-	update_pwd_var();
-	shell()->exit_code = 0;
 }

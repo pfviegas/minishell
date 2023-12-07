@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:41:02 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 14:19:35 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:59:05 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,9 @@ void	execute_env(char **env)
 	int		i;
 
 	i = 0;
-//	Exibe todas as variáveis de ambiente
 	while (env && env[i])
 	{
 		printf("%s\n", env[i]);
 		i++;
 	}
 }
-
-//PFV
-/*
-void	execute_env(char **env)
-{
-	char	*temp;
-	int		i;
-	int		j;
-
-	i = -1;
-//	Exibe todas as variáveis de ambiente
-	while (env && env[++i])
-	{
-//		Recupera o nome da variável de ambiente
-		temp = get_env_var_name(env[i]);
-		j = 0;
-		while (temp[j])
-			j++;
-		if (env[i][j] == '=')
-			printf("%s\n", env[i]);
-		free(temp);
-	}
-}
-*/

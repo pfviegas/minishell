@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 13:54:25 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/07 15:57:08 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/07 16:56:58 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,8 @@ void	redirect_standard_output(t_command *token, int *saved_stdout);
 void	restore_standard_input(int saved_stdin);
 void	restore_standard_output(int saved_stdout);
 void	handle_execution_error(char *path);
+void	execute(char **cmd, char **envp);
+void	handle_parent_process(t_command *cmd, t_command *next_content);
+void	execute_cd_error(char *path);
 
 #endif

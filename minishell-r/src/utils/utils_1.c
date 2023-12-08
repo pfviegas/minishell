@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:48:48 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 15:34:44 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:40:19 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int is_space(char c)
  * @param c O caractere a ser verificado.
  * @return 1 se o caractere for uma aspa, 0 caso contrário.
  */
-int is_quote(char c)
+int check_quote(char c)
 {
 	if (c == '"' || c == '\'')
 		return 1;
@@ -229,6 +229,8 @@ void display_error(int exit_code, char *str, bool error)
  * @param search_set O conjunto de caracteres onde será feita a busca.
  * @return           1 se o caractere estiver presente no conjunto, 0 caso contrário.
  */
+
+//PCC
 int	is_in_set(char c, char *search_set)
 {
 	int	i;
@@ -280,7 +282,7 @@ int	end_word(char c, char quote)
  * @param c O caractere a ser verificado.
  * @return  1 se o caractere for o fim de uma variável, 0 caso contrário.
  */
-int	end_variable(char c)
+int	end_var(char c)
 {
 	if (!(ft_isalpha(c) || ft_isdigit(c) || c == '_') || c == '?')
 		return (1);
@@ -298,16 +300,19 @@ int	end_variable(char c)
  * @param new_str O ponteiro para a string a ser expandida.
  * @param curr_pos O ponteiro para a posição atual na string.
  */
-void	expand_exit_code(char **new_str, int *curr_pos)
+void	expand_exit(char **new, int *curr_pos)
 {
 	char	*exit_var;
 	int		i;
 
 	(*curr_pos)++;
 	exit_var = ft_itoa(shell()->exit_code);
-	i = -1;
-	while (exit_var[++i])
-		add_char_string(new_str, exit_var[i]);
+	i = 0;
+	while (exit_var[i])
+	{
+		add_char_string(new, exit_var[i]);
+		i++;
+	}
 	free(exit_var);
 }
 
@@ -319,7 +324,7 @@ void	expand_exit_code(char **new_str, int *curr_pos)
  * @param start    A posição inicial na string original.
  * @param curr_pos O endereço da posição atual na string original.
  */
-void	expander(char *old_str, char **new_str, int start, int *curr_pos)
+void	expander(char *old, char **new, int start, int *curr_pos)
 {
 	char	*expand;
 	char	*temp;
@@ -329,7 +334,7 @@ void	expander(char *old_str, char **new_str, int start, int *curr_pos)
 	expand = NULL;
 	temp = NULL;
 	while (start < *curr_pos)
-		add_char_string(&expand, old_str[start++]);
+		add_char_string(&expand, old[start++]);
 	i = -1;
 	while (shell()->env[++i])
 	{
@@ -339,7 +344,7 @@ void	expander(char *old_str, char **new_str, int start, int *curr_pos)
 		{
 			free(temp);
 			while (shell()->env[i][++j])
-				add_char_string(new_str, shell()->env[i][j]);
+				add_char_string(new, shell()->env[i][j]);
 			break ;
 		}
 		free(temp);

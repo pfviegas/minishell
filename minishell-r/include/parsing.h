@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 14:24:49 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/08 10:10:27 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-typedef struct	s_std
+typedef struct s_std
 {
 	int	in;
 	int	out;
@@ -43,15 +43,15 @@ int		check_pipe(char *input);
 void	init_command(t_command *seg);
 int		is_in_set(char c, char *search_set);
 int		is_great_less(char c);
-char	*find_replace(char *str, char *find_set, char replace_char);
-char	**split_trim(char *str, char c);
+char	*replace_pipe(char *str, char find_set, char replace_char);
+char	**trim_parse(char **str);
 char	*parse_redirection(char *seg, int *curr_pos);
 void	add_char_string(char **str, char c);
-char	*parse_word(char *seg, int *curr_pos, char *red);
+char	*parse_word(char *seg, int *curr_pos);
 void	expand_var(char *old_str, char **new_str, int *curr_pos);
 t_list	*get_tokens(char *input_command);
-void	get_redirects(t_list *lst);
-
+void	get_tokens_2(char *input_command, int *i, t_command *new_seg);
+void	parse_redirection_2(char *temp, char *redirect, int *i, int *j);
 
 int		is_token(char c);
 void	add_str_to_array(char ***array, char *str);

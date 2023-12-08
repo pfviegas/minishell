@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 17:14:52 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:33:13 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_shell	*shell(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*prompt_line;
+	char	*line_prompt;
 
 //	verifica se o numero de argumentos é valido	
 	if (argc != 1)
@@ -54,10 +54,8 @@ int	main(int argc, char **argv, char **envp)
 //	enquanto a prompt estiver ativa
 	while (shell()->prompt)
 	{
-//		exibe a prompt e captura o comando
-		prompt_line = readline("minishell$ ");
-//		se o comando for nulo ou vazio, sai do minishell
-		if (!prompt_line)
+		line_prompt = readline("minishell$ ");
+		if (!line_prompt)
 		{
 //			mensagem de saida CTRL+D
 			printf("exit\n");
@@ -66,23 +64,18 @@ int	main(int argc, char **argv, char **envp)
 //			sai do minishell com o codigo de saida 0
 			exit(0);
 		}
-		if (prompt_line[0] != '\n' || prompt_line[0] != '\0')
+		if (line_prompt[0] != '\n' || line_prompt[0] != '\0')
 		{
 // 			adiciona o comando ao historico
-			add_history(prompt_line);
+			add_history(line_prompt);
 // 			verifica se o comando é valido
-			parsing(prompt_line);
-// 			se o comando for valido, executa
-			if (!shell()->error)
-//				executa o comando
-				executor(shell()->tokens_lst);
-//			libera a memoria alocada
- 			free_all(false, true, false, false);
+			parsing(line_prompt);
+//			if (!shell()->error)
+//				run(shell()->segment_lst);
+ 			free_all(false, true, false, false);		
 		}
 	}
-//	exibe uma nova linha
-//		printf("\n");
-//	libera a memoria alocada
+
 	free_all(true, false, true, false);
 //	limpa o historico do readline
 	rl_clear_history();

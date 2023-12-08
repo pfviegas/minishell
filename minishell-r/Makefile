@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
+#    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
 #    Updated: 2023/12/07 16:56:29 by pviegas          ###   ########.fr        #
@@ -36,13 +36,8 @@ SRC_FILES			= 	minishell.c \
 						utils/free.c \
 						parsing/parsing.c \
 						parsing/parsing_utils.c \
-						executor/here_doc.c \
-						executor/here_doc_utils.c \
-						executor/executor.c \
-						executor/built_in.c \
-						executor/built_in_utils.c \
-						executor/executor_utils1.c \
-						executor/executor_utils2.c \
+						parsing/parsing_utils_2.c \
+						executor/here_doc.c
 						built_in/cd.c \
 						built_in/cd_utils.c \
 						built_in/echo.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:56:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/29 15:35:00 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:08:59 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	update_env(char	***env, char *cmd);
 void	add_char(char **str, char c);
 void	add_str_to_array(char ***array, char *str);
 char	**create_array(char *str);
-void 	stderr_null(void);
+void	print_matriz(char **matriz);
 
 #endif

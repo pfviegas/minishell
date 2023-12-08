@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:10:10 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/28 11:06:39 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/08 11:23:22 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
 
 	if (free_cmd_lst == true)
 	{
-		if (shell()->tokens_lst)
-			free_lst(shell()->tokens_lst);
+		if (shell()->segments_lst)
+			free_lst(shell()->segments_lst);
 	}
 
 	if (std_files == true)

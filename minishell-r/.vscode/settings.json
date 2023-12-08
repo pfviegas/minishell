@@ -1,7 +1,11 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"limits.h": "c"
+		"limits.h": "c",
+		"readline.h": "c",
+		"history.h": "c",
+		"utils.h": "c"
 	},
-	"C_Cpp.errorSquiggles": "disabled"
+	"C_Cpp.errorSquiggles": "disabled",
+	"cmake.configureOnOpen": false
 }

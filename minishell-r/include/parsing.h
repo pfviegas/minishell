@@ -23,15 +23,16 @@ typedef struct s_command
 {
 	bool	built_in;
 	bool	here_doc;
-	int		red_error;
+	int		redirect_error;
 	pid_t	proc_id;
 	char	**cmd;
 	char	**red;
-	char	**red_flags;
+	char	**redirect_flags;
 	char	**in;
 	char	**out;
 	char	**here;
-	bool	append;
+//PFV
+//	bool	append;
 	int		pipe_fd[2];
 	t_std	std;
 }	t_command;

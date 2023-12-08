@@ -23,9 +23,9 @@
  *         um valor inteiro positivo se s1 for maior que s2,
  *         ou zero se as strings forem iguais.
  */
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s1 || !s2)
@@ -33,7 +33,7 @@ int ft_strcmp(char *s1, char *s2)
 	while (s1[i] && s2[i])
 	{
 		if (s1[i] != s2[i])
-			break;
+			break ;
 		i++;
 	}
 	return (s1[i] - s2[i]);

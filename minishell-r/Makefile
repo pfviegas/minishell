@@ -6,7 +6,7 @@
 #    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/12/07 17:03:28 by pveiga-c         ###   ########.fr        #
+#    Updated: 2023/12/07 16:56:29 by pviegas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME = minishell
 
 # Compiler options
 CC 			= cc
-CFLAGS		= -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -g3 #-fsanitize=address
 READFLAGS	= -lreadline
 
 # Paths
@@ -38,31 +38,14 @@ SRC_FILES			= 	minishell.c \
 						parsing/parsing_utils.c \
 						parsing/parsing_utils_2.c \
 						executor/here_doc.c
-#						executor.c \
-						path.c \
-						built_in.c \
-						execute_default.c \
-						errors.c \
-						aux/env_utils1.c \
-						aux/env_utils2.c \
-						aux/lst_utils1.c \
-						aux/lst_utils2.c \
-						aux/utils.c \
-						aux/init.c \
-						aux/expand_utils.c \
-						built_in/pwd.c \
 						built_in/cd.c \
+						built_in/cd_utils.c \
 						built_in/echo.c \
 						built_in/env.c \
-						built_in/exit.c \
-						built_in/export.c \
+						built_in/pwd.c \
 						built_in/unset.c \
-						parse/syntax.c \
-						parse/quotes.c \
-						parse/parser.c \
-						parse/expand.c \
-						parse/tokens.c \
-						parse/here_doc.c
+						built_in/export.c \
+						built_in/exit.c 
 OBJ_DIR				= obj/
 
 LIBFT 		= libft/libft.a

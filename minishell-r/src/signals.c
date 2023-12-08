@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/24 13:17:25 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/05 11:37:49 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,17 @@ void handle_sign(int signal)
 		printf("\n");
 		return ;
 	}
-	ft_putstr_fd("^C\n", 0);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (shell()->in_here_doc == false)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+	{
+		printf("\n");
+	}
 }
 
 /**
@@ -50,7 +57,7 @@ void	handle_quit(int signal)
 	if (shell()->in_exec == true)
 	{
 		shell()->exit_code = 131;
-		ft_putstr_fd("Quit: 3\n", 2);
+		ft_putstr_fd("Quit (core dumped)\n", 2);
 	}
 }
 
@@ -61,26 +68,4 @@ void signals_behavior(void)
 {
 	signal(SIGINT, handle_sign);
 	signal(SIGQUIT, handle_quit);
-}
-
-/**
- * @brief Lida com os sinais para here documents.
- * 
- * Esta função é responsável por lidar com os sinais relacionados aos here documents.
- * Ela ignora o sinal SIGQUIT e realiza operações de limpeza e sai quando recebe o sinal SIGINT.
- * 
- * @param signal O número do sinal.
- */
-void here_doc_signals(int signal)
-{
-	if (signal == SIGQUIT)
-		SIG_IGN;
-	else if (signal == SIGINT)
-	{
-		write(2, " ", 1);
-//PFV
-//		free_env(&g_var.env);
-//		free_vars();
-		exit(1);
-	}
 }

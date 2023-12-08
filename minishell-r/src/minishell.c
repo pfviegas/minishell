@@ -27,6 +27,7 @@ t_shell	*shell(void)
 
 	return (&shell);
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line_prompt;
@@ -34,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 //	verifica se o numero de argumentos é valido	
 	if (argc != 1)
 	{
+//		exibe uma mensagem de erro no stderr
 		write(2, "minishell: ", 11);
 		write(2, argv[1], ft_strlen(argv[1]));
 		write(2, ": No such file or directory\n", 28);
@@ -49,12 +51,17 @@ int	main(int argc, char **argv, char **envp)
 	shell()->prompt = true;
 //	inicializa as variaveis de ambiente	
 	init_shell_vars(shell(), envp);
+//	enquanto a prompt estiver ativa
 	while (shell()->prompt)
 	{
 		line_prompt = readline("minishell$ ");
 		if (!line_prompt)
 		{
+//			mensagem de saida CTRL+D
+			printf("exit\n");
+//			libera a memoria alocada
 			free_all(true, false, true, false);
+//			sai do minishell com o codigo de saida 0
 			exit(0);
 		}
 		if (line_prompt[0] != '\n' || line_prompt[0] != '\0')
@@ -68,7 +75,10 @@ int	main(int argc, char **argv, char **envp)
  			free_all(false, true, false, false);		
 		}
 	}
+
 	free_all(true, false, true, false);
-	printf("\n");
+//	limpa o historico do readline
+	rl_clear_history();
+//	retorna o codigo de saida do minishell
 	return (shell()->exit_code);
 }

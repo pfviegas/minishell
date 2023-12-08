@@ -6,22 +6,20 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/07 16:43:34 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:13:21 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * Substitui um caractere de busca por um caractere de 
- * substituição em uma string.
+ * Substitui um caractere específico por outro em uma string.
  *
- * @param str A string na qual a substituição será feita.
+ * @param str A string na qual o caractere será substituído.
  * @param search_char O caractere a ser substituído.
  * @param replace_char O caractere de substituição.
- * @return A string modificada após a substituição.
+ * @return A string modificada.
  */
-
 char	*replace_pipe(char *str, char search_char, char replace_char)
 {
 	int		i;
@@ -45,16 +43,14 @@ char	*replace_pipe(char *str, char search_char, char replace_char)
 	}
 	return (str);
 }
-/**
- * Função que divide uma string em um array de strings, 
- * utilizando um caractere delimitador e remove os espaços em branco 
- * e tabulações de cada elemento do array.
- *
- * @param str A string a ser dividida e trimada.
- * @param c   O caractere delimitador utilizado para dividir a string.
- * @return    Um array de strings contendo os elementos divididos e trimados.
- */
 
+/**
+ * Função que remove espaços em branco e tabulações de 
+ * cada elemento de uma matriz de strings.
+ *
+ * @param str A matriz de strings a ser modificada.
+ * @return A matriz de strings modificada.
+ */
 char	**trim_parse(char **str)
 {
 	char	*temp;
@@ -119,13 +115,14 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 }
 
 /**
- * Função responsável por analisar e fazer o parsing de uma redirecionamento.
+ * Função responsável por fazer o parsing de uma redirecionamento 
+ * em uma string.
  *
- * @param seg      Ponteiro para a string contendo o segmento a ser analisado.
- * @param curr_pos Ponteiro para a posição atual na string.
- * @return         Ponteiro para a string resultante do parsing.
+ * @param seg A string contendo o segmento a ser analisado.
+ * @param curr_pos A posição atual na string.
+ * @return Um ponteiro para a string que representa o redirecionamento, 
+ * ou NULL em caso de erro.
  */
-
 char	*parse_redirection(char *seg, int *curr_pos)
 {
 	char	*redirect;

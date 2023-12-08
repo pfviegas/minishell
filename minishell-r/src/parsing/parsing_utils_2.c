@@ -6,12 +6,20 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/07 16:58:49 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:12:25 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+ * Função responsável por realizar a análise e manipulação de redirecionamentos.
+ * 
+ * @param temp     O array de caracteres temporário para armazenar o resultado.
+ * @param redirect O array de caracteres contendo a string de redirecionamento.
+ * @param i        O ponteiro para a posição atual no array redirect.
+ * @param j        O ponteiro para a posição atual no array temp.
+ */
 void	parse_redirection_2(char *temp, char *redirect, int *i, int *j)
 {
 	temp[*i] = redirect[*i];
@@ -32,13 +40,12 @@ void	parse_redirection_2(char *temp, char *redirect, int *i, int *j)
 }
 
 /**
- * Função responsável p						
-or analisar uma palavra em uma determinada 
- * posição de uma string.
- * 
- * @param seg      A string a ser analisada.
- * @param curr_pos A posição atual na string.
- * @return         Um ponteiro para a palavra analisada.
+ * Função responsável por analisar e extrair uma palavra de uma 
+ * determinada sequência de caracteres.
+ *
+ * @param seg A sequência de caracteres a ser analisada.
+ * @param i O índice atual da sequência de caracteres.
+ * @return A palavra extraída da sequência de caracteres.
  */
 char	*parse_word(char *seg, int *i)
 {
@@ -54,8 +61,7 @@ char	*parse_word(char *seg, int *i)
 		{
 			quote = seg[*i];
 			flag = 1;
-		}						
-
+		}
 		else if (check_quote(seg[*i]) && quote == seg[(*i)])
 			flag = 0;
 		else if ((flag == 0 || (flag == 1 && quote == '"')) && seg[*i] == '$')
@@ -70,16 +76,11 @@ char	*parse_word(char *seg, int *i)
 }
 
 /**
- * Expande uma variável em uma string.
- *
- * Expande uma variável em uma string, substituindo-a pelo seu valor.
- * A variável é ident	//char start;
-env or encontrada, a função adiciona o caractere '$' à string.
- *
- * @param old_str A str						
-ing original contendo a variável a ser expandida.
- * @param new_str O ponteiro para a string resultante da expansão.
- * @param curr_pos O ponteiro para a posição atual na string original.
+ * Função responsável por expandir uma variável em uma string.
+ * 
+ * @param old A string original contendo a variável a ser expandida.
+ * @param new O endereço da string expandida.
+ * @param i O endereço do índice atual na string original.
  */
 void	expand_var(char *old, char **new, int *i)
 {
@@ -88,7 +89,7 @@ void	expand_var(char *old, char **new, int *i)
 	(*i)++;
 	if (old[(*i)] == '#')
 	{
-		printf("0: command not found\n");
+		printf("0: comando não encontrado\n");
 		return ;
 	}
 	if (ft_isdigit(old[(*i)]) || old[(*i)] == '@')
@@ -106,15 +107,9 @@ void	expand_var(char *old, char **new, int *i)
 }
 
 /**
- * Adiciona um caractere a uma string.
- *
- * Esta função recebe um ponteiro para uma string e um caractere `c` e adiciona 
- * o caractere à string. 
- * Se a string for nula, a função cria uma nova string contendo apenas o char.
- * Caso contrário, a função aloca memória suficiente para acomodar o caractere 
- * adicional e copia a string original para a nova string, seguida do char `c`. 
-  *
- * @param str O ponteiro para a string.
+ * Função responsável por adicionar um caractere a uma string.
+ * 
+ * @param str O endereço da string à qual o caractere será adicionado.
  * @param c O caractere a ser adicionado.
  */
 void	add_char_string(char **str, char c)

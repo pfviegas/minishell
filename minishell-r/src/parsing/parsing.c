@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/07 16:43:41 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:15:00 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,11 @@ int	pipe_sintax(char *prompt)
 }
 
 /**
- * Verifica se há um pipe (|) entre os argumentos fornecidos e 
- * se a sintaxe do pipe está correta, sem problemas de quotes 
- * e sem dois operadores de pipe consecutivos.
+ * Verifica se há um caractere de pipe '|' na string de prompt.
  *
- * @param prompt A string de entrada contendo os argumentos.
- * @return Retorna 1 se houver um pipe entre os argumentos, 
- *         caso contrário, retorna#include "../../include/minishell.h"
- 0.
+ * @param prompt A string de prompt a ser verificada.
+ * @return Retorna 1 se houver um caractere de pipe '|' na string 
+ * de prompt, caso contrário retorna 0.
  */
 int	check_pipe(char *prompt)
 {

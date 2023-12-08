@@ -6,14 +6,14 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/07 16:59:07 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:10:27 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-typedef struct	s_std
+typedef struct s_std
 {
 	int	in;
 	int	out;

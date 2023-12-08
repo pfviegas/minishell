@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:41:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/07 16:03:43 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/08 14:37:43 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	here_doc_input(t_command *cmd)
 	{
 		while (true)
 		{
-			write(0, "> ", 9);
+			write(0, "> ", 2);
 			line = ft_get_next_line(0);
 			if (!(ft_strncmp(line, cmd->here[i], ft_strlen(cmd->here[i]))))
 			{

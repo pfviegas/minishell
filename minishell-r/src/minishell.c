@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 11:31:48 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:10:18 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 //			sai do minishell com o codigo de saida 0
 			exit(0);
 		}
-		if (line_prompt[0] != '\n' || line_prompt[0] != '\0')
+		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
 		{
 // 			adiciona o comando ao historico
 			add_history(line_prompt);

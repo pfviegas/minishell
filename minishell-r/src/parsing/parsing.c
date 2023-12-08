@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 12:58:51 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:52:45 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	parsing(char *line_prompt)
 	}
 	temp_prompt = replace_pipe(line_prompt, '|', 1);
 	parse = ft_split(temp_prompt, 1);
+	free(temp_prompt);
 	parse = trim_parse(parse);
 	i = -1;
 	while (parse[++i])
@@ -60,6 +61,8 @@ int	pipe_sintax(char *prompt)
 
 	if (!prompt || !(*prompt))
 		return (0);
+	if (check_pipe(prompt) == 0)
+		return (0);
 	i = 0;
 	while (prompt[i] && is_space(prompt[i]))
 		i++;
@@ -69,8 +72,6 @@ int	pipe_sintax(char *prompt)
 	while (prompt[i] && is_space(prompt[i]))
 		i--;
 	if (prompt[i] == '|')
-		return (1);
-	if (check_pipe(prompt))
 		return (1);
 	return (0);
 }

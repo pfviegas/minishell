@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:48:48 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/06 16:40:19 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 17:35:28 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ char **create_array(char *str)
 	if (!array)
 		return (NULL);
 	i = 0;
+	//printf("Último caractere: %d\n", str[ft_strlen(str)]);
 	while (str[i])
 		i++;
 	array[0] = ft_strdup(str);

@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 10:13:21 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:18:07 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ char	**trim_parse(char **str)
 	while (str[++i])
 	{
 		temp = ft_strtrim(str[i], " \t");
+		free(str[i]);
 		str[i] = temp;
 	}
-	free(str[i]);
 	return (str);
 }
 
@@ -106,6 +106,7 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 	else
 	{
 		temp = parse_word(input_command, i);
+		
 		if (temp)
 		{
 			add_str_to_array(&new_seg->cmd, temp);
@@ -131,22 +132,15 @@ char	*parse_redirection(char *seg, int *curr_pos)
 	int		j;
 
 	temp = NULL;
-	i = 1;
+	i = 0;
 	j = 1;
 	redirect = &seg[(*curr_pos)];
-	while (redirect && is_space(redirect[i]))
-		i++;
-	if (is_great_less(redirect[i]))
-	{
-		display_error(1, "Syntax Error", true);
+	temp = malloc(sizeof(char *) * (ft_strlen(redirect) + 1));
+	if(!temp)
 		return (NULL);
-	}
-	i = 0;
-	temp = malloc(sizeof(char *) * ft_strlen(redirect));
+	ft_memset(temp, 0, sizeof(char *) * (ft_strlen(redirect) + 1));
 	while (redirect && redirect[i] && !is_space(redirect[i]))
-	{
 		parse_redirection_2(temp, redirect, &i, &j);
-	}
 	(*curr_pos) += i;
 	return (temp);
 }

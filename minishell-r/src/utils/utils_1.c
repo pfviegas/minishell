@@ -403,21 +403,55 @@ void print_lst(t_list *lst)
 	}
 }
 
-/**
- * Verifica se uma string representa um comando interno.
- *
- * @param str  A string a ser verificada.
- * @return     1 se a string representa um comando interno, 0 caso contrário.
- */
-int is_built_in(char *str)
+void	rm_str_from_array(char ***array, int index)
 {
-	if (ft_strcmp(str, "export") == 0 || ft_strcmp(str, "env") == 0)
-		return (1);
-	else if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "unset") == 0)
-		return (1);
-	else if (ft_strcmp(str, "cd") == 0 || ft_strcmp(str, "pwd") == 0)
-		return (1);
-	else if (ft_strcmp(str, "exit") == 0)
-		return (1);
-	return (0);
+	char	**new_array;
+	int		len;
+	int		i;
+
+	if (!(*array))
+		return ;
+	else
+	{
+		len = 0;
+		while ((*array)[len])
+			len++;
+		new_array = malloc(sizeof(char *) * len);
+		if (!new_array)
+			return ;
+		i = -1;
+		len = 0;
+		while ((*array)[++i])
+		{
+			if (i != index)
+				new_array[len++] = ft_strdup((*array)[i]);
+		}
+		new_array[len] = NULL;
+		free_array(array);
+		*array = new_array;
+	}
+}
+
+/**
+ * Função que redireciona a saída de erro padrão (stderr) para /dev/null.
+ * Qualquer mensagem de erro escrita em stderr será descartada.
+ * 
+ * @return void
+ */
+void stderr_null(void)
+{
+	int null_fd = open("/dev/null", O_WRONLY);
+
+	if (null_fd == -1) 
+	{
+		perror("Erro ao abrir /dev/null");
+		exit(1);
+	}
+	// Redirecionar stderr para /dev/null
+	if (dup2(null_fd, STDERR_FILENO) == -1)
+	{
+		perror("Erro ao redirecionar stderr");
+		exit(1);
+	}
+	close(null_fd);
 }

@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/06 16:33:13 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:31:48 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line_prompt);
 // 			verifica se o comando é valido
 			parsing(line_prompt);
-//			if (!shell()->error)
-//				run(shell()->segment_lst);
+			if (!shell()->error)
+				executor(shell()->segments_lst);
  			free_all(false, true, false, false);		
 		}
 	}

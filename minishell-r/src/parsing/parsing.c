@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 10:35:00 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:33:29 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ void	parsing(char *line_prompt)
 
 	head = NULL;
 	temp_prompt = NULL;
-	if (pipe_sintax(line	parsing/parsing_utils.c \
-						parsing/parsing_utils_2.c \_prompt))
+	if (pipe_sintax(line_prompt))
 	{
 		display_error(1, "Erro de sintaxe", true);
-		shell()->segment_lst = head;
+		shell()->segments_lst = head;
 		return ;
 	}
 	temp_prompt = replace_pipe(line_prompt, '|', 1);
@@ -34,10 +33,10 @@ void	parsing(char *line_prompt)
 	i = -1;
 	while (parse[++i])
 		ft_lstadd_back(&head, get_tokens(parse[i]));
-	print_lst(head);
+	//print_lst(head);
 	free_array(&parse);
-	shell()->segment_lst = head;
-	init_built_in_flags(shell()->segment_lst);
+	shell()->segments_lst = head;
+	init_built_in_flags(shell()->segments_lst);
 }
 
 /**

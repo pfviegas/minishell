@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:56:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 18:08:59 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:17:39 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_shell
 {
 	bool	prompt;
 	bool	error;
-	t_list	*tokens_lst;
+	t_list	*segments_lst;
 	char	**env;
 	int		exit_code;
 	bool	in_here_doc;

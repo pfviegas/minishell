@@ -6,11 +6,7 @@
 #    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/12/08 10:30:21 by pveiga-c         ###   ########.fr        #
-=======
-#    Updated: 2023/12/07 16:56:29 by pviegas          ###   ########.fr        #
->>>>>>> aa7804724bfca4d11e96fde713067cbe52f7a1d5
+#    Updated: 2023/12/08 11:28:48 by pveiga-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +37,13 @@ SRC_FILES			= 	minishell.c \
 						parsing/parsing.c \
 						parsing/parsing_utils.c \
 						parsing/parsing_utils_2.c \
-						executor/here_doc.c
+						executor/here_doc.c \
+						executor/here_doc_utils.c \
+						executor/executor.c \
+						executor/built_in.c \
+						executor/built_in_utils.c \
+						executor/executor_utils1.c \
+						executor/executor_utils2.c \
 						built_in/cd.c \
 						built_in/cd_utils.c \
 						built_in/echo.c \
@@ -49,7 +51,7 @@ SRC_FILES			= 	minishell.c \
 						built_in/pwd.c \
 						built_in/unset.c \
 						built_in/export.c \
-						built_in/exit.c 
+						built_in/exit.c
 OBJ_DIR				= obj/
 
 LIBFT 		= libft/libft.a

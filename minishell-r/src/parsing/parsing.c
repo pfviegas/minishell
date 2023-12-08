@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 10:15:00 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:35:00 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	parsing(char *line_prompt)
 
 	head = NULL;
 	temp_prompt = NULL;
-	if (pipe_sintax(line_prompt))
+	if (pipe_sintax(line	parsing/parsing_utils.c \
+						parsing/parsing_utils_2.c \_prompt))
 	{
 		display_error(1, "Erro de sintaxe", true);
 		shell()->segment_lst = head;

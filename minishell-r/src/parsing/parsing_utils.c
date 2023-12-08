@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:29:22 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 14:16:42 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:09:35 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ void expand_var(char *old_str, char **new_str, int *curr_pos)
 	int start;
 
 	(*curr_pos)++;
-	if (ft_isdigit(old_str[(*curr_pos)]))
+	if (ft_isdigit(old_str[(*curr_pos)]) || old_str[(*curr_pos)] == '@')
 		return;
+	if (old_str[(*curr_pos)] == '#')
+	{
+		printf("0");
+		return;
+	}
 	start = (*curr_pos);
 	while (old_str[(*curr_pos)] && !end_variable(old_str[(*curr_pos)]))
 		(*curr_pos)++;
@@ -82,7 +87,7 @@ char *parse_word(char *seg, int *curr_pos, char *red)
 		(*curr_pos)++;
 	}
 	if (seg[*curr_pos] == '\0' && quote)
-		display_error(1, "Minishell doesn't handle quotation marks", true);
+		display_error(1, "Minishell doesn't interpreted unclosed quotes or special characters", true);
 	if (!str && was_q)
 		str = ft_calloc(1, 1);
 	return (str);
@@ -258,10 +263,10 @@ char **split_trim(char *str, char c)
  * fora de aspas, ignorando os caracteres dentro de aspas. 
  * A função retorna a string modificada.
  *
- * @param str          A string a ser modificada.
+ * @param str            A string a ser modificada.
  * @param search_set     Os caracteres a serem substituídos.
- * @param replace_char O caractere de substituição.
- * @return             A string modificada.
+ * @param replace_char   O caractere de substituição.
+ * @return               A string modificada.
  */
 char	*find_replace(char *str, char *search_set, char replace_char)
 {
@@ -287,3 +292,80 @@ char	*find_replace(char *str, char *search_set, char replace_char)
 	return (str);
 }
 
+/**
+ * Função responsável por obter as redirecionamentos de entrada e saída 
+ * de uma lista de comandos.
+ *
+ * @param lst A lista de comandos.
+ */
+void	get_redirects(t_list *lst)
+{
+	t_list		*temp;
+	t_command	*seg;
+	int			i;
+	char		*msg;
+
+//PFV
+//	print_lst(lst);
+
+	temp = lst;
+	while (temp)
+	{
+		seg = (t_command *)temp->content;
+		i = -1;
+		while (seg->red && seg->red[++i])
+		{
+			if (seg->red[i][0] == '<' && seg->red[i][1] != '<')
+			{
+				if (seg->std.in != -1 && !seg->here_doc)
+					close(seg->std.in);
+				if (access(&seg->red[i][1], F_OK))
+				{
+					seg->redirect_error = 1;
+					break ;
+				}
+				if (!seg->here_doc)
+				{
+					seg->std.in = open(&seg->red[i][1], O_RDONLY);
+					if (seg->std.in == -1)
+					{
+						seg->redirect_error = 1;
+						break ;
+					}
+				}
+			}
+			else
+			{
+				if (seg->std.out != -1)
+					close(seg->std.out);
+				if (seg->red[i][0] == '>' && seg->red[i][1] == '>')
+				{
+					seg->std.out = open(&seg->red[i][2], O_RDWR | O_CREAT | O_APPEND, 0644);
+					if (seg->std.out == -1)
+					{
+						seg->redirect_error = 1;
+						break ;
+					}
+				}
+				else if (seg->red[i][0] == '>' && seg->red[i][1] != '>')
+				{
+					seg->std.out = open(&seg->red[i][1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+					if (seg->std.out == -1)
+					{
+						seg->redirect_error = 1;
+						break ;
+					}
+				}
+			}
+		}
+		if (seg->redirect_error == 1)
+		{
+//PFV
+//			display_error(1, strerror(errno), false);
+			msg = ft_strjoin("minishell: ", strerror(errno));
+			display_error(1, msg, false);
+			free(msg);
+		}
+		temp = temp->next;
+	}
+}

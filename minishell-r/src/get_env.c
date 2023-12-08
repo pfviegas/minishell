@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:45:16 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/24 16:18:25 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:43:12 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,9 @@ void	update_env(char	***env, char *cmd)
 	{
 //		recupera o nome da variavel de ambiente
 		temp_env = get_env_var_name((*env)[i]);
+//		verifica se a variavel de ambiente ja existe		
 		if (ft_strcmp(temp_env, temp_cmd) == 0)
 		{
-//PFV
-/*
-			printf("     env: %s\n", (*env)[i]);
-			printf("     cmd: %s\n", cmd);
-			printf("temp_env: %s\n", temp_env);
-			printf("temp_cmd: %s\n", temp_cmd);
-*/
 			update_env_str(&(*env)[i], cmd, temp_env, temp_cmd);
 			free(temp_env);
 			free(temp_cmd);
@@ -157,25 +151,6 @@ void update_shlvl(char ***env, char *value)
 //	atualiza o valor da variavel de ambiente SHLVL	
 	update_env(env, new);
 	free(new);
-}
-
-/**
- * Recupera o nome da variável de ambiente a partir de uma string fornecida.
- *
- * Esta função procura pela primeira ocorrência do caractere '=' na string 
- * de entrada e retorna uma substring contendo todos os caracteres antes dele.
- *
- * @param str A string de entrada contendo a variável de ambiente.
- * @return Uma substring contendo o nome da variável de ambiente.
- */
-char	*get_env_var_name(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str && str[i] && str[i] != '=')
-		i++;
-	return (ft_substr(str, 0, i));
 }
 
 /**

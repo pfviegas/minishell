@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:10:10 by pviegas           #+#    #+#             */
-/*   Updated: 2023/11/27 12:16:25 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:06:39 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
 
 	if (free_cmd_lst == true)
 	{
-		if (shell()->segment_lst)
-			free_lst(shell()->segment_lst);
+		if (shell()->tokens_lst)
+			free_lst(shell()->tokens_lst);
 	}
 
 	if (std_files == true)

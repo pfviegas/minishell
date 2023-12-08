@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 11:33:29 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:58:51 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ void	parsing(char *line_prompt)
 	free_array(&parse);
 	shell()->segments_lst = head;
 	init_built_in_flags(shell()->segments_lst);
+	if (!shell()->error)
+	{
+		if (get_here_doc(shell()->segments_lst))
+		{
+			shell()->error = true;
+			return ;
+		}
+		get_redirects(shell()->segments_lst);
+	}
 }
 
 /**

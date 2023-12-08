@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 10:10:27 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:01:12 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ void	expand_var(char *old_str, char **new_str, int *curr_pos);
 t_list	*get_tokens(char *input_command);
 void	get_tokens_2(char *input_command, int *i, t_command *new_seg);
 void	parse_redirection_2(char *temp, char *redirect, int *i, int *j);
-
 int		is_token(char c);
 void	add_str_to_array(char ***array, char *str);
 void	readline_error(char *error, int code, bool need_free);
+int		get_here_doc(t_list *lst);
+void	get_redirects(t_list *lst);
 
 #endif

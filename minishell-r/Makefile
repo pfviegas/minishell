@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+         #
+#    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/12/08 11:08:58 by pviegas          ###   ########.fr        #
-=======
-#    Updated: 2023/12/08 11:28:48 by pveiga-c         ###   ########.fr        #
->>>>>>> a16863c543e37145785e75efb224ed4915f602cd
+#    Updated: 2023/12/08 11:41:58 by pveiga-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,15 +38,12 @@ SRC_FILES			= 	minishell.c \
 						parsing/parsing_utils.c \
 						parsing/parsing_utils_2.c \
 						executor/here_doc.c \
-<<<<<<< HEAD
-=======
 						executor/here_doc_utils.c \
 						executor/executor.c \
 						executor/built_in.c \
 						executor/built_in_utils.c \
 						executor/executor_utils1.c \
 						executor/executor_utils2.c \
->>>>>>> a16863c543e37145785e75efb224ed4915f602cd
 						built_in/cd.c \
 						built_in/cd_utils.c \
 						built_in/echo.c \

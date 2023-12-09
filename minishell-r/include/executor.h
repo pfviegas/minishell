@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 13:54:25 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/07 16:56:58 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/09 16:11:11 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ int		here_doc(t_command *cmd);
 void	executor(t_list *lst);
 void	execute_built_in(char **cmd, int seg_error);
 void	execute_single_built_in(t_command *seg);
-void 	execute_built_in(char **cmd, int seg_error);
+void	execute_built_in(char **cmd, int seg_error);
 char	*find_path(char **envp, char *cmd);
 void	execute_cd(char **command);
 void	execute_echo(char **cmd);
 void	execute_env(char **cmd);
 void	execute_pwd(void);
+void	get_pwd(char ***env);
 void	execute_unset(char	**cmd);
 void	execute_export(char	**cmd);
 void	execute_exit(char **cmd);
@@ -40,5 +41,6 @@ void	handle_execution_error(char *path);
 void	execute(char **cmd, char **envp);
 void	handle_parent_process(t_command *cmd, t_command *next_content);
 void	execute_cd_error(char *path);
+int		find_env_var(char **env, char *var);
 
 #endif

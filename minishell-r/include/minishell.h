@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:56:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 11:17:39 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:54:03 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-
+# include <sys/wait.h>
+# include <sys/stat.h>
 # include "parsing.h"
 # include "utils.h"
 # include "executor.h"

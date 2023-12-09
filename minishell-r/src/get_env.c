@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:45:16 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 13:43:12 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/09 16:00:37 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/**
+ * Procura uma variável de ambiente em um array de strings.
+ *
+ * @param env O array de strings contendo as variáveis de ambiente.
+ * @param var A variável de ambiente a ser procurada.
+ * @return O índice da variável de ambiente encontrada, ou -1 se não 
+ * for encontrada.
+ */
 int	find_env_var(char **env, char *var)
 {
 	char	*temp;
@@ -32,29 +40,6 @@ int	find_env_var(char **env, char *var)
 }
 
 /**
- * Função para obter o diretório atual e atualizar a variável de ambiente PWD.
- * 
- * @param env Ponteiro para o array de strings com as variáveis de ambiente.
- */
-void get_pwd(char ***env)
-{
-	char buf[PATH_MAX + 1];
-	char *cmd;
-
-//	obtem o diretorio atual
-	getcwd(buf, sizeof(buf));
-//	prepara a string de ambiente PWD
-	cmd = ft_strjoin("PWD=", buf);
-//	atualiza a variavel de ambiente PWD
-	update_env(env, cmd);
-//	verifica se a variavel de ambiente OLDPWD existe
-	if (find_env_var(*env, "OLDPWD") == -1)
-//		adiciona a variavel de ambiente OLDPWD ao array de variaveis de ambiente
-		update_env(env, "OLDPWD");
-	free(cmd);
-}
-
-/**
  * Atualiza a string de ambiente com uma nova variável de ambiente
  * e um novo comando.
  *
@@ -63,19 +48,19 @@ void get_pwd(char ***env)
  * @param temp_env A variável de ambiente temporária.
  * @param temp_cmd O comando temporário.
  */
-void update_env_str(char **str, char *new, char *temp_env, char *temp_cmd)
+void	update_env_str(char **str, char *new, char *temp_env, char *temp_cmd)
 {
-	int env_var_len;
-	int cmd_var_len;
-	int len;
-	int i;
+	int	env_var_len;
+	int	cmd_var_len;
+	int	len;
+	int	i;
 
 //	atribui o tamanho das strings
 	env_var_len = ft_strlen(temp_env);
 	cmd_var_len = ft_strlen(temp_cmd);
 //	verifica se a variavel de ambiente ja existe e se o comando é vazio	
 	if ((*str)[env_var_len] != '\0' && new[cmd_var_len] == '\0')
-		return;
+		return ;
 	len = ft_strlen(*str);
 //	remove o comando antigo da string de ambiente	
 	while (len--)
@@ -131,19 +116,21 @@ void	update_env(char	***env, char *cmd)
 /**
  * @brief Atualiza o valor da variável de ambiente SHLVL.
  *
- * Esta função recebe um ponteiro duplo para o array de variáveis de ambiente e uma string com o valor.
- * Ela incrementa o valor da variável SHLVL em 1 e atualiza o array de variáveis de ambiente de acordo.
+ * Esta função recebe um ponteiro duplo para o array de variáveis 
+ * de ambiente e uma string com o valor.
+ * Ela incrementa o valor da variável SHLVL em 1 e atualiza o array
+ *  de variáveis de ambiente de acordo.
  *
  * @param env O ponteiro duplo para o array de variáveis de ambiente.
  * @param value A string com o valor atual da variável SHLVL.
  */
-void update_shlvl(char ***env, char *value)
+void	update_shlvl(char ***env, char *value)
 {
-	char *shell_level;
-	char *new;
+	char	*shell_level;
+	char	*new;
 
 	if (!value)
-		return;
+		return ;
 //	incrementa o valor da variavel SHLVL	
 	shell_level = ft_itoa(ft_atoi(value) + 1);
 	new = ft_strjoin("SHLVL=", shell_level);
@@ -154,13 +141,15 @@ void update_shlvl(char ***env, char *value)
 }
 
 /**
- * @brief Recupera as variáveis de ambiente e atualiza o valor da variável "SHLVL".
+ * @brief Recupera as variáveis de ambiente e atualiza o valor
+ * da variável "SHLVL".
  * 
  * Esta função recebe um array de strings representando 
  * as variáveis de ambiente e retorna uma versão modificada dele.
  * Ela copia o array original, itera por cada variável e 
  * verifica se o nome da variável é "SHLVL".
- * Se for, ela atualiza o valor da variável "SHLVL" e realiza operações adicionais.
+ * Se for, ela atualiza o valor da variável "SHLVL" e realiza 
+ * operações adicionais.
  * Por fim, ela retorna o array modificado de variáveis de ambiente.
  * 
  * @param envp O array de strings representando as variáveis de ambiente.

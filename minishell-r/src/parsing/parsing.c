@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 17:52:45 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:37:45 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parsing(char *line_prompt)
 
 	head = NULL;
 	temp_prompt = NULL;
-	if (pipe_sintax(line_prompt))
+	if (pipex(line_prompt))
 	{
 		display_error(1, "Erro de sintaxe", true);
 		shell()->segments_lst = head;
@@ -55,23 +55,23 @@ void	parsing(char *line_prompt)
  * @param input A string de entrada a ser verificada.
  * @return Retorna 1 se a sintaxe estiver presente, caso contrário retorna 0.
  */
-int	pipe_sintax(char *prompt)
+int	pipex(char *prompt)
 {
 	int	i;
 
 	if (!prompt || !(*prompt))
 		return (0);
-	if (check_pipe(prompt) == 0)
-		return (0);
 	i = 0;
-	while (prompt[i] && is_space(prompt[i]))
+	while (prompt[i] && (prompt[i] == '\t' || prompt[i] == ' '))
 		i++;
 	if (prompt[i] == '|')
 		return (1);
 	i = ft_strlen(prompt) - 1;
-	while (prompt[i] && is_space(prompt[i]))
+	while (prompt[i] && (prompt[i] == '\t' || prompt[i] == ' '))
 		i--;
 	if (prompt[i] == '|')
+		return (1);
+	if (check_pipe(prompt))
 		return (1);
 	return (0);
 }
@@ -93,7 +93,7 @@ int	check_pipe(char *prompt)
 	last_char = 0;
 	while (prompt[i])
 	{
-		if (check_quote(prompt[i]))
+		if (prompt[i] == '"' || prompt[i] == '\'')
 		{
 			quote = prompt[i++];
 			while (prompt[i] && prompt[i] != quote)
@@ -102,7 +102,7 @@ int	check_pipe(char *prompt)
 				return (0);
 			last_char = 0;
 		}
-		else if (is_space(prompt[i]))
+		else if (prompt[i] == '\t' || prompt[i] == ' ')
 			i++;
 		else if (last_char == '|' && prompt[i] == '|')
 			return (1);

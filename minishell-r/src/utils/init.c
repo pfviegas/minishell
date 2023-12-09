@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 11:22:16 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:41:51 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param shell A estrutura t_shell que contém as variáveis da shell.
  * @param envp  O array de strings contendo as variáveis de ambiente.
  */
-void init_shell_vars(t_shell *shell, char **envp)
+void	init_shell_vars(t_shell *shell, char **envp)
 {
 	shell->error = false;
 	shell->segments_lst = NULL;
@@ -38,7 +38,7 @@ void init_shell_vars(t_shell *shell, char **envp)
  *
  * @param seg Ponteiro para a estrutura t_command a ser inicializada.
  */
-void init_command(t_command *token)
+void	init_command(t_command *token)
 {
 	token->here_doc = false;
 	token->redirect_error = 0;
@@ -62,11 +62,11 @@ void init_command(t_command *token)
  * 
  * @param lst A lista de segmentos de comandos.
  */
-void init_built_in_flags(t_list *lst)
+void	init_built_in_flags(t_list *lst)
 {
-	t_list *temp;
-	t_command *tokens;
-	int i;
+	t_list		*temp;
+	t_command	*tokens;
+	int			i;
 
 	temp = lst;
 	while (temp)

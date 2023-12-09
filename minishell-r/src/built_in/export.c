@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:29:15 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/01 15:41:16 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/09 16:34:39 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@
  * @param str A string a ser verificada.
  * @return 1 se a string atende às condições de exportação, 0 caso contrário.
  */
-int check_export_conditions(char *str)
+int	check_export_conditions(char *str)
 {
-	int i;
+	int	i;
 //	Verifica se a string começa com uma letra ou um sublinhado
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
-		return 0;
+		return (0);
 	i = 0;
 //	Verifica se os caracteres subsequentes são letras, dígitos ou sublinhados
 	while (str[++i] && str[i] != '=')
 	{
 		if (!(ft_isalpha(str[i]) || ft_isdigit(str[i] || str[i] == '_')))
-			return 0;
+			return (0);
 	}
-	return 1;
+	return (1);
 }
 
 /**
@@ -124,7 +124,6 @@ void	execute_export(char	**cmd)
 //PFV	
 //	if (!cmd || ft_strcmp(cmd[0], "export") != 0)
 //		return ;
-
 //	Se não houver argumentos, imprime todas as variáveis de ambiente
 	if (!cmd[1])
 	{

@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 18:10:18 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:03:38 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_shell	*shell(void)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line_prompt;
-
+	int		i;
 //	verifica se o numero de argumentos é valido	
 	if (argc != 1)
 	{
@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 //	enquanto a prompt estiver ativa
 	while (shell()->prompt)
 	{
+		i = 0;
 		line_prompt = readline("minishell$ ");
 		if (!line_prompt)
 		{
@@ -66,13 +67,17 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
 		{
+			while (line_prompt && (line_prompt[i] == ' ' || line_prompt[i] == '\t'))
+				i++;
+			if (line_prompt[i] == 0)
+				continue ;
 // 			adiciona o comando ao historico
 			add_history(line_prompt);
 // 			verifica se o comando é valido
 			parsing(line_prompt);
 			if (!shell()->error)
 				executor(shell()->segments_lst);
- 			free_all(false, true, false, false);		
+			free_all(false, true, false, false);
 		}
 	}
 

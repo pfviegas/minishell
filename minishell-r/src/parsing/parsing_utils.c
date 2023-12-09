@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 18:18:07 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:39:38 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*replace_pipe(char *str, char search_char, char replace_char)
 	quote = 0;
 	while (str[++i])
 	{
-		if (check_quote(str[i]) && in_quote == 0)
+		if ((str[i] == '"' || str[i] == '\'') && in_quote == 0)
 		{
 			quote = str[i];
 			in_quote = 1;
@@ -92,9 +92,9 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 {
 	char	*temp;
 
-	if (is_space(input_command[*i]))
+	if (input_command[*i] == '\t' || input_command[*i] == ' ')
 		(*i)++;
-	else if (is_great_less(input_command[*i]))
+	else if (input_command[*i] == '<' || input_command[*i] == '>')
 	{
 		temp = parse_redirection(input_command, i);
 		if (temp)
@@ -106,7 +106,6 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 	else
 	{
 		temp = parse_word(input_command, i);
-		
 		if (temp)
 		{
 			add_str_to_array(&new_seg->cmd, temp);
@@ -136,10 +135,10 @@ char	*parse_redirection(char *seg, int *curr_pos)
 	j = 1;
 	redirect = &seg[(*curr_pos)];
 	temp = malloc(sizeof(char *) * (ft_strlen(redirect) + 1));
-	if(!temp)
+	if (!temp)
 		return (NULL);
 	ft_memset(temp, 0, sizeof(char *) * (ft_strlen(redirect) + 1));
-	while (redirect && redirect[i] && !is_space(redirect[i]))
+	while (redirect && redirect[i] && (redirect[i] != '\t' || redirect[i] != ' '))
 		parse_redirection_2(temp, redirect, &i, &j);
 	(*curr_pos) += i;
 	return (temp);

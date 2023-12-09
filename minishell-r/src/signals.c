@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/05 11:37:49 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/09 15:56:01 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * 
  * @param signal O número do sinal.
  */
-void handle_sign(int signal)
+void	handle_sign(int signal)
 {
 	(void)signal;
 	shell()->exit_code = 130;
@@ -64,7 +64,7 @@ void	handle_quit(int signal)
 /**
  * Configura o comportamento dos sinais SIGINT e SIGQUIT.
  */
-void signals_behavior(void)
+void	signals_behavior(void)
 {
 	signal(SIGINT, handle_sign);
 	signal(SIGQUIT, handle_quit);

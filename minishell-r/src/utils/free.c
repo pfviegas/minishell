@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:10:10 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 11:23:22 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:43:48 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,19 @@
  *
  * @param array O ponteiro para o array de strings.
  */
-void free_array(char ***array)
+void	free_array(char ***array)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	if (!(*array))
-		return;
-	
+		return ;
 	len = 0;
 	while ((*array)[len])
 		len++;
-	
 	i = -1;
 	while (++i < len)
 		free((*array)[i]);
-	
 	free((*array));
 }
 
@@ -49,26 +46,22 @@ void free_array(char ***array)
  *                       devem ser fechados.
  * @param f_exit         Indica se o shell deve ser encerrado.
  */
-void free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
+void	free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
 {
 	shell()->error = false;
-
 	if (free_env == true)
 		free_array(&shell()->env);
-
 	if (free_cmd_lst == true)
 	{
 		if (shell()->segments_lst)
 			free_lst(shell()->segments_lst);
 	}
-
 	if (std_files == true)
 	{
 		close(2);
 		close(1);
 		close(0);
 	}
-
 	if (f_exit == true)
 		exit(shell()->exit_code);
 }
@@ -78,10 +71,10 @@ void free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
  * 
  * @param temp Ponteiro para o primeiro elemento da lista.
  */
-void free_lst(t_list *lst)
+void	free_lst(t_list *lst)
 {
-	t_list *next;
-	t_command *seg;
+	t_list		*next;
+	t_command	*seg;
 
 	while (lst)
 	{

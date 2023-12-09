@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/08 17:45:36 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:40:20 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	parse_redirection_2(char *temp, char *redirect, int *i, int *j)
 		(*j)++;
 	}
 	(*i)++;
-	while (redirect && is_space(redirect[*i]))
+	while (redirect && (redirect[*i] == '\t' || redirect[*i] == ' '))
 		(*i)++;
-	if (redirect && !is_great_less(redirect[*i]))
+	if (redirect && (redirect[*i] != '<' || redirect[*i] != '>'))
 	{
-		while (redirect && redirect[*i] && !is_space(redirect[*i]))
+		while (redirect && redirect[*i] && (redirect[*i] != '\t' || redirect[*i] != ' '))
 			temp[(*j)++] = redirect[(*i)++];
 	}
 }
@@ -57,12 +57,12 @@ char	*parse_word(char *seg, int *i)
 	flag = 0;
 	while (seg[*i] && !end_word(seg[*i], flag != 0))
 	{
-		if (check_quote(seg[*i]) && flag == 0)
+		if ((seg[*i] == '"' || seg[*i] == '\'') && flag == 0)
 		{
 			quote = seg[*i];
 			flag = 1;
 		}
-		else if (check_quote(seg[*i]) && quote == seg[(*i)])
+		else if ((seg[*i] == '"' || seg[*i] == '\'') && quote == seg[(*i)])
 			flag = 0;
 		else if ((flag == 0 || (flag == 1 && quote == '"')) && seg[*i] == '$')
 			expand_var(seg, &str, i);
@@ -154,7 +154,6 @@ void	get_redirects(t_list *lst)
 
 //PFV
 	//print_lst(lst);
-
 	temp = lst;
 	while (temp)
 	{

@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 11:37:51 by paulo             #+#    #+#             */
-/*   Updated: 2023/12/06 16:56:09 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:54:39 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@ void	free_lst(t_list *lst);
 void	add_char(char **str, char c);
 void	add_str_to_array(char ***array, char *str);
 char	**create_array(char *str);
-int		is_space(char c);
-int		check_quote(char c);
 void	display_error(int exit_code, char *str, bool error);
 int		is_in_set(char c, char *search_set);
-int		is_great_less(char c);
 int		end_word(char c, char quote);
 int		end_var(char c);
 void	expand_exit(char **new, int *curr_pos);
 void	expander(char *old, char **new, int start, int *curr_pos);
-int 	get_var_size(char *str);
+int		get_var_size(char *str);
 void	print_lst(t_list *lst);
 void	init_built_in_flags(t_list *lst);
-int 	is_built_in(char *str);
+int		is_built_in(char *str);
 
 #endif

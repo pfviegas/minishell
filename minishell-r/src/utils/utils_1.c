@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 13:48:48 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 17:35:28 by pveiga-c         ###   ########.fr       */
+/*   Created: 2023/11/24 13:48:48 by pveiga-c          #+#    #+#             */
+/*   Updated: 2023/12/09 16:50:01 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ void	add_char(char **str, char c)
 		*str = new_str;
 		return ;
 	}
-	i = 0;
-	while ((*str)[i])
-		i++;
-	new_str = malloc(i + 2);
+	// i = 0;
+	// while ((*str)[i])
+	// 	i++;
+	new_str = malloc(ft_strlen(*str) + 2);
 	if (!new_str)
 		return ;
 	i = -1;
@@ -159,16 +159,15 @@ void	add_str_to_array(char ***array, char *str)
  * @param str A string a ser convertida em array.
  * @return O array de strings criado.
  */
-char **create_array(char *str)
+char	**create_array(char *str)
 {
-	char **array;
-	int i;
+	char	**array;
+	int		i;
 
 	array = malloc(sizeof(char *) * 2);
 	if (!array)
 		return (NULL);
 	i = 0;
-	//printf("Último caractere: %d\n", str[ft_strlen(str)]);
 	while (str[i])
 		i++;
 	array[0] = ft_strdup(str);
@@ -176,283 +175,4 @@ char **create_array(char *str)
 		return (NULL);
 	array[1] = NULL;
 	return (array);
-}
-
-/**
- * Verifica se o caractere dado é um espaço em branco.
- *
- * @param c O caractere a ser verificado.
- * @return 1 se o caractere for um espaço em branco, 0 caso contrário.
- */
-int is_space(char c)
-{
-	if (c == '\t' || c == ' ')
-		return 1;
-	return 0;
-}
-
-/**
- * Verifica se o caractere é uma aspa (simples ou dupla).
- *
- * @param c O caractere a ser verificado.
- * @return 1 se o caractere for uma aspa, 0 caso contrário.
- */
-int check_quote(char c)
-{
-	if (c == '"' || c == '\'')
-		return 1;
-	return 0;
-}
-
-/**
- * Função responsável por exibir um erro no terminal.
- *
- * @param exit_code  O código de erro a ser definido.
- * @param str        A mensagem de erro a ser exibida. Se for NULL,
- *                   a mensagem de erro do sistema será exibida.
- * @param error      Indica se o erro deve ser registrado no shell.
- */
-void display_error(int exit_code, char *str, bool error)
-{
-	if (str)
-		ft_putendl_fd(str, STDERR_FILENO);
-	else
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	if (error)
-		shell()->error = true;
-	shell()->exit_code = exit_code;
-}
-
-/**
- * Verifica se um caractere está presente em um conjunto de caracteres.
- *
- * @param c          O caractere a ser verificado.
- * @param search_set O conjunto de caracteres onde será feita a busca.
- * @return           1 se o caractere estiver presente no conjunto, 0 caso contrário.
- */
-
-//PCC
-int	is_in_set(char c, char *search_set)
-{
-	int	i;
-
-	i = -1;
-	while (search_set && search_set[++i])
-		if (search_set[i] == c)
-			return (1);
-	return (0);
-}
-
-/**
- * Verifica se o caractere fornecido é um sinal de maior ou menor.
- *
- * @param c O caractere a ser verificado.
- * @return 1 se o caractere for '<' ou '>', caso contrário, retorna 0.
- */
-int is_great_less(char c)
-{
-	if (c == '<' || c == '>')
-		return 1;
-	return 0;
-}
-
-/**
- * Verifica se o caractere `c` marca o fim de uma palavra.
- * Uma palavra é considerada finalizada se o caractere for um espaço em branco,
- * um caractere de redirecionamento (>, <) ou se não estiver dentro de quotes.
- *
- * @param c     O caractere a ser verificado.
- * @param quote Indica se o caractere atual está dentro de uma citação.
- * @return      Retorna 1 se o caractere marca o fim de uma palavra, caso contrário retorna 0.
- */
-int	end_word(char c, char quote)
-{
-	if ((is_great_less(c) || is_space(c)) && !quote)
-		return (1);
-	return (0);
-}
-
-/**
- * Verifica se um caractere é o fim de uma variável.
- *
- * Esta função verifica se um caractere é considerado o fim de uma variável.
- * Um caractere é considerado o fim de uma variável se não for uma letra,
- * um dígito ou o caractere de sublinhado ('_'), ou se for o caractere de
- * interrogação ('?').
- *
- * @param c O caractere a ser verificado.
- * @return  1 se o caractere for o fim de uma variável, 0 caso contrário.
- */
-int	end_var(char c)
-{
-	if (!(ft_isalpha(c) || ft_isdigit(c) || c == '_') || c == '?')
-		return (1);
-	return (0);
-}
-
-/**
- * Expande o código de saída e adiciona os caracteres correspondentes à string.
- *
- * Esta função recebe um ponteiro para uma string e a posição atual na string.
- * Incrementa a posição atual e converte o código de saída em uma string.
- * Em seguida, itera sobre os caracteres da string do código de saída 
- * adiciona-os à string fornecida.
- *
- * @param new_str O ponteiro para a string a ser expandida.
- * @param curr_pos O ponteiro para a posição atual na string.
- */
-void	expand_exit(char **new, int *curr_pos)
-{
-	char	*exit_var;
-	int		i;
-
-	(*curr_pos)++;
-	exit_var = ft_itoa(shell()->exit_code);
-	i = 0;
-	while (exit_var[i])
-	{
-		add_char_string(new, exit_var[i]);
-		i++;
-	}
-	free(exit_var);
-}
-
-/**
- * Função para expandir uma string substituindo variáveis de ambiente.
- *
- * @param old_str  A string original.
- * @param new_str  O endereço da string expandida.
- * @param start    A posição inicial na string original.
- * @param curr_pos O endereço da posição atual na string original.
- */
-void	expander(char *old, char **new, int start, int *curr_pos)
-{
-	char	*expand;
-	char	*temp;
-	int		i;
-	int		j;
-
-	expand = NULL;
-	temp = NULL;
-	while (start < *curr_pos)
-		add_char_string(&expand, old[start++]);
-	i = -1;
-	while (shell()->env[++i])
-	{
-		j = get_var_size(shell()->env[i]);
-		temp = ft_substr(shell()->env[i], 0, j);
-		if (ft_strcmp(expand, temp) == 0)
-		{
-			free(temp);
-			while (shell()->env[i][++j])
-				add_char_string(new, shell()->env[i][j]);
-			break ;
-		}
-		free(temp);
-	}
-	free(expand);
-}
-
-/**
- * Retorna o tamanho da variável em uma string.
- *
- * Esta função recebe uma string contendo uma variável no formato "nome=valor"
- * e retorna o tamanho do nome da variável.
- *
- * @param str A string contendo a variável.
- * @return O tamanho do nome da variável.
- */
-int get_var_size(char *str)
-{
-	int i;
-
-	i = 0;
-	if (!str)
-		return (-1);
-	while (str[i] && str[i] != '=')
-		i++;
-	return (i);
-}
-
-/**
- * Imprime os elementos de uma lista encadeada.
- * Cada elemento da lista é do tipo t_command, que contém informações 
- * sobre comandos e redirecionamentos.
- * Para cada segmento, imprime os argumentos do comando 
- * e os argumentos de redirecionamento.
- *
- * @param lst A lista encadeada a ser impressa.
- */
-void print_lst(t_list *lst)
-{
-	t_list *temp;
-	t_command *seg;
-	int i;
-
-	temp = lst;
-	while (temp)
-	{
-		printf("----------------------------  tokens  -----------------------------\n");
-		seg = (t_command *)temp->content;
-		i = -1;
-		while (seg->cmd && seg->cmd[++i])
-			printf("cmd_arg[%d] - %s\n", i, seg->cmd[i]);
-		i = -1;
-		while (seg->red && seg->red[++i])
-			printf("red_arg[%d] - %s\n", i, seg->red[i]);
-		temp = temp->next;
-	}
-}
-
-void	rm_str_from_array(char ***array, int index)
-{
-	char	**new_array;
-	int		len;
-	int		i;
-
-	if (!(*array))
-		return ;
-	else
-	{
-		len = 0;
-		while ((*array)[len])
-			len++;
-		new_array = malloc(sizeof(char *) * len);
-		if (!new_array)
-			return ;
-		i = -1;
-		len = 0;
-		while ((*array)[++i])
-		{
-			if (i != index)
-				new_array[len++] = ft_strdup((*array)[i]);
-		}
-		new_array[len] = NULL;
-		free_array(array);
-		*array = new_array;
-	}
-}
-
-/**
- * Função que redireciona a saída de erro padrão (stderr) para /dev/null.
- * Qualquer mensagem de erro escrita em stderr será descartada.
- * 
- * @return void
- */
-void stderr_null(void)
-{
-	int null_fd = open("/dev/null", O_WRONLY);
-
-	if (null_fd == -1) 
-	{
-		perror("Erro ao abrir /dev/null");
-		exit(1);
-	}
-	// Redirecionar stderr para /dev/null
-	if (dup2(null_fd, STDERR_FILENO) == -1)
-	{
-		perror("Erro ao redirecionar stderr");
-		exit(1);
-	}
-	close(null_fd);
 }

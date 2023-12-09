@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/09 17:03:08 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:27:30 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,14 @@ void	parsing(char *line_prompt)
 	int		i;
 
 	head = NULL;
-	temp_prompt = NULL;
-	if (pipex(line_prompt))
-	{
-		display_error(1, "Erro de sintaxe", true);
-		shell()->segments_lst = head;
-		return ;
-	}
+	parsing_2(line_prompt, head);
 	temp_prompt = replace_pipe(line_prompt, '|', 1);
 	parse = ft_split(temp_prompt, 1);
-	free(temp_prompt);
 	parse = trim_parse(parse);
 	i = -1;
 	while (parse[++i])
 		ft_lstadd_back(&head, get_tokens(parse[i]));
-	free_array(&parse);
+	free_temp(temp_prompt, parse);
 	shell()->segments_lst = head;
 	init_built_in_flags(shell()->segments_lst);
 	if (!shell()->error)
@@ -46,6 +39,22 @@ void	parsing(char *line_prompt)
 		}
 		get_redirects(shell()->segments_lst);
 	}
+}
+
+void	parsing_2(char *line_prompt, t_list *head)
+{
+	if (pipex(line_prompt))
+	{
+		display_error(1, "Erro de sintaxe", true);
+		shell()->segments_lst = head;
+		return ;
+	}
+}
+
+void	free_temp(char *temp_prompt, char **parse)
+{
+	free(temp_prompt);
+	free_array(&parse);
 }
 
 /**
@@ -109,62 +118,4 @@ int	check_pipe(char *prompt)
 			last_char = prompt[i++];
 	}
 	return (0);
-}
-
-int	get_here_doc(t_list *lst)
-{
-	t_list		*temp;
-	t_command	*token;
-	int			i;
-
-	temp = lst;
-	while (temp)
-	{
-		token = (t_command *)temp->content;
-		i = -1;
-		token->here_doc = false;
-		while (token->red && token->red[++i])
-		{
-			if (token->red[i][0] == '<' && token->red[i][1] == '<')
-			{
-				add_str_to_array(&token->here, &token->red[i][2]);
-				token->here_doc = true;
-			}
-			else if (token->red[i][0] == '<')
-				token->here_doc = false;
-		}
-		if (token->here && token->here_doc)
-		{
-			token->std.in = here_doc(token);
-			if (token->std.in == -1)
-				return (1);
-		}
-		else if (token->here)
-		{
-			if (close(here_doc(token)) == -1)
-				return (1);
-		}
-		temp = temp->next;
-	}
-	return (0);
-}
-
-void	print_matriz(char **matriz)
-{
-	int		i;
-	size_t	j;
-
-	i = 0;
-	printf("---------------matriz-------------\n\n");
-	while (i < 2)
-	{
-		j = 0;
-		while (j < ft_strlen (matriz[i]))
-		{
-			printf("%c", matriz[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
 }

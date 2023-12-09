@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/09 15:43:55 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:24:51 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,9 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg);
 void	parse_redirection_2(char *temp, char *redirect, int *i, int *j);
 int		get_here_doc(t_list *lst);
 void	get_redirects(t_list *lst);
+void	parsing_2(char *line_prompt, t_list *head);
+void	free_temp(char *temp_prompt, char **parse);
+void 	here_doc_red(int i, t_command *token);
+
 
 #endif

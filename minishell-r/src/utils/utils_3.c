@@ -6,9 +6,11 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:47:53 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/09 16:54:13 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:00:38 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../include/minishell.h"
 
 /**
  * Função para expandir uma string substituindo variáveis de ambiente.

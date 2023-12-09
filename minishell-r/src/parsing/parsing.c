@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/09 16:37:45 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:03:08 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	parsing(char *line_prompt)
 	i = -1;
 	while (parse[++i])
 		ft_lstadd_back(&head, get_tokens(parse[i]));
-	//print_lst(head);
 	free_array(&parse);
 	shell()->segments_lst = head;
 	init_built_in_flags(shell()->segments_lst);

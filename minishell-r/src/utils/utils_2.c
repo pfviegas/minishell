@@ -6,9 +6,11 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:46:27 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/09 16:48:35 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:00:28 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../include/minishell.h"
 
 /**
  * Função responsável por exibir um erro no terminal.

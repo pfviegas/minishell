@@ -6,7 +6,7 @@
 #    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/12/08 17:30:40 by pveiga-c         ###   ########.fr        #
+#    Updated: 2023/12/09 16:59:49 by pveiga-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRC_FILES			= 	minishell.c \
 						get_env.c \
 						utils/init.c \
 						utils/utils_1.c \
+						utils/utils_2.c \
+						utils/utils_3.c \
 						utils/free.c \
 						parsing/parsing.c \
 						parsing/parsing_utils.c \

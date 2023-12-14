@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
+#    By: correia <correia@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/12/09 17:19:01 by pveiga-c         ###   ########.fr        #
+#    Updated: 2023/12/14 16:41:41 by correia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC_FILES			= 	minishell.c \
 						parsing/parsing_2.c \
 						parsing/parsing_utils.c \
 						parsing/parsing_utils_2.c \
+						parsing/get_redirects.c \
 						executor/here_doc.c \
 						executor/here_doc_utils.c \
 						executor/executor.c \

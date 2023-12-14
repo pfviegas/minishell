@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/09 16:03:38 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:09:37 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,58 +32,44 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line_prompt;
 	int		i;
-//	verifica se o numero de argumentos é valido	
+
 	if (argc != 1)
 	{
-//		exibe uma mensagem de erro no stderr
 		write(2, "minishell: ", 11);
 		write(2, argv[1], ft_strlen(argv[1]));
 		write(2, ": No such file or directory\n", 28);
 		return (127);
 	}
-//	limpa o historico do readline
 	rl_clear_history();
-//	desativa a captura de sinais pelo readline 
 	rl_catch_signals = 0;
-//	define o comportamento dos sinais
 	signals_behavior();
-//	inicializa o estado da prompt	
 	shell()->prompt = true;
-//	inicializa as variaveis de ambiente	
 	init_shell_vars(shell(), envp);
-//	enquanto a prompt estiver ativa
 	while (shell()->prompt)
 	{
 		i = 0;
 		line_prompt = readline("minishell$ ");
 		if (!line_prompt)
 		{
-//			mensagem de saida CTRL+D
 			printf("exit\n");
-//			libera a memoria alocada
 			free_all(true, false, true, false);
-//			sai do minishell com o codigo de saida 0
 			exit(0);
 		}
 		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
 		{
-			while (line_prompt && (line_prompt[i] == ' ' || line_prompt[i] == '\t'))
+			while (line_prompt && (line_prompt[i] == ' ' || \
+			line_prompt[i] == '\t'))
 				i++;
 			if (line_prompt[i] == 0)
 				continue ;
-// 			adiciona o comando ao historico
 			add_history(line_prompt);
-// 			verifica se o comando é valido
 			parsing(line_prompt);
 			if (!shell()->error)
 				executor(shell()->segments_lst);
 			free_all(false, true, false, false);
 		}
 	}
-
 	free_all(true, false, true, false);
-//	limpa o historico do readline
 	rl_clear_history();
-//	retorna o codigo de saida do minishell
 	return (shell()->exit_code);
 }

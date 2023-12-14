@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/07 16:55:51 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/14 16:10:17 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	update_pwd_var(void)
 	{
 		if (find_var(*ch_env, "OLDPWD") != -1)
 		{
-			temp = ft_strjoin("OLDPWD=", 
+			temp = ft_strjoin("OLDPWD=", \
 					&(*ch_env)[find_var(shell()->env, "PWD")][4]);
 			update_env(ch_env, temp);
 			free(temp);

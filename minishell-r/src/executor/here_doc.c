@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:41:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 14:37:43 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:56:28 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ void	here_doc_input(t_command *cmd)
 int	here_doc(t_command *cmd)
 {
 	pid_t	pid;
-	int		i;
 
 	shell()->in_here_doc = true;
 	if (pipe(shell()->here_doc_fd) < 0)
 		perror("pipe error");
 	pid = fork();
-	i = 0;
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_IGN);

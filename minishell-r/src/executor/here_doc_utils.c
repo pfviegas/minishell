@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 11:43:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/05 13:17:59 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/14 16:13:35 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	here_doc_expand_var(char **line)
  */
 void	here_doc_error(char *str)
 {
-	printf("\nWarning: heredoc on line 1 delimited by EOF (wanted: \"%s\")\n", str);
+	printf("\nWarning: heredoc on line 1 delimited by EOF \
+	(wanted: \"%s\")\n", str);
 	signals_behavior();
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_utils.c                                   :+:      :+:    :+:   */
+/*   executor_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:31:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/05 14:32:58 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/14 16:13:02 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	check_dir(char *path)
 
 	if (stat(path, &st) == -1)
 		return ;
-	if (S_ISDIR(st.st_mode) && path && 
+	if (S_ISDIR(st.st_mode) && path && \
 		(!ft_strncmp("./", path, 2) || path[0] == '/'))
 	{
 		msg_aux = ft_strjoin("minishell: ", path);

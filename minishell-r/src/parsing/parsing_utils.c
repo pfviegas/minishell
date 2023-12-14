@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/09 16:39:38 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:17:08 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ char	*parse_redirection(char *seg, int *curr_pos)
 	if (!temp)
 		return (NULL);
 	ft_memset(temp, 0, sizeof(char *) * (ft_strlen(redirect) + 1));
-	while (redirect && redirect[i] && (redirect[i] != '\t' || redirect[i] != ' '))
+	while (redirect && redirect[i] && (redirect[i] != '\t' \
+	|| redirect[i] != ' '))
 		parse_redirection_2(temp, redirect, &i, &j);
 	(*curr_pos) += i;
 	return (temp);

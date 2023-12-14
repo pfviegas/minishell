@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:18:18 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/09 17:25:23 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:43:22 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_here_doc(t_list *lst)
 	{
 		token = (t_command *)temp->content;
 		i = -1;
-		token->here_doc = false;
+	//	token->here_doc = false;
 		while (token->red && token->red[++i])
 			here_doc_red(i, token);
 		if (token->here && token->here_doc)
@@ -42,15 +42,15 @@ int	get_here_doc(t_list *lst)
 	return (0);
 }
 
-void here_doc_red(int i, t_command *token)
+void	here_doc_red(int i, t_command *token)
 {
-			if (token->red[i][0] == '<' && token->red[i][1] == '<')
-			{
-				add_str_to_array(&token->here, &token->red[i][2]);
-				token->here_doc = true;
-			}
-			else if (token->red[i][0] == '<')
-				token->here_doc = false;
+	if (token->red[i][0] == '<' && token->red[i][1] == '<')
+	{
+		add_str_to_array(&token->here, &token->red[i][2]);
+		token->here_doc = true;
+	}
+	else if (token->red[i][0] == '<')
+		token->here_doc = false;
 }
 
 void	print_matriz(char **matriz)

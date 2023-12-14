@@ -1,0 +1,27 @@
+ls
+ls -a
+cat test.txt  /*erro corrigir*/
+touch novo_arquivo.txt
+mv test.txt novo_test.txt
+cp Makefile copia_makefile.txt
+rm copia_makefile.txt
+mkdir novo_diretorio
+cd nome_do_diretorio
+cd ..
+pwd
+
+*****PIPES*****
+
+ls -l | grep ".txt"
+echo "Olá, mundo!" > saudacao.txt
+echo "Mais uma linha." >> saudacao.txt
+sort < lista_desordenada.txt
+
+******HEREDOC*****
+
+cat << END
+Este é um heredoc.
+Ele permite que você insira várias linhas de texto
+diretamente no script Bash.
+END
+

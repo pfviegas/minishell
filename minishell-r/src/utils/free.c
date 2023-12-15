@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:10:10 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/09 16:43:48 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:39:47 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
 {
 	shell()->error = false;
 	if (free_env == true)
+	{
 		free_array(&shell()->env);
+		free(shell()->rep_prompt);
+	}
 	if (free_cmd_lst == true)
 	{
 		if (shell()->segments_lst)

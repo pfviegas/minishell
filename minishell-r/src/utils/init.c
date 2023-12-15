@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 10:28:08 by paulo            ###   ########.fr       */
+/*   Updated: 2023/12/15 18:59:16 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_shell_vars(t_shell *shell, char **envp)
 	shell->exit_code = 0;
 	shell->in_here_doc = false;
 	shell->in_exec = false;
+	shell->rep_prompt = NULL;
 }
 
 /**

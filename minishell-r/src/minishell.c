@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 15:51:36 by paulo            ###   ########.fr       */
+/*   Updated: 2023/12/15 19:23:56 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ void	process_input_line(char *line_prompt)
 		i++;
 	if (line_prompt[i] != '\0' && line_prompt[i] != '\n')
 	{
-//		verificar se o comando atual é igual ao anterior, se sim não adicionar ao historico
-		add_history(line_prompt);
+		if (shell()->rep_prompt && ft_strcmp(shell()->rep_prompt, \
+		line_prompt) != 0)
+			add_history(line_prompt);
+		shell()->rep_prompt = ft_strdup(line_prompt);
 		parsing(line_prompt);
 		if (!shell()->error)
 			executor(shell()->segments_lst);
@@ -70,11 +72,20 @@ void	main_shell_loop(void)
 {
 	char	*line_prompt;
 
+	line_prompt = NULL;
 	while (shell()->prompt)
 	{
+		if (shell()->rep_prompt)
+		{
+			free(shell()->rep_prompt);
+			shell()->rep_prompt = NULL;
+		}
 		line_prompt = readline("minishell$ ");
 		if (!line_prompt)
+		{
+			free(shell()->rep_prompt);
 			handle_exit();
+		}
 		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
 			process_input_line(line_prompt);
 	}
@@ -95,7 +106,7 @@ void	main_shell_loop(void)
  */
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc != 1) 
+	if (argc != 1)
 	{
 		write(2, "minishell: ", 11);
 		write(2, argv[1], ft_strlen(argv[1]));

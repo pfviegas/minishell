@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:56:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/09 15:54:03 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/15 18:41:43 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_shell
 	bool	in_here_doc;
 	int		here_doc_fd[2];
 	bool	in_exec;
+	char	*rep_prompt;
 }	t_shell;
 
 t_shell	*shell(void);

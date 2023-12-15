@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:47:53 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/14 16:11:50 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/15 10:28:41 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ void	stderr_null(void)
 		perror("Erro ao abrir /dev/null");
 		exit(1);
 	}
-	// Redirecionar stderr para /dev/null
 	if (dup2(null_fd, STDERR_FILENO) == -1)
 	{
 		perror("Erro ao redirecionar stderr");

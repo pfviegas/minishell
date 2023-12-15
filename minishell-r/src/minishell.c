@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/14 16:09:37 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/15 15:51:36 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,74 @@ t_shell	*shell(void)
 	return (&shell);
 }
 
-int	main(int argc, char **argv, char **envp)
+/**
+ * Função responsável por lidar com a saida.
+ * Imprime a mensagem "exit" e libera a memória alocada.
+ * Encerra o programa com código de saída 0.
+ */
+void	handle_exit(void)
+{
+	printf("exit\n");
+	free_all(true, false, true, false);
+	exit(0);
+}
+
+/**
+ * Função responsável por processar uma linha de entrada.
+ *
+ * @param line_prompt A linha de entrada a ser processada.
+ */
+void	process_input_line(char *line_prompt)
+{
+	int	i;
+
+	i = 0;
+	while (line_prompt && (line_prompt[i] == ' ' || line_prompt[i] == '\t'))
+		i++;
+	if (line_prompt[i] != '\0' && line_prompt[i] != '\n')
+	{
+//		verificar se o comando atual é igual ao anterior, se sim não adicionar ao historico
+		add_history(line_prompt);
+		parsing(line_prompt);
+		if (!shell()->error)
+			executor(shell()->segments_lst);
+		free_all(false, true, false, false);
+	}
+}
+
+/**
+ * Função responsável por executar o loop principal do shell.
+ */
+void	main_shell_loop(void)
 {
 	char	*line_prompt;
-	int		i;
 
-	if (argc != 1)
+	while (shell()->prompt)
+	{
+		line_prompt = readline("minishell$ ");
+		if (!line_prompt)
+			handle_exit();
+		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
+			process_input_line(line_prompt);
+	}
+}
+
+/**
+ * Função principal do programa minishell.
+ * 
+ * Esta função é responsável por executar o minishell, 
+ * um interpretador de comandos simplificado. 
+ * Recebe os argumentos da linha de comando, 
+ * bem como o ambiente do sistema e executa o loop principal do shell.
+ * 
+ * @param argc O número de argumentos da linha de comando.
+ * @param argv Um array de strings contendo os argumentos da linha de comando.
+ * @param envp Um array de strings contendo as variáveis de ambiente do sistema.
+ * @return O código de saída do shell.
+ */
+int	main(int argc, char **argv, char **envp)
+{
+	if (argc != 1) 
 	{
 		write(2, "minishell: ", 11);
 		write(2, argv[1], ft_strlen(argv[1]));
@@ -45,30 +107,7 @@ int	main(int argc, char **argv, char **envp)
 	signals_behavior();
 	shell()->prompt = true;
 	init_shell_vars(shell(), envp);
-	while (shell()->prompt)
-	{
-		i = 0;
-		line_prompt = readline("minishell$ ");
-		if (!line_prompt)
-		{
-			printf("exit\n");
-			free_all(true, false, true, false);
-			exit(0);
-		}
-		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
-		{
-			while (line_prompt && (line_prompt[i] == ' ' || \
-			line_prompt[i] == '\t'))
-				i++;
-			if (line_prompt[i] == 0)
-				continue ;
-			add_history(line_prompt);
-			parsing(line_prompt);
-			if (!shell()->error)
-				executor(shell()->segments_lst);
-			free_all(false, true, false, false);
-		}
-	}
+	main_shell_loop();
 	free_all(true, false, true, false);
 	rl_clear_history();
 	return (shell()->exit_code);

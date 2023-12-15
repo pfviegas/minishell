@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:48:48 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/09 16:50:01 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/15 10:27:35 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,6 @@ void	add_char(char **str, char c)
 		*str = new_str;
 		return ;
 	}
-	// i = 0;
-	// while ((*str)[i])
-	// 	i++;
 	new_str = malloc(ft_strlen(*str) + 2);
 	if (!new_str)
 		return ;

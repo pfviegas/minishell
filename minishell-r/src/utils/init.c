@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/09 16:41:51 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/15 10:28:08 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	init_command(t_command *token)
 	token->in = NULL;
 	token->out = NULL;
 	token->here = NULL;
-//PFV
-//	token->append = false;
 	token->std.in = -1;
 	token->std.out = -1;
 }

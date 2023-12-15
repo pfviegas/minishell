@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:45:16 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/09 16:00:37 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/15 10:21:40 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,14 @@ void	update_env_str(char **str, char *new, char *temp_env, char *temp_cmd)
 	int	len;
 	int	i;
 
-//	atribui o tamanho das strings
 	env_var_len = ft_strlen(temp_env);
 	cmd_var_len = ft_strlen(temp_cmd);
-//	verifica se a variavel de ambiente ja existe e se o comando é vazio	
 	if ((*str)[env_var_len] != '\0' && new[cmd_var_len] == '\0')
 		return ;
 	len = ft_strlen(*str);
-//	remove o comando antigo da string de ambiente	
 	while (len--)
 		rm_last_char(str);
 	i = 0;
-//	adiciona o novo comando a string de ambiente
 	while (new[i])
 	{
 		add_char(str, new[i]);
@@ -90,14 +86,11 @@ void	update_env(char	***env, char *cmd)
 	char	*temp_cmd;
 	int		i;
 
-//	recupera o nome da variavel de ambiente
 	temp_cmd = get_env_var_name(cmd);
 	i = 0;
 	while ((*env) && (*env)[i])
 	{
-//		recupera o nome da variavel de ambiente
 		temp_env = get_env_var_name((*env)[i]);
-//		verifica se a variavel de ambiente ja existe		
 		if (ft_strcmp(temp_env, temp_cmd) == 0)
 		{
 			update_env_str(&(*env)[i], cmd, temp_env, temp_cmd);
@@ -109,7 +102,6 @@ void	update_env(char	***env, char *cmd)
 		i++;
 	}
 	free(temp_cmd);
-//	adiciona o comando ao array de variaveis de ambiente	
 	add_str_to_array(env, cmd);
 }
 
@@ -131,11 +123,9 @@ void	update_shlvl(char ***env, char *value)
 
 	if (!value)
 		return ;
-//	incrementa o valor da variavel SHLVL	
 	shell_level = ft_itoa(ft_atoi(value) + 1);
 	new = ft_strjoin("SHLVL=", shell_level);
 	free(shell_level);
-//	atualiza o valor da variavel de ambiente SHLVL	
 	update_env(env, new);
 	free(new);
 }
@@ -163,19 +153,14 @@ char	**get_env_vars(char **envp)
 
 	if (!envp)
 		return (NULL);
-//	copia o array de strings envp
 	env = cp_array(envp);
 	i = 0;
 	while (env[i])
 	{
-//		recupera o nome da variavel de ambiente
 		var = get_env_var_name(env[i]);
-//		verifica se o nome da variavel é SHLVL
 		if (!ft_strcmp("SHLVL", var))
 		{
-//			atualiza o valor da variavel SHLVL
 			update_shlvl(&env, &env[i][ft_strlen(var) + 1]);
-//			atualiza o valor da variavel PWD
 			get_pwd(&env);
 			free(var);
 			return (env);
@@ -183,9 +168,7 @@ char	**get_env_vars(char **envp)
 		free(var);
 		i++;
 	}
-//	adiciona a variavel de ambiente SHLVL ao array de variaveis de ambiente
 	update_env(&env, "SHLVL=1");
-//	atualiza o valor da variavel PWD
 	get_pwd(&env);
 	return (env);
 }

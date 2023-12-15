@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:18:18 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/14 16:43:22 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/15 10:29:34 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	get_here_doc(t_list *lst)
 	{
 		token = (t_command *)temp->content;
 		i = -1;
-	//	token->here_doc = false;
 		while (token->red && token->red[++i])
 			here_doc_red(i, token);
 		if (token->here && token->here_doc)

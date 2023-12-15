@@ -3,55 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:20:44 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/14 17:30:49 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/15 11:17:35 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * Função para executar o comando "unset" que remove variáveis de ambiente.
+ * Função para remover uma variável de ambiente específica 
+ * do array de variáveis de ambiente.
  *
- * @param cmd O comando e seus argumentos.
+ * @param env_var A variável de ambiente a ser removida.
  */
-void	execute_unset(char **cmd)
+void	unset_single_env(char *env_var)
 {
 	char	*temp;
-	int		i;
 	int		array_index;
 
-//PFV
-//	if (!cmd || ft_strcmp(cmd[0], "unset") != 0)
-//		return;
+	array_index = -1;
+	while (shell()->env[++array_index])
+	{
+		if (env_var[0] != '_')
+		{
+			temp = get_env_var_name(shell()->env[array_index]);
+			if (ft_strcmp(env_var, temp) == 0)
+			{
+				rm_str_from_array(&shell()->env, array_index);
+				free(temp);
+				break ;
+			}
+			free(temp);
+		}
+	}
+}
+
+// Função principal para executar unset para várias variáveis de ambiente
+void	execute_unset(char **cmd)
+{
+	int	i;
+
 	if (cmd[1])
 	{
 		i = 0;
-//		Percorre o array de argumentos
 		while (cmd[++i])
 		{
-			array_index = -1;
-//			Percorre o array de variáveis de ambiente
-			while (shell()->env[++array_index])
-			{
-//				Obtém o nome da variável de ambiente
-				if (cmd[i][0] != '_')
-				{
-//					Obtém o nome da variável de ambiente
-					temp = get_env_var_name(shell()->env[array_index]);
-//			Verifica se o nome da variável de ambiente é igual ao argumento
-					if (ft_strcmp(cmd[i], temp) == 0)
-					{
-//						Remove a variável de ambiente
-						rm_str_from_array(&shell()->env, array_index);
-						free(temp);
-						break ;
-					}
-					free(temp);
-				}
-			}
+			unset_single_env(cmd[i]);
 		}
 	}
 }

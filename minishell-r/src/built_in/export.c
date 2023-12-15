@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:29:15 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/09 16:34:39 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:12:20 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/**
+ * Função que exibe uma mensagem de erro informando 
+ * que o identificador fornecido não é válido.
+ *
+ * @param cmd O comando fornecido como argumento.
+ */
+void	not_valid_identifier(char **cmd)
+{
+	char	*msg;
+	char	*msg_aux;
+
+	msg_aux = ft_strjoin("minishell: export: `", cmd[1]);
+	msg = ft_strjoin(msg_aux, "': not a valid identifier");
+	free(msg_aux);
+	display_error(1, msg, true);
+	free(msg);
+}
 
 /**
  * Verifica as condições para exportar uma variável.
@@ -25,11 +43,10 @@
 int	check_export_conditions(char *str)
 {
 	int	i;
-//	Verifica se a string começa com uma letra ou um sublinhado
+
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
 		return (0);
 	i = 0;
-//	Verifica se os caracteres subsequentes são letras, dígitos ou sublinhados
 	while (str[++i] && str[i] != '=')
 	{
 		if (!(ft_isalpha(str[i]) || ft_isdigit(str[i] || str[i] == '_')))
@@ -51,10 +68,8 @@ char	**sort_alpha_array(char **array)
 	int		i;
 	int		j;
 
-//	Copia o array de strings
 	new = cp_array(array);
 	i = -1;
-//	Ordena o array de strings - Bubble Sort
 	while (new && new[++i] && new[i + 1])
 	{
 		j = -1;
@@ -86,12 +101,9 @@ void	print_export(char **sorted_env)
 	int		j;
 
 	i = 0;
-//	Percorre o array de variáveis de ambiente
 	while (sorted_env[i])
 	{
-//		Obtém o nome da variável de ambiente
 		temp = get_env_var_name(sorted_env[i]);
-//		Verifica se o nome da variável de ambiente é diferente de "_"
 		if (ft_strcmp(temp, "_") != 0)
 		{
 			printf("declare -x %s", temp);
@@ -113,43 +125,25 @@ void	print_export(char **sorted_env)
  *
  * @param cmd O array de strings contendo os argumentos do comando.
  */
-void	execute_export(char	**cmd)
+void	execute_export(char **cmd)
 {
 	int		i;
 	char	**export_array;
-	char	*msg;
-	char	*msg_aux;
 
 	i = 0;
-//PFV	
-//	if (!cmd || ft_strcmp(cmd[0], "export") != 0)
-//		return ;
-//	Se não houver argumentos, imprime todas as variáveis de ambiente
 	if (!cmd[1])
 	{
-//		ordena o array de variáveis de ambiente
 		export_array = sort_alpha_array(shell()->env);
-//		imprime o array ordenado
 		print_export(export_array);
 		free_array(&export_array);
 	}
 	else
 	{
-//		Se houver argumentos, atualiza as variáveis de ambiente
 		while (cmd[++i])
 		{
-			// Verifica se a string atende às condições de exportação
 			if (!check_export_conditions(cmd[i]))
-			{
-				msg_aux = ft_strjoin("minishell: export: `", cmd[1]);
-				msg = ft_strjoin(msg_aux, "': not a valid identifier");
-				free(msg_aux);
-				display_error(1, msg, true);
-				free(msg);
-//				shell()->exit_code = 1;
-			}
+				not_valid_identifier(cmd);
 			else
-			// Atualiza a variável de ambiente
 				update_env(&shell()->env, cmd[i]);
 		}
 	}

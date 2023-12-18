@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 19:23:56 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/18 13:26:43 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ void	process_input_line(char *line_prompt)
 		i++;
 	if (line_prompt[i] != '\0' && line_prompt[i] != '\n')
 	{
-		if (shell()->rep_prompt && ft_strcmp(shell()->rep_prompt, \
-		line_prompt) != 0)
+		if (ft_strcmp(shell()->rep_prompt, line_prompt) != 0)
+		{
 			add_history(line_prompt);
-		shell()->rep_prompt = ft_strdup(line_prompt);
+			free(shell()->rep_prompt);
+			shell()->rep_prompt = ft_strdup(line_prompt);
+		}
 		parsing(line_prompt);
 		if (!shell()->error)
 			executor(shell()->segments_lst);
@@ -75,17 +77,9 @@ void	main_shell_loop(void)
 	line_prompt = NULL;
 	while (shell()->prompt)
 	{
-		if (shell()->rep_prompt)
-		{
-			free(shell()->rep_prompt);
-			shell()->rep_prompt = NULL;
-		}
 		line_prompt = readline("minishell$ ");
 		if (!line_prompt)
-		{
-			free(shell()->rep_prompt);
 			handle_exit();
-		}
 		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
 			process_input_line(line_prompt);
 	}

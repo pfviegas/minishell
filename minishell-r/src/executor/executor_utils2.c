@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:54:41 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/08 13:12:33 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/18 13:45:23 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ static char	*build_error_message(char *path)
 	return (msg);
 }
 
-// Função para lidar com erros durante a execução
+/**
+ * Função responsável por lidar com erros de execução.
+ * 
+ * @param path  O caminho que causou o erro.
+ */
 void	handle_execution_error(char *path)
 {
 	char	*msg_aux;

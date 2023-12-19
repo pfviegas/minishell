@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/19 13:02:48 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/19 20:46:37 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	process_input_line(char *line_prompt)
 	i = 0;
 	while (line_prompt && (line_prompt[i] == ' ' || line_prompt[i] == '\t'))
 		i++;
-	if (line_prompt[i] != '\0' && line_prompt[i] != '\n')
+	if (line_prompt[i] == '\0')
+		add_history(line_prompt);
+	else if (line_prompt[i] != '\0' && line_prompt[i] != '\n')
 	{
 		if (ft_strcmp(shell()->rep_prompt, line_prompt) != 0)
 		{

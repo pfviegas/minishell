@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/19 17:09:33 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:26:26 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 {
 	char	*temp;
 
+	temp = NULL;
 	if (input_command[*i] == '\t' || input_command[*i] == ' ')
 		(*i)++;
 	else if (input_command[*i] == '<' || input_command[*i] == '>')
@@ -104,49 +105,21 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 		}
 	}
 	else
-	{
-		temp = parse_word(input_command, i);
-		if (temp)
-		{
-			add_str_to_array(&new_seg->cmd, temp);
-			free(temp);
-		}
-	}
+		get_tokens_3(temp, input_command, i, new_seg);
 }
 
-/**
- * Função responsável por fazer o parsing de um redirecionamento 
- * em uma string.
- *
- * @param seg A string contendo o segmento a ser analisado.
- * @param curr_pos A posição atual na string.
- * @return Um ponteiro para a string que representa o redirecionamento, 
- * ou NULL em caso de erro.
- */
-
-char	*parse_redirection(char *seg, int *curr_pos)
+void	get_tokens_3(char *temp, char *input_command, int *i, \
+t_command *new_seg)
 {
-	char	*temp;
-	int		i;
-	int		j;
-	int		k;
-
-	j = 0;
-	k = 0;
-	i = check_red_pos(seg, curr_pos);
-	if (i == 0)
-		return (NULL);
-	temp = malloc(sizeof(char) * (i + 1));
-	if (!temp)
-		return (NULL);
-	while (k < i) 
+	temp = parse_word(input_command, i);
+	if (temp == NULL)
 	{
-		if (seg[*curr_pos + k] == ' ' || seg[*curr_pos + k] == '\t')
-			k++;
-		else
-			temp[j++] = seg[*curr_pos + k++];
+		temp = "";
+		add_str_to_array(&new_seg->cmd, temp);
 	}
-	temp[j] = '\0';
-	(*curr_pos) += i;
-	return (temp);
+	else if (temp)
+	{
+		add_str_to_array(&new_seg->cmd, temp);
+		free(temp);
+	}
 }

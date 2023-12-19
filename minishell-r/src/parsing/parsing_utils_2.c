@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/19 17:09:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:26:22 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,47 @@ int	check_red_pos(char *seg, int *curr_pos)
 	i = 1;
 	if (seg[*curr_pos] == seg[*curr_pos + 1])
 		i++;
-	while (seg[*curr_pos + i] && \
+	while (seg[*curr_pos + i] == ' ')
+		i++;
+	while (seg[*curr_pos + i] && seg[*curr_pos + i] != ' ' && \
 		(seg[*curr_pos + i] != '<' && seg[*curr_pos + i] != '>'))
 		i++;
 	return (i);
+}
+
+/**
+ * Função responsável por fazer o parsing de um redirecionamento 
+ * em uma string.
+ *
+ * @param seg A string contendo o segmento a ser analisado.
+ * @param curr_pos A posição atual na string.
+ * @return Um ponteiro para a string que representa o redirecionamento, 
+ * ou NULL em caso de erro.
+ */
+
+char	*parse_redirection(char *seg, int *curr_pos)
+{
+	char	*temp;
+	int		i;
+	int		j;
+	int		k;
+
+	j = 0;
+	k = 0;
+	i = check_red_pos(seg, curr_pos);
+	if (i == 0)
+		return (NULL);
+	temp = malloc(sizeof(char) * (i + 1));
+	if (!temp)
+		return (NULL);
+	while (k < i) 
+	{
+		if (seg[*curr_pos + k] == ' ' || seg[*curr_pos + k] == '\t')
+			k++;
+		else
+			temp[j++] = seg[*curr_pos + k++];
+	}
+	temp[j] = '\0';
+	(*curr_pos) += i;
+	return (temp);
 }

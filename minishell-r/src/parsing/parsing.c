@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/18 18:15:20 by paulo            ###   ########.fr       */
+/*   Updated: 2023/12/19 16:40:36 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ void	parsing_2(char *line_prompt, t_list *head)
 {
 	if (pipex(line_prompt))
 	{
-//PFV - trocar a mensagem para inglês
-		display_error(2, "minishell: erro de sintaxe junto a simbolo '||' \
-inesperado", true);
+		display_error(2, "minishell: syntax error near unexpected token `||'", \
+			true);
 		shell()->segments_lst = head;
 		return ;
 	}

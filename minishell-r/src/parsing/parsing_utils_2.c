@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/14 16:41:02 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/19 17:09:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/**
- * Função responsável por realizar a análise e manipulação de redirecionamentos.
- * 
- * @param temp     O array de caracteres temporário para armazenar o resultado.
- * @param redirect O array de caracteres contendo a string de redirecionamento.
- * @param i        O ponteiro para a posição atual no array redirect.
- * @param j        O ponteiro para a posição atual no array temp.
- */
-void	parse_redirection_2(char *temp, char *redirect, int *i, int *j)
-{
-	temp[*i] = redirect[*i];
-	if (redirect[*i] == redirect[*i + 1])
-	{
-		temp[*i + 1] = redirect[*i + 1];
-		(*i)++;
-		(*j)++;
-	}
-	(*i)++;
-	while (redirect && (redirect[*i] == '\t' || redirect[*i] == ' '))
-		(*i)++;
-	if (redirect && (redirect[*i] != '<' || redirect[*i] != '>'))
-	{
-		while (redirect && redirect[*i] && (redirect[*i] != '\t' \
-		|| redirect[*i] != ' '))
-			temp[(*j)++] = redirect[(*i)++];
-	}
-}
 
 /**
  * Função responsável por analisar e extrair uma palavra de uma 
@@ -138,4 +110,17 @@ void	add_char_string(char **str, char c)
 	new[i + 1] = '\0';
 	free(*str);
 	*str = new;
+}
+
+int	check_red_pos(char *seg, int *curr_pos)
+{
+	int	i;
+
+	i = 1;
+	if (seg[*curr_pos] == seg[*curr_pos + 1])
+		i++;
+	while (seg[*curr_pos + i] && \
+		(seg[*curr_pos + i] != '<' && seg[*curr_pos + i] != '>'))
+		i++;
+	return (i);
 }

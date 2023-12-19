@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:54:41 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/18 18:09:06 by paulo            ###   ########.fr       */
+/*   Updated: 2023/12/19 16:43:25 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,39 +99,39 @@ void	handle_execution_error(char *path)
 }
 /*
 // Exemplos de códigos de erro e suas definições
-errno = 0;                   // Nenhum erro
-errno = EPERM;               // Operação não permitida
-errno = ENOENT;              // Arquivo ou diretório não encontrado
-errno = ESRCH;               // Processo não encontrado
-errno = EINTR;               // Chamada de sistema interrompida por sinal
-errno = EIO;                 // Erro de entrada/saída
-errno = ENXIO;               // Dispositivo ou endereço inválido
-errno = E2BIG;               // Argumento muito grande
-errno = ENOEXEC;             // Execução de formato inválido
-errno = EBADF;               // Descritor de arquivo ruim
-errno = ECHILD;              // Sem processos filhos
-errno = EAGAIN;              // Recurso temporariamente indisponível
-errno = ENOMEM;              // Falta de espaço de memória
-errno = EACCES;              // Permissão negada
-errno = EFAULT;              // Endereço de memória inválido
-errno = ENOTBLK;             // Bloco de dispositivo esperado
-errno = EBUSY;               // Dispositivo ou recurso está ocupado
-errno = EEXIST;              // Arquivo ou diretório já existe
-errno = EXDEV;               // Operação de link cruzado não permitida
-errno = ENODEV;              // Sem tal dispositivo
-errno = ENOTDIR;             // Não é um diretório
-errno = EISDIR;              // É um diretório
-errno = EINVAL;              // Argumento inválido
-errno = ENFILE;              // Muitos arquivos abertos no sistema
-errno = EMFILE;              // Muitos arquivos abertos por processo
-errno = ENOTTY;              // Não é um terminal
-errno = ETXTBSY;             // Texto do arquivo ocupado
-errno = EFBIG;               // Arquivo muito grande
-errno = ENOSPC;              // Sem espaço no dispositivo
-errno = ESPIPE;              // Operação ilegal de busca
-errno = EROFS;               // Sistema de arquivos somente leitura
-errno = EMLINK;              // Muitas ligações
-errno = EPIPE;               // Conexão quebrada
-errno = EDOM;                // Argumento de domínio de função matemática inválido
-errno = ERANGE;              // Resultado fora do intervalo
+errno = 0;        // Nenhum erro
+errno = EPERM;    // Operação não permitida
+errno = ENOENT;   // Arquivo ou diretório não encontrado
+errno = ESRCH;    // Processo não encontrado
+errno = EINTR;    // Chamada de sistema interrompida por sinal
+errno = EIO;      // Erro de entrada/saída
+errno = ENXIO;    // Dispositivo ou endereço inválido
+errno = E2BIG;    // Argumento muito grande
+errno = ENOEXEC;  // Execução de formato inválido
+errno = EBADF;    // Descritor de arquivo ruim
+errno = ECHILD;   // Sem processos filhos
+errno = EAGAIN;   // Recurso temporariamente indisponível
+errno = ENOMEM;   // Falta de espaço de memória
+errno = EACCES;   // Permissão negada
+errno = EFAULT;   // Endereço de memória inválido
+errno = ENOTBLK;  // Bloco de dispositivo esperado
+errno = EBUSY;    // Dispositivo ou recurso está ocupado
+errno = EEXIST;   // Arquivo ou diretório já existe
+errno = EXDEV;    // Operação de link cruzado não permitida
+errno = ENODEV;   // Sem tal dispositivo
+errno = ENOTDIR;  // Não é um diretório
+errno = EISDIR;   // É um diretório
+errno = EINVAL;   // Argumento inválido
+errno = ENFILE;   // Muitos arquivos abertos no sistema
+errno = EMFILE;   // Muitos arquivos abertos por processo
+errno = ENOTTY;   // Não é um terminal
+errno = ETXTBSY;  // Texto do arquivo ocupado
+errno = EFBIG;    // Arquivo muito grande
+errno = ENOSPC;   // Sem espaço no dispositivo
+errno = ESPIPE;   // Operação ilegal de busca
+errno = EROFS;    // Sistema de arquivos somente leitura
+errno = EMLINK;   // Muitas ligações
+errno = EPIPE;    // Conexão quebrada
+errno = EDOM;     // Argumento de domínio de função matemática inválido
+errno = ERANGE;   // Resultado fora do intervalo
 */

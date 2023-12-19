@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 10:30:02 by paulo            ###   ########.fr       */
+/*   Updated: 2023/12/19 17:01:43 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*parse_word(char *seg, int *curr_pos);
 void	expand_var(char *old_str, char **new_str, int *curr_pos);
 t_list	*get_tokens(char *input_command);
 void	get_tokens_2(char *input_command, int *i, t_command *new_seg);
-void	parse_redirection_2(char *temp, char *redirect, int *i, int *j);
 int		get_here_doc(t_list *lst);
 void	get_redirects(t_list *lst);
 void	parsing_2(char *line_prompt, t_list *head);
@@ -55,5 +54,6 @@ void	free_temp(char *temp_prompt, char **parse);
 void	here_doc_red(int i, t_command *token);
 void	get_redirects_2(t_command *seg, int *i);
 void	get_redirects_3(t_command *seg, int *i);
+int		check_red_pos(char *seg, int *curr_pos);
 
 #endif

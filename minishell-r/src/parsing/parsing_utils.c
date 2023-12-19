@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/14 16:17:08 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/19 17:09:33 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 }
 
 /**
- * Função responsável por fazer o parsing de uma redirecionamento 
+ * Função responsável por fazer o parsing de um redirecionamento 
  * em uma string.
  *
  * @param seg A string contendo o segmento a ser analisado.
@@ -123,24 +123,30 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
  * @return Um ponteiro para a string que representa o redirecionamento, 
  * ou NULL em caso de erro.
  */
+
 char	*parse_redirection(char *seg, int *curr_pos)
 {
-	char	*redirect;
 	char	*temp;
 	int		i;
 	int		j;
+	int		k;
 
-	temp = NULL;
-	i = 0;
-	j = 1;
-	redirect = &seg[(*curr_pos)];
-	temp = malloc(sizeof(char *) * (ft_strlen(redirect) + 1));
+	j = 0;
+	k = 0;
+	i = check_red_pos(seg, curr_pos);
+	if (i == 0)
+		return (NULL);
+	temp = malloc(sizeof(char) * (i + 1));
 	if (!temp)
 		return (NULL);
-	ft_memset(temp, 0, sizeof(char *) * (ft_strlen(redirect) + 1));
-	while (redirect && redirect[i] && (redirect[i] != '\t' \
-	|| redirect[i] != ' '))
-		parse_redirection_2(temp, redirect, &i, &j);
+	while (k < i) 
+	{
+		if (seg[*curr_pos + k] == ' ' || seg[*curr_pos + k] == '\t')
+			k++;
+		else
+			temp[j++] = seg[*curr_pos + k++];
+	}
+	temp[j] = '\0';
 	(*curr_pos) += i;
 	return (temp);
 }

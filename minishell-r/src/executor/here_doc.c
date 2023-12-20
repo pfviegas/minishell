@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:41:30 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/14 15:56:28 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:07:44 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	here_doc_input(t_command *cmd)
 			}
 			if (cmd->here[i + 1] == NULL)
 			{
-				here_doc_expand_var(&line);
+				here_doc_expand_var(&line, cmd);
 				write(shell()->here_doc_fd[1], line, ft_strlen(line));
 			}
 			free(line);

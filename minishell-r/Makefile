@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: correia <correia@student.42.fr>            +#+  +:+       +#+         #
+#    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/12/14 16:41:41 by correia          ###   ########.fr        #
+#    Updated: 2023/12/20 15:42:15 by pveiga-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,6 @@ fclean_bonus: clean
 re: fclean all
 
 v:
-	make re && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions="supp.supp" ./minishell
+	make re && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --suppressions="supp.supp" ./minishell
 
 .PHONY: all clean fclean re bonus fclean_bonus

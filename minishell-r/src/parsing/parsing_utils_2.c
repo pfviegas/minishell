@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/19 21:26:22 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:46:32 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ void	expand_var(char *old, char **new, int *i)
 
 	(*i)++;
 	if (old[(*i)] == '#')
-	{
-		printf("0: comando não encontrado\n");
-		return ;
-	}
+		display_error(127, "0: command not found", true);
 	if (ft_isdigit(old[(*i)]) || old[(*i)] == '@')
-		return ;
+	{
+		write(STDERR_FILENO, "", 0);
+		shell()->error = true;
+		shell()->exit_code = 0;
+	}
 	start = (*i);
 	while (old[(*i)] && !end_var(old[(*i)]))
 		(*i)++;

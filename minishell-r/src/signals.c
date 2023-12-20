@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/20 10:33:49 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:37:41 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	handle_sign(int signal)
 	}
 	else
 	{
-		printf("\n");
+		display_error(130, "", true);
 	}
 }
 

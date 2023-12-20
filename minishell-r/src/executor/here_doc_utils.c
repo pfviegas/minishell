@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 11:43:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 19:31:16 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:40:47 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	close_here_doc(void)
  * 
  * @param line A linha a ser expandida.
  */
-void	here_doc_expand_var(char **line)
+void	here_doc_expand_var(char **line, t_command *cmd)
 {
 	char	*temp;
 	int		i;
@@ -35,7 +35,8 @@ void	here_doc_expand_var(char **line)
 	i = 0;
 	while ((*line)[i])
 	{
-		if ((*line)[i] == '$')
+		if ((*line)[i] == '$' && !(cmd->here[0][0] == '\'' || \
+		cmd->here[0][0] == '"'))
 			expand_var(*line, &temp, &i);
 		else
 			add_char_string(&temp, (*line)[i]);

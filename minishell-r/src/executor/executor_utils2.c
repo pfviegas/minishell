@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:54:41 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/20 14:34:36 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/20 15:22:17 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*build_error_message(char *path)
 	msg_aux = ft_strjoin("minishell: ", path);
 	if (errno == 2)
 	{
-			msg = ft_strjoin(msg_aux, ": No such file or directory");
+		msg = ft_strjoin(msg_aux, ": No such file or directory");
 	}
 	else if (errno == 13)
 		msg = ft_strjoin(msg_aux, ": Permission denied");

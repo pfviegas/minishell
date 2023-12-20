@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:54:41 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/19 16:43:25 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:34:36 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ void	execute(char **cmd, char **envp)
 
 	path = find_path(envp, cmd[0]);
 	check_dir(path);
-	if (execve(path, cmd, envp) == -1)
+	if (path)
 	{
-		handle_execution_error(path);
+		if (execve(path, cmd, envp) == -1)
+		{
+			handle_execution_error(path);
+		}
+		free(path);
 	}
-	free(path);
 }
 
 /**
@@ -69,15 +72,12 @@ static char	*build_error_message(char *path)
 	msg_aux = ft_strjoin("minishell: ", path);
 	if (errno == 2)
 	{
-		if ((!ft_strncmp("./", path, 2) || path[0] == '/'))
 			msg = ft_strjoin(msg_aux, ": No such file or directory");
-		else
-			msg = ft_strjoin(path, ": command not found");
 	}
 	else if (errno == 13)
 		msg = ft_strjoin(msg_aux, ": Permission denied");
 	else if (errno == 14)
-		msg = "minishell: No such file or directory";
+		msg = ft_strdup("minishell: No such file or directory");
 	else
 		msg = ft_strjoin(msg_aux, ": command not found");
 	free(msg_aux);

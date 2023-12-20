@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:31:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/14 16:13:02 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:30:37 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,16 @@ static char	*build_full_path(char *dir, char *cmd)
 	char	*temp;
 	char	*full_path;
 
-	temp = ft_strjoin(dir, "/");
-	full_path = ft_strjoin(temp, cmd);
-	free(temp);
+	if (ft_strncmp(cmd, "./", 2) == 0 || ft_strncmp(cmd, "../", 3) == 0)
+	{
+		full_path = ft_strdup(cmd);
+	}
+	else
+	{
+		temp = ft_strjoin(dir, "/");
+		full_path = ft_strjoin(temp, cmd);
+		free(temp);
+	}
 	return (full_path);
 }
 

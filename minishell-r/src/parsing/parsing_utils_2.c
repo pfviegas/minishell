@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/20 16:46:32 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:26:18 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ char	*parse_redirection(char *seg, int *curr_pos)
 	temp = malloc(sizeof(char) * (i + 1));
 	if (!temp)
 		return (NULL);
-	while (k < i) 
+	while (k < i)
 	{
 		if (seg[*curr_pos + k] == ' ' || seg[*curr_pos + k] == '\t')
 			k++;

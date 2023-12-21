@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 14:49:41 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/21 19:25:46 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ void	here_doc_input(t_command *cmd)
 	}
 }
 
+char	*remove_quotes(char *str)
+{
+	size_t	len;
+	char	*new_str;
+
+	len = ft_strlen(str);
+	new_str = malloc(len - 1);
+	if (new_str)
+	{
+		ft_memcpy(str, &str[1], len - 2);
+		new_str[len - 2] = '\0';
+	}
+	return (new_str);
+}
+
 /**
  * Função que executa o redirecionamento de entrada usando o "here document".
  * 
@@ -59,6 +74,9 @@ int	here_doc(t_command *cmd)
 	signal(SIGINT, sig_here_doc);
 	if (pid == 0)
 	{
+		if (cmd->here[0][0] == '"' && cmd->here[0] \
+		[ft_strlen(cmd->here[0]) - 1] == '"')
+			cmd->here[0] = remove_quotes(cmd->here[0]);
 		here_doc_input(cmd);
 		signals_behavior();
 		close_here_doc();

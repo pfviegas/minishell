@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 16:04:46 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/21 19:26:38 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	get_redirects_3(t_command *seg, int *i);
 int		check_red_pos(char *seg, int *curr_pos);
 void	get_tokens_3(char *temp, char *input_command, int *i, \
 t_command *new_seg);
+char	*remove_quotes(char *str);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 15:20:44 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 11:17:35 by paulo            ###   ########.fr       */
+/*   Created: 2023/12/21 11:14:36 by pviegas           #+#    #+#             */
+/*   Updated: 2023/12/21 11:55:21 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@
 void	unset_single_env(char *env_var)
 {
 	char	*temp;
-	int		array_index;
+	int		i;
 
-	array_index = -1;
-	while (shell()->env[++array_index])
+	i = -1;
+	while (shell()->env[++i])
 	{
 		if (env_var[0] != '_')
 		{
-			temp = get_env_var_name(shell()->env[array_index]);
+			temp = get_env_var_name(shell()->env[i]);
 			if (ft_strcmp(env_var, temp) == 0)
 			{
-				rm_str_from_array(&shell()->env, array_index);
+				rm_str_from_array(&shell()->env, i);
 				free(temp);
 				break ;
 			}
@@ -40,7 +40,12 @@ void	unset_single_env(char *env_var)
 	}
 }
 
-// Função principal para executar unset para várias variáveis de ambiente
+/**
+ * Função para executar o comando "unset".
+ * Remove as variáveis de ambiente especificadas.
+ *
+ * @param cmd O array de strings contendo os argumentos do comando.
+ */
 void	execute_unset(char **cmd)
 {
 	int	i;

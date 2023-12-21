@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 15:54:41 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/20 15:22:17 by pveiga-c         ###   ########.fr       */
+/*   Created: 2023/12/21 11:11:39 by pviegas           #+#    #+#             */
+/*   Updated: 2023/12/21 16:20:04 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,22 @@ static char	*build_error_message(char *path)
 	msg_aux = ft_strjoin("minishell: ", path);
 	if (errno == 2)
 	{
-		msg = ft_strjoin(msg_aux, ": No such file or directory");
+		if (ft_strchr(path, '/'))
+			msg = ft_strjoin(msg_aux, ": No such file or directory");
+		else
+			msg = ft_strjoin(path, ": command not found");
 	}
+	else if (errno == 8)
+		msg = ft_strjoin(path, ": Invalid executable format");
 	else if (errno == 13)
-		msg = ft_strjoin(msg_aux, ": Permission denied");
+	{
+		if (access(path, X_OK))
+			msg = ft_strjoin(msg_aux, ": Permission denied");
+	}
 	else if (errno == 14)
-		msg = ft_strdup("minishell: No such file or directory");
-	else
 		msg = ft_strjoin(msg_aux, ": command not found");
+	else
+		msg = ft_strjoin(path, ": command not found");
 	free(msg_aux);
 	return (msg);
 }
@@ -94,7 +102,12 @@ void	handle_execution_error(char *path)
 	char	*msg;
 
 	msg = build_error_message(path);
-	display_error(127, msg, true);
+	if (errno == 8)
+		display_error(0, msg, true);
+	else if (errno == 13)
+		display_error(126, msg, true);
+	else
+		display_error(127, msg, true);
 	free(msg);
 }
 /*

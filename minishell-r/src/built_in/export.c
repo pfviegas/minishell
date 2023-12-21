@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:29:15 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/20 16:22:28 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:23:36 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	not_valid_identifier(char **cmd)
 	char	*msg;
 	char	*msg_aux;
 
-	msg_aux = ft_strjoin("minishell: export: `", cmd[1]);
-	msg = ft_strjoin(msg_aux, "': not a valid identifier");
+	msg_aux = ft_strjoin("minishell: ", cmd[1]);
+	msg = ft_strjoin(msg_aux, ": event not found");
 	free(msg_aux);
 	display_error(1, msg, true);
 	free(msg);

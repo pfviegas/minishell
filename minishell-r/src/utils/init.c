@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 18:59:16 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/21 16:05:37 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	init_command(t_command *token)
 	token->redirect_error = 0;
 	token->cmd = NULL;
 	token->red = NULL;
-	token->in = NULL;
-	token->out = NULL;
 	token->here = NULL;
 	token->std.in = -1;
 	token->std.out = -1;

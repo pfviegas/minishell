@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:41:02 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/07 16:59:05 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/21 11:49:54 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	execute_env(char **env)
 	i = 0;
 	while (env && env[i])
 	{
-		printf("%s\n", env[i]);
+		if (ft_strchr(env[i], '='))
+			printf("%s\n", env[i]);
 		i++;
 	}
 }

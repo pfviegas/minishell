@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/19 21:25:03 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:04:46 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct s_command
 	char	**cmd;
 	char	**red;
 	char	**redirect_flags;
-	char	**in;
-	char	**out;
 	char	**here;
 	int		pipe_fd[2];
 	t_std	std;

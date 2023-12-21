@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:47:53 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/15 10:28:41 by paulo            ###   ########.fr       */
+/*   Updated: 2023/12/21 11:55:10 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ void	print_lst(t_list *lst)
 	}
 }
 
+/**
+ * Remove uma string de um array de strings alocado dinamicamente.
+ *
+ * @param array O endereço do array de strings.
+ * @param index O índice da string a ser removida.
+ */
 void	rm_str_from_array(char ***array, int index)
 {
 	char	**new_array;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:10:10 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/15 19:39:47 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/21 16:05:19 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,6 @@ void	free_lst(t_list *lst)
 			free_array(&seg->cmd);
 		if (seg && seg->red)
 			free_array(&seg->red);
-		if (seg && seg->in)
-			free_array(&seg->in);
-		if (seg && seg->out)
-			free_array(&seg->out);
 		if (seg && seg->here)
 			free_array(&seg->here);
 		if (seg && seg->std.in != -1)

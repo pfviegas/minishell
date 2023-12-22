@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:39 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 16:20:04 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/22 15:35:36 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	execute(char **cmd, char **envp)
 		}
 		free(path);
 	}
+	else
+	{
+		handle_execution_error(cmd[0]);
+	}
 }
 
 /**
@@ -85,7 +89,7 @@ static char	*build_error_message(char *path)
 			msg = ft_strjoin(msg_aux, ": Permission denied");
 	}
 	else if (errno == 14)
-		msg = ft_strjoin(msg_aux, ": command not found");
+		msg = ft_strjoin(msg_aux, ": No such file or directory");
 	else
 		msg = ft_strjoin(path, ": command not found");
 	free(msg_aux);
@@ -112,25 +116,25 @@ void	handle_execution_error(char *path)
 }
 /*
 // Exemplos de códigos de erro e suas definições
-errno = 0;        // Nenhum erro
-errno = EPERM;    // Operação não permitida
-errno = ENOENT;   // Arquivo ou diretório não encontrado
-errno = ESRCH;    // Processo não encontrado
-errno = EINTR;    // Chamada de sistema interrompida por sinal
-errno = EIO;      // Erro de entrada/saída
-errno = ENXIO;    // Dispositivo ou endereço inválido
-errno = E2BIG;    // Argumento muito grande
-errno = ENOEXEC;  // Execução de formato inválido
-errno = EBADF;    // Descritor de arquivo ruim
-errno = ECHILD;   // Sem processos filhos
-errno = EAGAIN;   // Recurso temporariamente indisponível
-errno = ENOMEM;   // Falta de espaço de memória
-errno = EACCES;   // Permissão negada
-errno = EFAULT;   // Endereço de memória inválido
-errno = ENOTBLK;  // Bloco de dispositivo esperado
-errno = EBUSY;    // Dispositivo ou recurso está ocupado
-errno = EEXIST;   // Arquivo ou diretório já existe
-errno = EXDEV;    // Operação de link cruzado não permitida
+errno = 0;        // 0 Nenhum erro
+errno = EPERM;    // 1 Operação não permitida
+errno = ENOENT;   // 2 Arquivo ou diretório não encontrado
+errno = ESRCH;    // 3 Processo não encontrado
+errno = EINTR;    // 4 Chamada de sistema interrompida por sinal
+errno = EIO;      // 5 Erro de entrada/saída
+errno = ENXIO;    // 6 Dispositivo ou endereço inválido
+errno = E2BIG;    // 7 Argumento muito grande
+errno = ENOEXEC;  // 8 Execução de formato inválido
+errno = EBADF;    // 9 Descritor de arquivo ruim
+errno = ECHILD;   // 10 Sem processos filhos
+errno = EAGAIN;   // 11 Recurso temporariamente indisponível
+errno = ENOMEM;   // 12 Falta de espaço de memória
+errno = EACCES;   // 13 Permissão negada
+errno = EFAULT;   // 14 Endereço de memória inválido
+errno = ENOTBLK;  // 15 Bloco de dispositivo esperado
+errno = EBUSY;    // 16 Dispositivo ou recurso está ocupado
+errno = EEXIST;   // 17 Arquivo ou diretório já existe
+errno = EXDEV;    // 18 Operação de link cruzado não permitida
 errno = ENODEV;   // Sem tal dispositivo
 errno = ENOTDIR;  // Não é um diretório
 errno = EISDIR;   // É um diretório

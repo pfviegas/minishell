@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 14:18:01 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/22 15:20:07 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	here_doc_expand_var(char **line, t_command *cmd)
  */
 void	here_doc_error(char *str)
 {
-	printf("\nWarning: heredoc on line 1 delimited by EOF \
-	(wanted: \"%s\")\n", str);
+	printf("\nWarning: heredoc at line 1 delimited by end-of-file \
+(wanted: \"%s\")\n", str);
 	signals_behavior();
 }
 

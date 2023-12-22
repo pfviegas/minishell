@@ -3,41 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 19:25:46 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/22 15:20:28 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static void	prompt_user_input(t_command *cmd, int *i)
+{
+	char	*line;
+
+	line = NULL;
+	while (true)
+	{
+		write(0, "> ", 2);
+		line = ft_get_next_line(0);
+		if (!line)
+		{
+			here_doc_error(cmd->here[*i]);
+			break ;
+		}
+		if (!(ft_strncmp(line, cmd->here[*i], ft_strlen(cmd->here[*i]))))
+		{
+			free(line);
+			break ;
+		}
+		if (cmd->here[*i + 1] == NULL)
+		{
+			here_doc_expand_var(&line, cmd);
+			write(shell()->here_doc_fd[1], line, ft_strlen(line));
+		}
+		free(line);
+		line = NULL;
+	}
+}
+
 void	here_doc_input(t_command *cmd)
 {
 	int		i;
-	char	*line;
 
 	i = -1;
-	line = NULL;
 	while (cmd->here && cmd->here[++i])
 	{
-		while (true)
-		{
-			write(0, "> ", 2);
-			line = ft_get_next_line(0);
-			if (!(ft_strncmp(line, cmd->here[i], ft_strlen(cmd->here[i]))))
-			{
-				free(line);
-				break ;
-			}
-			if (cmd->here[i + 1] == NULL)
-			{
-				here_doc_expand_var(&line, cmd);
-				write(shell()->here_doc_fd[1], line, ft_strlen(line));
-			}
-			free(line);
-			line = NULL;
-		}
+		prompt_user_input(cmd, &i);
 	}
 }
 
@@ -70,10 +81,10 @@ int	here_doc(t_command *cmd)
 	if (pipe(shell()->here_doc_fd) < 0)
 		perror("pipe error");
 	pid = fork();
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sig_here_doc);
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, sig_here_doc);
 		if (cmd->here[0][0] == '"' && cmd->here[0] \
 		[ft_strlen(cmd->here[0]) - 1] == '"')
 			cmd->here[0] = remove_quotes(cmd->here[0]);

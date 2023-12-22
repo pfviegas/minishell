@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:14:36 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 11:55:21 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/22 13:47:45 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,14 @@ void	unset_single_env(char *env_var)
 	i = -1;
 	while (shell()->env[++i])
 	{
-		if (env_var[0] != '_')
+		temp = get_env_var_name(shell()->env[i]);
+		if (ft_strcmp(env_var, temp) == 0)
 		{
-			temp = get_env_var_name(shell()->env[i]);
-			if (ft_strcmp(env_var, temp) == 0)
-			{
-				rm_str_from_array(&shell()->env, i);
-				free(temp);
-				break ;
-			}
+			rm_str_from_array(&shell()->env, i);
 			free(temp);
+			break ;
 		}
+		free(temp);
 	}
 }
 

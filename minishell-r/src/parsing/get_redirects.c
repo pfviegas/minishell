@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/14 16:41:56 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/22 17:12:08 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ void	get_redirects(t_list *lst)
 		}
 		if (seg->redirect_error == 1)
 		{
-			msg = ft_strjoin("minishell: ", strerror(errno));
-			display_error(1, msg, false);
-			free(msg);
+			msg = "minishell: syntax error near unexpected token `newline'";
+			display_error(2, msg, false);
 		}
 		temp = temp->next;
 	}

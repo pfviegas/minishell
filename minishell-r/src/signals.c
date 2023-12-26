@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:54:49 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/26 10:51:48 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 17:46:00 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	handle_sign(int signal)
 	(void)signal;
 	shell()->exit_code = 130;
 	if (shell()->in_exec == true)
-	{
-		printf("\n");
 		return ;
-	}
 	if (shell()->in_here_doc == false)
 	{
 		printf("^C\n");

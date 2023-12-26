@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:39 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/26 14:35:45 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 15:22:16 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,7 @@ char	*build_error_message(char *path, int cmd_not_found)
 	else if (errno == 14)
 		msg = ft_strjoin(msg_aux, ": No such file or directory");
 	else
-	{
-		printf("errno: %d\n", errno);
 		msg = ft_strjoin(path, ": command not found");
-	}
 	free(msg_aux);
 	return (msg);
 }

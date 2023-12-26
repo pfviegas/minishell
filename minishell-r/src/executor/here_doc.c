@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/22 15:20:28 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 14:48:33 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,14 @@ static void	prompt_user_input(t_command *cmd, int *i)
 	}
 }
 
+/**
+ * Função responsável por lidar com a entrada do here document.
+ * 
+ * @param cmd O comando que contém as informações do here document.
+ */
 void	here_doc_input(t_command *cmd)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (cmd->here && cmd->here[++i])

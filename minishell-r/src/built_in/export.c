@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:29:15 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 16:23:36 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 10:11:15 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	not_valid_identifier(char **cmd)
 	char	*msg;
 	char	*msg_aux;
 
-	msg_aux = ft_strjoin("minishell: ", cmd[1]);
-	msg = ft_strjoin(msg_aux, ": event not found");
+	msg_aux = ft_strjoin("minishell: `", cmd[1]);
+	msg = ft_strjoin(msg_aux, "=': not a valid identifier");
 	free(msg_aux);
 	display_error(1, msg, true);
 	free(msg);
@@ -49,7 +49,7 @@ int	check_export_conditions(char *str)
 	i = 0;
 	while (str[++i] && str[i] != '=')
 	{
-		if (!(ft_isalpha(str[i]) || ft_isdigit(str[i] || str[i] == '_')))
+		if (!(ft_isalpha(str[i]) || ft_isdigit(str[i]) || str[i] == '_'))
 			return (0);
 	}
 	return (1);

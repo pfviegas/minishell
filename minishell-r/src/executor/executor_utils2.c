@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:39 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/22 15:35:36 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 14:35:45 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,11 @@ void	execute(char **cmd, char **envp)
 
 	path = find_path(envp, cmd[0]);
 	check_dir(path);
-	if (path)
+	if (execve(path, cmd, envp) == -1)
 	{
-		if (execve(path, cmd, envp) == -1)
-		{
-			handle_execution_error(path);
-		}
-		free(path);
+		handle_execution_error(path);
 	}
-	else
-	{
-		handle_execution_error(cmd[0]);
-	}
+	free(path);
 }
 
 /**
@@ -67,7 +60,7 @@ void	execute(char **cmd, char **envp)
  * @param path  O caminho que causou o erro.
  * @return      A mensagem de erro construída.
  */
-static char	*build_error_message(char *path)
+char	*build_error_message(char *path, int cmd_not_found)
 {
 	char	*msg;
 	char	*msg_aux;
@@ -76,10 +69,15 @@ static char	*build_error_message(char *path)
 	msg_aux = ft_strjoin("minishell: ", path);
 	if (errno == 2)
 	{
-		if (ft_strchr(path, '/'))
+		if (cmd_not_found == 0)
 			msg = ft_strjoin(msg_aux, ": No such file or directory");
 		else
-			msg = ft_strjoin(path, ": command not found");
+		{
+			if (ft_strchr(path, '/') == NULL)
+				msg = ft_strjoin(path, ": command not found");
+			else
+				msg = ft_strjoin(msg_aux, ": No such file or directory");
+		}
 	}
 	else if (errno == 8)
 		msg = ft_strjoin(path, ": Invalid executable format");
@@ -91,7 +89,10 @@ static char	*build_error_message(char *path)
 	else if (errno == 14)
 		msg = ft_strjoin(msg_aux, ": No such file or directory");
 	else
+	{
+		printf("errno: %d\n", errno);
 		msg = ft_strjoin(path, ": command not found");
+	}
 	free(msg_aux);
 	return (msg);
 }
@@ -105,7 +106,7 @@ void	handle_execution_error(char *path)
 {
 	char	*msg;
 
-	msg = build_error_message(path);
+	msg = build_error_message(path, 1);
 	if (errno == 8)
 		display_error(0, msg, true);
 	else if (errno == 13)

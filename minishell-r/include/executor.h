@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:10:28 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 12:59:02 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 14:48:47 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	execute(char **cmd, char **envp);
 void	handle_parent_process(t_command *cmd, t_command *next_content);
 void	execute_cd_error(char *path);
 int		find_env_var(char **env, char *var);
+char	*build_error_message(char *path, int cmd_not_found);
 
 #endif

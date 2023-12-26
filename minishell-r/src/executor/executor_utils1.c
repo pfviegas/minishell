@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:29 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 11:11:31 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 15:04:43 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ char	*find_path(char **envp, char *cmd)
 		return (ft_strdup(cmd));
 	index = find_env_path(envp);
 	if (index == -1)
-		return (NULL);
-	path = &envp[index][6];
+		return (ft_strdup(cmd));
+	path = &envp[index][5];
 	paths = ft_split(path, ':');
 	index = -1;
 	while (paths[++index])

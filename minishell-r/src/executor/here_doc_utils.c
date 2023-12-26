@@ -6,12 +6,18 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/22 15:20:07 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/26 14:48:42 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+ * Fecha os descritores de arquivo utilizados para here documents.
+ * 
+ * Esta função fecha os descritores de arquivo utilizados para here documents 
+ * e libera a memória alocada.
+ */
 void	close_here_doc(void)
 {
 	close(shell()->here_doc_fd[1]);

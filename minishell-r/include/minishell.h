@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:10:41 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/26 11:32:06 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/27 16:43:20 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,23 @@
 # include <stdbool.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <term.h> 
+# include <termios.h>
 # include "parsing.h"
 # include "utils.h"
 # include "executor.h"
 
 typedef struct s_shell
 {
-	bool	prompt;
-	bool	error;
-	t_list	*segments_lst;
-	char	**env;
-	int		exit_code;
-	bool	in_here_doc;
-	int		here_doc_fd[2];
-	bool	in_exec;
-	char	*rep_prompt;
+	bool			prompt;
+	bool			error;
+	t_list			*segments_lst;
+	char			**env;
+	int				exit_code;
+	bool			in_here_doc;
+	int				here_doc_fd[2];
+	bool			in_exec;
+	char			*rep_prompt;
 }	t_shell;
 
 t_shell	*shell(void);

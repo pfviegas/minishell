@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:46:27 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/21 11:15:51 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/27 17:45:05 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	is_in_set(char c, char *search_set)
  * @return      Retorna 1 se o caractere marca o fim de uma palavra, 
  * caso contrário retorna 0.
  */
-int	end_word(char c, char quote)
+int	end_word(char c, int quote)
 {
-	if ((c == '<' || c == '>' || c == '\t' || c == ' ') && !quote)
+	if ((c == '<' || c == '>' || c == '\t' || c == ' ') && quote == 1)
 		return (1);
 	return (0);
 }

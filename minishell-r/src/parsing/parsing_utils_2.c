@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/21 19:26:18 by correia          ###   ########.fr       */
+/*   Updated: 2023/12/27 17:44:25 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*parse_word(char *seg, int *i)
 
 	str = NULL;
 	flag = 0;
-	while (seg[*i] && !end_word(seg[*i], flag != 0))
+	while (seg[*i] && end_word(seg[*i], flag) == 0)
 	{
 		if ((seg[*i] == '"' || seg[*i] == '\'') && flag == 0)
 		{

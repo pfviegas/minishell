@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/26 14:48:42 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/27 16:46:09 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	here_doc_error(char *str)
 {
 	printf("\nWarning: heredoc at line 1 delimited by end-of-file \
 (wanted: \"%s\")\n", str);
-	signals_behavior();
 }
 
 /**

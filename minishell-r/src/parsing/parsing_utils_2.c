@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/27 17:44:25 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/27 19:48:31 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
  * @param i O índice atual da sequência de caracteres.
  * @return A palavra extraída da sequência de caracteres.
  */
+
 char	*parse_word(char *seg, int *i)
 {
 	char	*str;
@@ -28,7 +29,7 @@ char	*parse_word(char *seg, int *i)
 
 	str = NULL;
 	flag = 0;
-	while (seg[*i] && end_word(seg[*i], flag) == 0)
+	while (seg[*i] && !end_word(seg[*i], flag != 0))
 	{
 		if ((seg[*i] == '"' || seg[*i] == '\'') && flag == 0)
 		{
@@ -122,8 +123,7 @@ int	check_red_pos(char *seg, int *curr_pos)
 		i++;
 	while (seg[*curr_pos + i] == ' ')
 		i++;
-	while (seg[*curr_pos + i] && seg[*curr_pos + i] != ' ' && \
-		(seg[*curr_pos + i] != '<' && seg[*curr_pos + i] != '>'))
+	while (seg[*curr_pos + i] && (seg[*curr_pos + i] != '<' && seg[*curr_pos + i] != '>'))
 		i++;
 	return (i);
 }
@@ -144,9 +144,13 @@ char	*parse_redirection(char *seg, int *curr_pos)
 	int		i;
 	int		j;
 	int		k;
+	char	quote;
+	int		flag;
 
 	j = 0;
 	k = 0;
+	quote = 0;
+	flag = 0;
 	i = check_red_pos(seg, curr_pos);
 	if (i == 0)
 		return (NULL);
@@ -155,7 +159,19 @@ char	*parse_redirection(char *seg, int *curr_pos)
 		return (NULL);
 	while (k < i)
 	{
-		if (seg[*curr_pos + k] == ' ' || seg[*curr_pos + k] == '\t')
+		if(flag == 0 && (seg[*curr_pos + k] == '"' || seg[*curr_pos + k] == '\''))
+		{
+			quote = seg[*curr_pos + k];
+			flag = 1;
+			k++;
+			continue;
+		}
+		if(flag == 1 && quote == seg[*curr_pos + k])
+		{
+			flag = 0;
+			k++;
+		}	
+		if (flag == 0 && (seg[*curr_pos + k] == ' ' || seg[*curr_pos + k] == '\t'))
 			k++;
 		else
 			temp[j++] = seg[*curr_pos + k++];

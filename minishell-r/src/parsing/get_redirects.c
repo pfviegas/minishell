@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/26 14:57:44 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/27 19:59:00 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	get_redirects(t_list *lst)
  * Função responsável por lidar com redirecionamentos de entrada.
  * Fecha o descritor de arquivo de entrada atual, se existir, 
  * e verifica se o arquivo de redirecionamento existe. 
- * Em seguida, abre o arquivo de redirecionamento no modo 
+ * Em seguida, abre o arquivo de redirecio] == '>'namento no modo 
  * de leitura e atualiza o descritor de arquivo de entrada.
  * 
  * @param seg Ponteiro para a estrutura de comando.
@@ -91,6 +91,8 @@ void	get_redirects_3(t_command *seg, int *i)
 
 	if (seg->std.out != -1)
 		close(seg->std.out);
+	// if(seg->red[*i][0] == '>' && seg->red[*i][1] == '>' && seg->red[*i][2] == '\0')
+	// 	printf("ola");
 	if (seg->red[*i][0] == '>' && seg->red[*i][1] == '>')
 	{
 		seg->std.out = open(&seg->red[*i][2], O_RDWR | O_CREAT | O_APPEND, 0644);

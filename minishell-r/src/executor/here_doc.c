@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: correia <correia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/26 17:48:43 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/27 09:33:56 by correia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,26 @@ void	here_doc_input(t_command *cmd)
 		line = ft_get_next_line(0);
 		if (!line)
 		{
-			here_doc_error(cmd->here[*i]);
+			here_doc_error(cmd->here[0]);
 			break ;
 		}
-		if (!(ft_strncmp(line, cmd->here[*i], ft_strlen(cmd->here[*i]))))
+		printf("line = %s\n", line);
+		printf("cmd->here[0] = %s\n", cmd->here[0]);
+		printf("len = %ld\n", ft_strlen(cmd->here[0]));
+		printf("strncmp = %d\n", ft_strncmp(line, cmd->here[0], ft_strlen(cmd->here[0])));
+		printf("strcmp = %d\n", ft_strcmp(cmd->here[0], "\n"));
+		if (ft_strlen(cmd->here[0]) > 0 && !(ft_strncmp(line, cmd->here[0], ft_strlen(cmd->here[0]))))
 		{
 			free(line);
 			break ;
 		}
-		if (cmd->here[*i + 1] == NULL)
+		else if (ft_strlen(cmd->here[0]) == 0 && (strcmp(cmd->here[0], "") == 0 || strcmp(cmd->here[0], "\n")))
+		{
+			free(line);
+			break ;
+		}	
+			
+		if (cmd->here[1] == NULL)
 		{
 			here_doc_expand_var(&line, cmd);
 			write(shell()->here_doc_fd[1], line, ft_strlen(line));
@@ -91,7 +102,7 @@ char	*remove_quotes(char *str)
 		ft_memcpy(new_str, &str[1], len - 2);
 		new_str[len - 2] = '\0';
 	}
-	printf("%s\n", new_str);
+	printf("new_str = %s\n", new_str);
 	return (new_str);
 }
 

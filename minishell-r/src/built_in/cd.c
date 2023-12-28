@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/28 13:30:01 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 18:33:35 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,6 @@ void	execute_cd(char **command)
 		if (chdir(command[1]) == -1)
 			execute_cd_error(command[1]);
 		else
-		{
-			update_pwd_var();
-			shell()->exit_code = 0;
-		}
+			update_pwd();
 	}
 }

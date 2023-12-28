@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:55:32 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/20 16:22:42 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:34:56 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,10 @@ void	execute_cd_error(char *path)
 	free(msg_aux);
 	display_error(1, msg, true);
 	free(msg);
+}
+
+void	update_pwd(void)
+{
+	update_pwd_var();
+	shell()->exit_code = 0;
 }

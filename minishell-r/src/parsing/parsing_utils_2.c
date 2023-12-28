@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/28 17:31:37 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 20:51:54 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,10 @@ void	add_char_string(char **str, char c)
  *
  * @param seg A string a ser verificada.
  * @param curr_pos O ponteiro para a posição atual na string.
- * @return O número de caracteres a serem pulados para encontrar o próximo redirecionamento.
+ * @return O número de caracteres a serem pulados para encontrar 
+ * 		o próximo redirecionamento.
  */
-int	check_red_pos(char *seg, int *curr_pos)
+int	check_red_pos(char *seg, int *cp)
 {
 	int		i;
 	char	quote;
@@ -135,20 +136,20 @@ int	check_red_pos(char *seg, int *curr_pos)
 	i = 1;
 	flag = 0;
 	quote = 0;
-	if (seg[*curr_pos] == seg[*curr_pos + 1])
+	if (seg[*cp] == seg[*cp + 1])
 		i++;
-	while (seg[*curr_pos + i] == ' ' || seg[*curr_pos + i] == '\t')
+	while (seg[*cp + i] == ' ' || seg[*cp + i] == '\t')
 		i++;
-	while (seg[*curr_pos + i] && (seg[*curr_pos + i] != '<' && seg[*curr_pos + i] != '>'))
+	while (seg[*cp + i] && (seg[*cp + i] != '<' && seg[*cp + i] != '>'))
 	{
-		if(flag == 0 && (seg[*curr_pos + i] == '"' || seg[*curr_pos + i] == '\''))
+		if (flag == 0 && (seg[*cp + i] == '"' || seg[*cp + i] == '\''))
 		{
-			quote = seg[*curr_pos + i];
+			quote = seg[*cp + i];
 			flag = 1;
 		}
-		else if(flag == 1 && (seg[*curr_pos + i] == quote))
+		else if (flag == 1 && (seg[*cp + i] == quote))
 			return (i + 1);
-		if (flag == 0 && (seg[*curr_pos + i] == ' ' || seg[*curr_pos + i] == '\t'))
+		if (flag == 0 && (seg[*cp + i] == ' ' || seg[*cp + i] == '\t'))
 			return (i);
 		i++;
 	}
@@ -164,43 +165,31 @@ int	check_red_pos(char *seg, int *curr_pos)
  * @return Um ponteiro para a string que representa o redirecionamento, 
  * ou NULL em caso de erro.
  */
-
-char	*parse_redirection(char *seg, int *curr_pos)
+char	*parse_redirection(char *seg, int *cp)
 {
 	char	*temp;
-	int		i;
 	int		j;
 	int		k;
 	char	quote;
-	int		flag;
 
 	j = 0;
 	k = -1;
 	quote = 0;
-	flag = 0;
-	i = check_red_pos(seg, curr_pos);
-//	if (i == 0)
-//		return (NULL);
-	temp = malloc(sizeof(char) * (i + 1));
+	temp = malloc(sizeof(char) * (check_red_pos(seg, cp) + 1));
 	if (!temp)
 		return (NULL);
-	while (++k < i)
+	while (++k < check_red_pos(seg, cp))
 	{
-		if(flag == 0 && (seg[*curr_pos + k] == '"' || seg[*curr_pos + k] == '\''))
-		{
-			quote = seg[*curr_pos + k];
-			flag = 1;
-			continue ;
-		}
-		if(flag == 1 && quote == seg[*curr_pos + k])
-			flag = 0;
-		if (flag == 0 && (seg[*curr_pos + k] == ' ' || seg[*curr_pos + k] == '\t' || seg[*curr_pos + k] == quote))
+		if (!quote && (seg[*cp + k] == '"' || seg[*cp + k] == '\''))
+			quote = seg[*cp + k];
+		else if (quote == seg[*cp + k])
+			quote = 0;
+		else if (!quote && (seg[*cp + k] == ' ' || seg[*cp + k] == quote))
 			continue ;
 		else
-			temp[j++] = seg[*curr_pos + k];
+			temp[j++] = seg[*cp + k];
 	}
 	temp[j] = '\0';
-	(*curr_pos) += i;
-	printf("temp: %s\n", temp);
+	(*cp) += check_red_pos(seg, cp);
 	return (temp);
 }

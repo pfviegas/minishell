@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:10:28 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/27 16:46:19 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 18:34:45 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ void	handle_parent_process(t_command *cmd, t_command *next_content);
 void	execute_cd_error(char *path);
 int		find_env_var(char **env, char *var);
 char	*build_error_message(char *path, int cmd_not_found);
+void	update_pwd(void);
+void	update_pwd_var(void);
 
 #endif

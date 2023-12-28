@@ -3,19 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/27 16:44:59 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 20:25:47 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * Função responsável por lidar com a entrada do here document.
+ * Verifica se a linha fornecida é válida para o comando atual.
  * 
- * @param cmd O comando que contém as informações do here document.
+ * @param line A linha a ser verificada.
+ * @param cmd O comando atual.
+ * @return 1 se a linha for nula, 2 se a linha for igual ao 
+ * 			comando->here[0] (ou uma parte dele),
+ *          0 caso contrário.
+ */
+static int	valid(char *line, t_command *cmd)
+{
+	if (!line)
+		return (1);
+	printf("cmd->here[0]: %s", cmd->here[0]);
+	if (ft_strlen(line) == 1)
+	{
+		if (ft_strncmp(line, cmd->here[0], ft_strlen(cmd->here[0])) == 0)
+			return (2);
+	}
+	else
+	{
+		if (ft_strncmp(line, cmd->here[0], ft_strlen(line) - 1) == 0)
+			return (2);
+	}
+	return (0);
+}
+
+/**
+ * Função responsável por receber a entrada do usuário para um here document.
+ * 
+ * @param cmd O comando atual sendo executado.
  */
 void	here_doc_input(t_command *cmd)
 {
@@ -26,26 +53,15 @@ void	here_doc_input(t_command *cmd)
 	{
 		write(0, "> ", 2);
 		line = ft_get_next_line(0);
-		if (!line)
+		if (valid(line, cmd) == 1)
 		{
 			here_doc_error(cmd->here[0]);
 			break ;
 		}
-		if (ft_strlen(line) == 1)
+		else if (valid(line, cmd) == 2)
 		{
-			if (ft_strncmp(line, cmd->here[0], ft_strlen(cmd->here[0])) == 0)
-			{
-				free(line);
-				break ;
-			}
-		}
-		else
-		{
-			if (ft_strncmp(line, cmd->here[0], ft_strlen(line) - 1) == 0)
-			{
-				free(line);
-				break ;
-			}
+			free(line);
+			break ;
 		}
 		if (cmd->here[1] == NULL)
 		{
@@ -57,6 +73,13 @@ void	here_doc_input(t_command *cmd)
 	}
 }
 
+/**
+ * Função que remove as aspas de uma string.
+ *
+ * @param str A string da qual as aspas serão removidas.
+ * @return A nova string sem as aspas, ou NULL se ocorrer 
+ * 		um erro de alocação de memória.
+ */
 char	*remove_quotes(char *str)
 {
 	size_t	len;
@@ -90,9 +113,11 @@ int	here_doc(t_command *cmd)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sig_here_doc);
-		if (cmd->here[0][0] == '"' && cmd->here[0][ft_strlen(cmd->here[0]) - 1] == '"')
+		if (cmd->here[0][0] == '"' && \
+		cmd->here[0][ft_strlen(cmd->here[0]) - 1] == '"')
 			cmd->here[0] = remove_quotes(cmd->here[0]);
-		else if (cmd->here[0][0] == '\'' && cmd->here[0][ft_strlen(cmd->here[0]) - 1] == '\'')
+		else if (cmd->here[0][0] == '\'' && \
+			cmd->here[0][ft_strlen(cmd->here[0]) - 1] == '\'')
 			cmd->here[0] = remove_quotes(cmd->here[0]);
 		here_doc_input(cmd);
 		signals_behavior();

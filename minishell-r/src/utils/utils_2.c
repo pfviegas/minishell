@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:46:27 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/27 19:42:35 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:21:03 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	end_word(char c, char quote)
 		return (1);
 	return (0);
 }
-
 
 /**
  * Verifica se um caractere é o fim de uma variável.

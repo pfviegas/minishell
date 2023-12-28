@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:39 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/28 12:44:47 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 18:27:59 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ void	execute(char **cmd, char **envp)
 
 	path = find_path(envp, cmd[0]);
 	check_dir(path);
-//PFV
 	if (ft_strchr(path, '/') == 0)
 	{
-		errno = 2;
+		errno = 15;
 		handle_execution_error(path);
-	} 
+	}
 	else if (execve(path, cmd, envp) == -1)
 	{
 		handle_execution_error(path);
@@ -78,12 +77,7 @@ char	*build_error_message(char *path, int cmd_not_found)
 		if (cmd_not_found == 0)
 			msg = ft_strjoin(msg_aux, ": No such file or directory");
 		else
-		{
-			if (ft_strchr(path, '/') == NULL)
-				msg = ft_strjoin(path, ": command not found");
-			else
-				msg = ft_strjoin(msg_aux, ": No such file or directory");
-		}
+			msg = ft_strjoin(msg_aux, ": No such file or directory");
 	}
 	else if (errno == 8)
 		msg = ft_strjoin(path, ": Invalid executable format");

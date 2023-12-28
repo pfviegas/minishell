@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/27 20:11:25 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/28 19:46:32 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int			check_red_pos(char *seg, int *curr_pos);
 void		get_tokens_3(char *temp, char *input_command, int *i, \
 t_command *new_seg);
 char		*remove_quotes(char *str);
+void		error_red(t_command *seg, int *i, int flag);
+void		parse_redirection_2(char *seg, int *cp, int *k, int *j);
 
 #endif

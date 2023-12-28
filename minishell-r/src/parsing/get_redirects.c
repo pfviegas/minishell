@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/28 15:55:12 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 19:03:34 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,34 +87,48 @@ void	get_redirects_2(t_command *seg, int *i)
  */
 void	get_redirects_3(t_command *seg, int *i)
 {
-	char	*msg;
-
 	if (seg->std.out != -1)
 		close(seg->std.out);
-	// if(seg->red[*i][0] == '>' && seg->red[*i][1] == '>' && seg->red[*i][2] == '\0')
-	// 	printf("ola");
 	if (seg->red[*i][0] == '>' && seg->red[*i][1] == '>')
 	{
-		seg->std.out = open(&seg->red[*i][2], O_RDWR | O_CREAT | O_APPEND, 0644);
+		seg->std.out = open(&seg->red[*i][2], O_RDWR | O_CREAT | \
+		O_APPEND, 0644);
 		if (seg->std.out == -1)
 		{
-			msg = build_error_message(&seg->red[*i][2], 0);
-			display_error(1, msg, false);
-			seg->redirect_error = 1;
-			free(msg);
+			error_red(seg, i, 2);
 			return ;
 		}
 	}
 	else if (seg->red[*i][0] == '>' && seg->red[*i][1] != '>')
 	{
-		seg->std.out = open(&seg->red[*i][1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		seg->std.out = open(&seg->red[*i][1], O_WRONLY | O_CREAT | \
+		O_TRUNC, 0644);
 		if (seg->std.out == -1)
 		{
-			msg = build_error_message(&seg->red[*i][1], 0);
-			display_error(1, msg, false);
-			seg->redirect_error = 1;
-			free(msg);
+			error_red(seg, i, 1);
 			return ;
 		}
+	}
+}
+
+void	error_red(t_command *seg, int *i, int flag)
+{
+	char	*msg;
+
+	if (flag == 1)
+	{
+		msg = build_error_message(&seg->red[*i][1], 0);
+		display_error(1, msg, false);
+		seg->redirect_error = 1;
+		free(msg);
+		return ;
+	}
+	else if (flag == 2)
+	{
+		msg = build_error_message(&seg->red[*i][2], 0);
+		display_error(1, msg, false);
+		seg->redirect_error = 1;
+		free(msg);
+		return ;
 	}
 }

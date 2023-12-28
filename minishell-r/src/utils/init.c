@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 16:05:37 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 16:31:47 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,31 @@ void	init_built_in_flags(t_list *lst)
 {
 	t_list		*temp;
 	t_command	*tokens;
-	int			i;
+//	int			i;
+	
+	print_lst(lst);
 
 	temp = lst;
 	while (temp)
 	{
 		tokens = (t_command *)temp->content;
 		tokens->built_in = false;
-		i = -1;
+
+//		print_matriz(tokens->cmd);
+//		printf("tokens->cmd[0]: %s\n", tokens->cmd[0]);
+//		printf ("is built in ? %d\n", is_built_in(tokens->cmd[0]));
+//		i = -1;
+//PFV
+//	printf("tokens->cmd[0]: %s\n", tokens->cmd[0]);
+		if (is_built_in(tokens->cmd[0]))
+			tokens->built_in = true;
+/*
 		while (tokens->cmd && tokens->cmd[++i])
 		{
 			if (is_built_in(tokens->cmd[i]))
 				tokens->built_in = true;
 		}
+*/		
 		temp = temp->next;
 	}
 }

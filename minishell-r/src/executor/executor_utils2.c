@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:39 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/26 18:21:39 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/28 12:44:47 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,13 @@ void	execute(char **cmd, char **envp)
 
 	path = find_path(envp, cmd[0]);
 	check_dir(path);
-	if (execve(path, cmd, envp) == -1)
+//PFV
+	if (ft_strchr(path, '/') == 0)
+	{
+		errno = 2;
+		handle_execution_error(path);
+	} 
+	else if (execve(path, cmd, envp) == -1)
 	{
 		handle_execution_error(path);
 	}

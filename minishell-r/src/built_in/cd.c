@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 10:52:14 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/28 13:30:01 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,13 +132,20 @@ int	cd_home(void)
 void	execute_cd(char **command)
 {
 	int	i;
+	int	arguments;
 
 	i = 0;
-	while (command[i])
-		i++;
+	arguments = 0;
+	while (command[++i])
+	{
+		if (command[i][0] != '\0')
+			arguments++;
+	}
 	if (i == 1)
 		cd_home();
-	else if (i > 2)
+	else if (arguments == 0)
+		return ;
+	else if (i > 3 && arguments >= 1)
 		display_error(1, "minishell: cd: too many arguments", true);
 	else
 	{

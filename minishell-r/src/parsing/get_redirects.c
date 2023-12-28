@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/27 19:59:00 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:55:12 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	get_redirects(t_list *lst)
  * Função responsável por lidar com redirecionamentos de entrada.
  * Fecha o descritor de arquivo de entrada atual, se existir, 
  * e verifica se o arquivo de redirecionamento existe. 
- * Em seguida, abre o arquivo de redirecio] == '>'namento no modo 
+ * Em seguida, abre o arquivo de redirecionamento no modo 
  * de leitura e atualiza o descritor de arquivo de entrada.
  * 
  * @param seg Ponteiro para a estrutura de comando.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 17:18:18 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/15 10:29:34 by paulo            ###   ########.fr       */
+/*   Updated: 2023/12/28 12:13:49 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,12 @@ void	here_doc_red(int i, t_command *token)
 void	print_matriz(char **matriz)
 {
 	int		i;
-	size_t	j;
 
 	i = 0;
 	printf("---------------matriz-------------\n\n");
-	while (i < 2)
+	while (matriz[i])
 	{
-		j = 0;
-		while (j < ft_strlen (matriz[i]))
-		{
-			printf("%c", matriz[i][j]);
-			j++;
-		}
-		printf("\n");
+		printf("%s\n", matriz[i]);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:10:06 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 11:10:09 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/29 11:28:09 by pviegas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	get_pwd(char ***env)
 
 	getcwd(buf, sizeof(buf));
 	cmd = ft_strjoin("PWD=", buf);
+	shell()->pwd = cmd;
 	update_env(env, cmd);
 	if (find_env_var(*env, "OLDPWD") == -1)
 		update_env(env, "OLDPWD");

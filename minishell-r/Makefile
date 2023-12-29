@@ -6,7 +6,7 @@
 #    By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/01 12:00:51 by pviegas           #+#    #+#              #
-#    Updated: 2023/12/20 15:42:15 by pveiga-c         ###   ########.fr        #
+#    Updated: 2023/12/29 16:05:43 by pveiga-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,3 +97,16 @@ v:
 	make re && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --suppressions="supp.supp" ./minishell
 
 .PHONY: all clean fclean re bonus fclean_bonus
+
+#{
+#    leak readline
+#    Memcheck:Leak 
+#    ...
+#    fun:readline
+#}
+#{
+#    leak add_history
+#    Memcheck:Leak
+#    ...
+#    fun:add_history
+#}

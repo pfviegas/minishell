@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:55:11 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/29 11:41:48 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/29 16:44:40 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	main_shell_loop(void)
 			handle_exit();
 		if (line_prompt[0] != '\n' && line_prompt[0] != '\0')
 			process_input_line(line_prompt);
+		free(line_prompt);
 	}
 }
 

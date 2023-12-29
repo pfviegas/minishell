@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/28 20:25:47 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:14:39 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	valid(char *line, t_command *cmd)
 {
 	if (!line)
 		return (1);
-	printf("cmd->here[0]: %s", cmd->here[0]);
 	if (ft_strlen(line) == 1)
 	{
 		if (ft_strncmp(line, cmd->here[0], ft_strlen(cmd->here[0])) == 0)
@@ -44,6 +43,18 @@ static int	valid(char *line, t_command *cmd)
  * 
  * @param cmd O comando atual sendo executado.
  */
+void	here_doc_check(t_command *cmd)
+{
+	char	*line;
+
+	line = NULL;
+	if (ft_strlen(cmd->red[0]) == 2)
+		display_error(2, \
+		"minishell: syntax error near unexpected token `newline'", false);
+	else
+		here_doc_input(cmd);
+}
+
 void	here_doc_input(t_command *cmd)
 {
 	char	*line;
@@ -119,7 +130,7 @@ int	here_doc(t_command *cmd)
 		else if (cmd->here[0][0] == '\'' && \
 			cmd->here[0][ft_strlen(cmd->here[0]) - 1] == '\'')
 			cmd->here[0] = remove_quotes(cmd->here[0]);
-		here_doc_input(cmd);
+		here_doc_check(cmd);
 		signals_behavior();
 		close_here_doc();
 		exit(0);

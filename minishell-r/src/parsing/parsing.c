@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/28 15:10:43 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/29 17:08:27 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parsing(char *line_prompt)
 	i = -1;
 	while (parse[++i])
 		ft_lstadd_back(&head, get_tokens(parse[i]));
-	free_temp(temp_prompt, parse);
+	free_array(&parse);
 	shell()->segments_lst = head;
 	init_built_in_flags(shell()->segments_lst);
 	if (!shell()->error)
@@ -50,12 +50,6 @@ void	parsing_2(char *line_prompt, t_list *head)
 		shell()->segments_lst = head;
 		return ;
 	}
-}
-
-void	free_temp(char *temp_prompt, char **parse)
-{
-	free(temp_prompt);
-	free_array(&parse);
 }
 
 /**

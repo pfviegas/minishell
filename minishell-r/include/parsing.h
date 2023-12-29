@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/28 19:46:32 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:13:35 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ char		**trim_parse(char **str);
 char		*parse_redirection(char *seg, int *curr_pos);
 void		add_char_string(char **str, char c);
 char		*parse_word(char *seg, int *curr_pos);
-void		expand_var(char *old_str, char **new_str, int *curr_pos);
+void		expand_var(char *old, char **new, int *i);
 t_list		*get_tokens(char *input_command);
 void		get_tokens_2(char *input_command, int *i, t_command *new_seg);
 int			get_here_doc(t_list *lst);
 void		get_redirects(t_list *lst);
 void		parsing_2(char *line_prompt, t_list *head);
-void		free_temp(char *temp_prompt, char **parse);
 void		here_doc_red(int i, t_command *token);
 void		get_redirects_2(t_command *seg, int *i);
 void		get_redirects_3(t_command *seg, int *i);
 int			check_red_pos(char *seg, int *curr_pos);
-void		get_tokens_3(char *temp, char *input_command, int *i, \
-t_command *new_seg);
 char		*remove_quotes(char *str);
 void		error_red(t_command *seg, int *i, int flag);
-void		parse_redirection_2(char *seg, int *cp, int *k, int *j);
+void		here_doc_check(t_command *cmd);
+void		here_doc_input(t_command *cmd);
+void		get_tokens_3(char *temp, char *input_command, int *i, \
+t_command *new_seg);
 
 #endif

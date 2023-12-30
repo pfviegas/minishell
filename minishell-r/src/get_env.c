@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:45:16 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/27 16:45:39 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/30 14:27:24 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ char	**get_env_vars(char **envp)
 		if (!ft_strcmp("SHLVL", var))
 		{
 			update_shlvl(&env, &env[i][ft_strlen(var) + 1]);
-			get_pwd(&env);
+			get_pwd();
 			free(var);
 			return (env);
 		}
@@ -169,6 +169,6 @@ char	**get_env_vars(char **envp)
 		i++;
 	}
 	update_env(&env, "SHLVL=1");
-	get_pwd(&env);
+	get_pwd();
 	return (env);
 }

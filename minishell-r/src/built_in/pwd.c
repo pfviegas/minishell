@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:10:06 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/29 14:14:34 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/30 14:33:29 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,12 @@ void	execute_pwd(void)
  * 
  * @param env Ponteiro para o array de strings com as variáveis de ambiente.
  */
-void	get_pwd(char ***env)
+void	get_pwd(void)
 {
 	char	buf[PATH_MAX + 1];
-	char	*cmd;
 
+	if (shell()->pwd)
+		free(shell()->pwd);
 	getcwd(buf, sizeof(buf));
-	cmd = ft_strjoin("PWD=", buf);
-	update_env(env, cmd);
-	if (find_env_var(*env, "OLDPWD") == -1)
-		update_env(env, "OLDPWD");
-	free(cmd);
+	shell()->pwd = ft_strdup(buf);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:55:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/29 11:50:31 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/30 14:42:55 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,7 @@ int	find_var(char **env, char *var)
 }
 
 /**
- * Função para atualizar a variável de ambiente "PWD".
- * Verifica se a variável "PWD" já existe no ambiente.
- * Se existir, atualiza a variável "OLDPWD" com o valor atual de "PWD" 
- * e atualiza "PWD" com o novo valor.
- * Se não existir, apenas atualiza "OLDPWD" com o valor atual de "PWD".
+ * Função para atualizar a variável de ambiente "PWD" e "OLDPWD".
  * 
  * @param void
  * @return void
@@ -73,24 +69,24 @@ void	update_pwd_var(void)
 
 	ch_env = &shell()->env;
 	new_pwd = get_working_directory();
+	temp = NULL;
 	if (find_var(shell()->env, "PWD") == -1)
 	{
 		if (find_var(*ch_env, "OLDPWD") != -1)
-			update_env(ch_env, "OLDPWD");
+			temp = ft_strjoin("OLDPWD=", shell()->pwd);
 	}
 	else
 	{
 		if (find_var(*ch_env, "OLDPWD") != -1)
-		{
-			temp = ft_strjoin("OLDPWD=", \
-					&(*ch_env)[find_var(shell()->env, "PWD")][4]);
-			update_env(ch_env, temp);
-			free(temp);
-			update_env(ch_env, new_pwd);
-		}
-		else
-			update_env(ch_env, new_pwd);
+			temp = ft_strjoin("OLDPWD=", shell()->pwd);
+		update_env(ch_env, new_pwd);
 	}
+	if (temp)
+	{
+		update_env(ch_env, temp);
+		free(temp);
+	}
+	get_pwd();
 	free(new_pwd);
 }
 

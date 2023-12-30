@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/29 17:14:39 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/30 10:43:41 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ static int	valid(char *line, t_command *cmd)
  */
 void	here_doc_check(t_command *cmd)
 {
-	char	*line;
-
-	line = NULL;
 	if (ft_strlen(cmd->red[0]) == 2)
 		display_error(2, \
 		"minishell: syntax error near unexpected token `newline'", false);

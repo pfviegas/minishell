@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:47:43 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/29 14:14:48 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2023/12/30 11:52:00 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_shell_vars(t_shell *shell, char **envp)
 {
 	shell->error = false;
 	shell->segments_lst = NULL;
+	shell->pwd = NULL;
 	shell->env = get_env_vars(envp);
 	shell->exit_code = 0;
 	shell->in_here_doc = false;

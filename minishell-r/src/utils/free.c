@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:10:10 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/21 16:05:19 by pviegas          ###   ########.fr       */
+/*   Updated: 2023/12/30 13:19:09 by paulo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
 	{
 		free_array(&shell()->env);
 		free(shell()->rep_prompt);
+		free(shell()->pwd);
 	}
 	if (free_cmd_lst == true)
 	{
@@ -66,7 +67,9 @@ void	free_all(bool free_env, bool free_cmd_lst, bool std_files, bool f_exit)
 		close(0);
 	}
 	if (f_exit == true)
+	{
 		exit(shell()->exit_code);
+	}
 }
 
 /**

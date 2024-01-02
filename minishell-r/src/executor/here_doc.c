@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:12:04 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/30 10:43:41 by paulo            ###   ########.fr       */
+/*   Updated: 2024/01/02 12:33:10 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	here_doc_check(t_command *cmd)
 	if (ft_strlen(cmd->red[0]) == 2)
 		display_error(2, \
 		"minishell: syntax error near unexpected token `newline'", false);
+	else if (shell()->flag_quote == 1)
+		display_error(2, "Syntax error: doesn't handle unclosed quotes", true);
 	else
 		here_doc_input(cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:43 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/27 20:04:37 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2024/01/02 12:40:07 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	get_tokens_2(char *input_command, int *i, t_command *new_seg)
 		(*i)++;
 	else if (input_command[*i] == '<' || input_command[*i] == '>')
 	{
+		check_quote_red(input_command, i);
 		temp = parse_redirection(input_command, i);
 		if (temp)
 		{

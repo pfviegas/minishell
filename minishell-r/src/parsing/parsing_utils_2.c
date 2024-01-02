@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:40:41 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/28 20:51:54 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2024/01/02 12:12:10 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*parse_word(char *seg, int *i)
 			add_char_string(&str, seg[*i]);
 		(*i)++;
 	}
-	if (seg[*i] == '\0' && flag == 1)
+	if ((seg[*i] == '\0' && flag == 1))
 		display_error(1, "Syntax error: doesn't handle unclosed quotes", true);
 	return (str);
 }

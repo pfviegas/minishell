@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulo <paulo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:10:41 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/30 10:47:24 by paulo            ###   ########.fr       */
+/*   Updated: 2024/01/02 11:52:43 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_shell
 	t_list			*segments_lst;
 	char			**env;
 	int				exit_code;
+	int				flag_quote;
 	bool			in_here_doc;
 	int				here_doc_fd[2];
 	bool			in_exec;

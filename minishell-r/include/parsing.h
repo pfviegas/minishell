@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:53:35 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/29 17:13:35 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2024/01/02 12:40:35 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void		here_doc_check(t_command *cmd);
 void		here_doc_input(t_command *cmd);
 void		get_tokens_3(char *temp, char *input_command, int *i, \
 t_command *new_seg);
+void		check_quote_red(char *input_command, int *i);
 
 #endif

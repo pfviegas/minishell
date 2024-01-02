@@ -6,7 +6,7 @@
 /*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:31:56 by pveiga-c          #+#    #+#             */
-/*   Updated: 2023/12/29 17:08:27 by pveiga-c         ###   ########.fr       */
+/*   Updated: 2024/01/02 12:40:23 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,30 @@ int	check_pipe(char *prompt)
 			last_char = prompt[i++];
 	}
 	return (0);
+}
+
+void	check_quote_red(char *input_command, int *i)
+{
+	int	j;
+
+	j = 1;
+	shell()->flag_quote = 0;
+	if (input_command[*i + j] == '<' || input_command[*i + j] == '>')
+		j++;
+	while (input_command[*i + j] == ' ')
+		j++;
+	if (input_command[*i + j] == '"' || input_command[*i + j] == '\'')
+	{
+		shell()->flag_quote++;
+		j++;
+	}
+	while (input_command[*i + j] && (input_command[*i + j] != '"' \
+	|| input_command[*i + j] != '\''))
+		j++;
+	j--;
+	if (input_command[*i + j] == '"' || input_command[*i + j] == '\'')
+	{
+		shell()->flag_quote++;
+		j++;
+	}
 }

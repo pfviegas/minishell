@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pviegas <pviegas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pveiga-c <pveiga-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:55 by pviegas           #+#    #+#             */
-/*   Updated: 2023/12/27 16:46:09 by pviegas          ###   ########.fr       */
+/*   Updated: 2024/01/02 12:39:04 by pveiga-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	here_doc_expand_var(char **line, t_command *cmd)
 	i = 0;
 	while ((*line)[i])
 	{
-		if ((*line)[i] == '$' && !(cmd->here[0][0] == '\'' || \
-		cmd->here[0][0] == '"'))
+		if ((*line)[i] == '$' && shell()->flag_quote == 0 && \
+		!(cmd->here[0][0] == '\'' || cmd->here[0][0] == '"'))
 			expand_var(*line, &temp, &i);
 		else
 			add_char_string(&temp, (*line)[i]);
